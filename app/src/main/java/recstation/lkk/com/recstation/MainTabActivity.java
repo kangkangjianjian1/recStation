@@ -9,9 +9,9 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
-import recstation.lkk.com.recstation.DEMO.DemoTabFragment;
+import recstation.lkk.com.recstation.fragment.CreditShopFragment;
+import recstation.lkk.com.recstation.fragment.RecMessageFragment;
 import recstation.lkk.com.recstation.fragment.SettingFragment;
 import recstation.lkk.com.recstation.fragment.UserListFragment;
 import recstation.lkk.com.recstation.fragment.UserRecyclerFragment;
@@ -62,9 +62,6 @@ public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDr
 
     // UI显示区(操作UI，但不存在数据获取或处理代码，也不存在事件监听代码)<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-
-    private DemoTabFragment demoTabFragment;
-
     @Override
     public void initView() {// 必须调用
         super.initView();
@@ -72,7 +69,6 @@ public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDr
         ivbtn_dingwei = findView(R.id.ivbtn_dingwei);
         ivbtn_saoyisao = findView(R.id.ivbtn_saoyisao);
         btn_dingwei = findView(R.id.btn_dingwei);
-        demoTabFragment = DemoTabFragment.createInstance("杭州");
     }
 
 
@@ -102,10 +98,9 @@ public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDr
             case 1:
                 return UserRecyclerFragment.createInstance(UserRecyclerFragment.RANGE_RECOMMEND);
             case 2:
-                return demoTabFragment;
+                return RecMessageFragment.createInstance();
             case 3:
-                return SettingFragment.createInstance();
-
+                return CreditShopFragment.createInstance();
             default:
                 return UserListFragment.createInstance(UserListFragment.RANGE_ALL);
         }
@@ -129,10 +124,6 @@ public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDr
             ivbtn_saoyisao.setVisibility(View.VISIBLE);
             ivbtn_dingwei.setVisibility(View.VISIBLE);
             btn_dingwei.setVisibility(View.VISIBLE);
-        }
-        //点击底部tab切换顶部tab，非必要
-        if (position == 2 && position == currentPosition && demoTabFragment != null) {
-            demoTabFragment.selectNext();
         }
     }
 
@@ -160,24 +151,7 @@ public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDr
         super.initEvent();
     }
 
-    @Override
-    public void onDragBottom(boolean rightToLeft) {
-        //将Activity的onDragBottom事件传递到Fragment，非必要<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        switch (currentPosition) {
-            case 2:
-                if (demoTabFragment != null) {
-                    if (rightToLeft) {
-                        demoTabFragment.selectMan();
-                    } else {
-                        demoTabFragment.selectPlace();
-                    }
-                }
-                break;
-            default:
-                break;
-        }
         //将Activity的onDragBottom事件传递到Fragment，非必要>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    }
 
 
     //双击手机返回键退出<<<<<<<<<<<<<<<<<<<<<
@@ -199,6 +173,11 @@ public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDr
         }
 
         return super.onKeyUp(keyCode, event);
+    }
+
+    @Override
+    public void onDragBottom(boolean rightToLeft) {
+
     }
     //双击手机返回键退出>>>>>>>>>>>>>>>>>>>>>
 

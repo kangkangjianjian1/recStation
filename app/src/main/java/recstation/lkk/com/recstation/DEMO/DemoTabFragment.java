@@ -161,10 +161,8 @@ public class DemoTabFragment extends BaseTabFragment implements OnClickListener 
 		super.onClick(v);
 		switch (v.getId()) {
 		case R.id.tvDemoTabLeft:
-			selectPlace();
 			break;
 		case R.id.tvDemoTabRight:
-			selectMan();
 			break;
 		default:
 			break;

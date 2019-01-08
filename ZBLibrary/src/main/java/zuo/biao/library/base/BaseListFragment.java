@@ -336,6 +336,8 @@ public abstract class BaseListFragment<T, LV extends AbsListView, A extends List
 	 * @param newList
 	 */
 	public synchronized void onLoadSucceed(final int page, final List<T> newList) {
+		Log.e("qqqqqgetonLoadSucceed","qqqwww2onLoadSucceed");
+		Log.e("qqqqqgetonLoadSucceed2","qqqwww2onLoadSucceed"+newList.size());
 		onLoadSucceed(page, newList, false);
 	}
 	/**加载成功
@@ -454,6 +456,7 @@ public abstract class BaseListFragment<T, LV extends AbsListView, A extends List
 	 * @must 在子类onCreate中调用，建议放在最后
 	 */
 	public void onRefresh() {
+		Log.e("qqqqq","qqqwww");
 		loadData(PAGE_NUM_0);
 	}
 	/**加载更多

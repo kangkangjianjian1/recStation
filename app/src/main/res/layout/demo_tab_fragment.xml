@@ -5,12 +5,12 @@
     <RelativeLayout style="@style/topbar_bg" >
 
         <TextView
-            android:id="@+id/tvDemoTabLeft"
-            style="@style/topbar_left_btn"
-            android:drawableRight="@drawable/down2_small"
-            android:maxWidth="120dp"
-            android:visibility="gone"
-            android:text="杭州" />
+        android:id="@+id/tvDemoTabLeft"
+        style="@style/topbar_left_btn"
+        android:drawableRight="@drawable/down2_small"
+        android:maxWidth="120dp"
+        android:visibility="gone"
+        android:text="杭州" />
 
         <LinearLayout
             android:id="@id/llBaseTabTabContainer"
