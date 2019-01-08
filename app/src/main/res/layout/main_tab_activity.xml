@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              style="@style/activity_page">
+
+    <RelativeLayout
+        android:id="@+id/rlBottomTabTopbar"
+        style="@style/topbar_bg">
+
+        <ImageButton
+            android:id="@+id/ivbtn_dingwei"
+            style="@style/topbar_left_btn_dingwei"
+            android:src="@drawable/dingwei"/>
+
+        <Button
+            android:id="@+id/btn_dingwei"
+            style="@style/topbar_left_btn_dingwei2"
+            android:layout_toEndOf="@+id/ivbtn_dingwei"
+            android:layout_toRightOf="@+id/ivbtn_dingwei"
+            android:text="丛台区"
+            android:textColor="@color/black"/>
+
+        <TextView
+            style="@style/topbar_title"
+            android:layout_centerHorizontal="true"
+            android:text="首页"/>
+
+        <ImageButton
+            android:id="@+id/ivbtn_saoyisao"
+            style="@style/topbar_right_img"
+            android:layout_height="35dp"
+            android:paddingTop="10dp"
+            android:src="@drawable/saoyisao"/>
+
+    </RelativeLayout>
+    <View style="@style/divider_horizontal_1px_gray"/>
+    <FrameLayout
+        android:id="@+id/flMainTabFragmentContainer"
+        style="@style/match_match"
+        android:layout_weight="1">
+    </FrameLayout>
+
+    <View style="@style/divider_horizontal_1px_gray"/>
+
+    <LinearLayout
+        style="@style/ll_horizontal_match_wrap"
+        android:layout_height="@dimen/topbar_height"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:id="@+id/llBottomTabTab0"
+            style="@style/bottom_tab_ll"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/ivBottomTabTab0"
+                style="@style/bottom_tab_iv"
+                android:src="@drawable/shouye"/>
+
+            <TextView
+                android:id="@+id/tvBottomTabTab0"
+                style="@style/bottom_tab_tv"
+                android:text="首页"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llBottomTabTab1"
+            style="@style/bottom_tab_ll"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/ivBottomTabTab1"
+                style="@style/bottom_tab_iv"
+                android:src="@drawable/huishou"/>
+
+            <TextView
+                android:id="@+id/tvBottomTabTab1"
+                style="@style/bottom_tab_tv"
+                android:text="回收"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llBottomTabTab2"
+            style="@style/bottom_tab_ll"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/ivBottomTabTab2"
+                style="@style/bottom_tab_iv"
+                android:src="@drawable/xiaoxi"/>
+
+            <TextView
+                android:id="@+id/tvBottomTabTab2"
+                style="@style/bottom_tab_tv"
+                android:text="消息"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llBottomTabTab3"
+            style="@style/bottom_tab_ll"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/ivBottomTabTab3"
+                style="@style/bottom_tab_iv"
+                android:src="@drawable/shangcheng"/>
+
+            <TextView
+                android:id="@+id/tvBottomTabTab3"
+                style="@style/bottom_tab_tv"
+                android:text="积分商城"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llBottomTabTab4"
+            style="@style/bottom_tab_ll"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/ivBottomTabTab4"
+                style="@style/bottom_tab_iv"
+                android:src="@drawable/wode"/>
+
+            <TextView
+                android:id="@+id/tvBottomTabTab4"
+                style="@style/bottom_tab_tv"
+                android:text="我的"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
