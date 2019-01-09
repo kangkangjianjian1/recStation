@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
 import recstation.lkk.com.recstation.fragment.CreditShopFragment;
 import recstation.lkk.com.recstation.fragment.RecMessageFragment;
@@ -30,7 +31,7 @@ public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDr
     ImageButton ivbtn_dingwei;
     Button btn_dingwei;
     ImageButton ivbtn_saoyisao;
-
+    RelativeLayout main_TabTopbar;
     //启动方法<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     /**
@@ -69,6 +70,7 @@ public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDr
         ivbtn_dingwei = findView(R.id.ivbtn_dingwei);
         ivbtn_saoyisao = findView(R.id.ivbtn_saoyisao);
         btn_dingwei = findView(R.id.btn_dingwei);
+        main_TabTopbar = findView(R.id.rlBottomTabTopbar);
     }
 
 
@@ -116,14 +118,21 @@ public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDr
 
         tvBaseTitle.setText(TAB_NAMES[position]);
 
-        if (position!=0){
+        if (position != 0) {
             ivbtn_saoyisao.setVisibility(View.GONE);
             ivbtn_dingwei.setVisibility(View.GONE);
             btn_dingwei.setVisibility(View.GONE);
-        }else {
+        } else {
             ivbtn_saoyisao.setVisibility(View.VISIBLE);
             ivbtn_dingwei.setVisibility(View.VISIBLE);
             btn_dingwei.setVisibility(View.VISIBLE);
+        }
+
+        if (position == 4) {
+            main_TabTopbar.setVisibility(View.GONE);
+        } else {
+            main_TabTopbar.setVisibility(View.VISIBLE);
+
         }
     }
 
@@ -151,7 +160,7 @@ public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDr
         super.initEvent();
     }
 
-        //将Activity的onDragBottom事件传递到Fragment，非必要>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    //将Activity的onDragBottom事件传递到Fragment，非必要>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
     //双击手机返回键退出<<<<<<<<<<<<<<<<<<<<<

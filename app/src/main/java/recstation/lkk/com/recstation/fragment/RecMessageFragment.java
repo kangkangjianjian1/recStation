@@ -156,18 +156,18 @@ public class RecMessageFragment extends BaseFragment implements OnClickListener,
     @Override
     public void onClick(View v) {//直接调用不会显示v被点击效果
         switch (v.getId()) {
-            case R.id.ivSettingHead:
-                showShortToast("onClick  ivSettingHead");
-                break;
-            case R.id.llSettingSetting:
-                //	toActivity(SettingActivity.createIntent(context));
-                break;
-            case R.id.llSettingAbout:
-                //toActivity(AboutActivity.createIntent(context));
-                break;
-            case R.id.llSettingLogout:
-                new AlertDialog(context, "退出登录", "确定退出登录？", true, 0, this).show();
-                break;
+//            case R.id.ivSettingHead:
+//                showShortToast("onClick  ivSettingHead");
+//                break;
+//            case R.id.llSettingSetting:
+//                //	toActivity(SettingActivity.createIntent(context));
+//                break;
+//            case R.id.llSettingAbout:
+//                //toActivity(AboutActivity.createIntent(context));
+//                break;
+//            case R.id.llSettingLogout:
+//                new AlertDialog(context, "退出登录", "确定退出登录？", true, 0, this).show();
+//                break;
             default:
                 break;
         }

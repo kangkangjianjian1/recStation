@@ -32,6 +32,7 @@ import zuo.biao.library.base.BaseHttpListFragment;
 import zuo.biao.library.interfaces.AdapterCallBack;
 import zuo.biao.library.interfaces.CacheCallBack;
 import zuo.biao.library.util.JSON;
+import zuo.biao.library.util.Log;
 
 /**用户列表界面fragment
  * @author Lemon
@@ -193,6 +194,7 @@ public class UserListFragment extends BaseHttpListFragment<User, ListView, UserA
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		if (id > 0) {
 			//toActivity(UserActivity.createIntent(context, id));
+			Log.e("kkkkkk","ddddddddmmmmm");
 		}
 	}
 

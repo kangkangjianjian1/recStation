@@ -28,6 +28,7 @@ import recstation.lkk.com.recstation.R;
 import zuo.biao.library.base.BaseListFragment;
 import zuo.biao.library.interfaces.AdapterCallBack;
 import zuo.biao.library.model.Entry;
+import zuo.biao.library.util.Log;
 
 
 /** 使用方法：复制>粘贴>改名>改代码 */
@@ -152,9 +153,10 @@ public class DemoListFragment extends BaseListFragment<Entry<String, String>, Li
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		//实现单选
-		adapter.selectedPosition = adapter.selectedPosition == position ? -1 : position;
-		adapter.notifyListDataSetChanged();
-
+//		adapter.selectedPosition = adapter.selectedPosition == position ? -1 : position;
+//		adapter.notifyListDataSetChanged();
+		Log.e("kkkkkkwww", "ddddddddwww");
+		showShortToast("aaa" + position);
 		//toActivity(UserActivity.createIntent(context, position));//一般用id，这里position仅用于测试 id));//
 	}
 	//示例代码>>>>>>>>>>>>>>>>>>>

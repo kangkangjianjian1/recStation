@@ -24,6 +24,7 @@ import android.widget.ImageView;
 
 import recstation.lkk.com.recstation.R;
 import zuo.biao.library.base.BaseFragment;
+import zuo.biao.library.manager.SystemBarTintManager;
 import zuo.biao.library.ui.AlertDialog;
 import zuo.biao.library.ui.AlertDialog.OnDialogButtonClickListener;
 
@@ -72,6 +73,10 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
 	public void initView() {//必须调用
 
 		ivSettingHead = findView(R.id.ivSettingHead);
+//		SystemBarTintManager tintManager = new SystemBarTintManager(context);
+//		tintManager.setStatusBarTintEnabled(true);
+//		tintManager.setStatusBarTintResource(zuo.biao.library.R.color.topbar_bg_white);//状态背景色，可传drawable资源
+		// 状态栏沉浸，4.4+生效 >>>>>>>>>>>>>>>>>
 	}
 
 
@@ -117,9 +122,9 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
 
 		ivSettingHead.setOnClickListener(this);
 
-		findView(R.id.llSettingSetting).setOnClickListener(this);
-		findView(R.id.llSettingAbout).setOnClickListener(this);
-		findView(R.id.llSettingLogout).setOnClickListener(this);
+//		findView(R.id.llSettingSetting).setOnClickListener(this);
+//		findView(R.id.llSettingAbout).setOnClickListener(this);
+//		findView(R.id.llSettingLogout).setOnClickListener(this);
 	}
 
 
@@ -145,18 +150,18 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
 	@Override
 	public void onClick(View v) {//直接调用不会显示v被点击效果
 		switch (v.getId()) {
-			case R.id.ivSettingHead:
-				showShortToast("onClick  ivSettingHead");
-				break;
-			case R.id.llSettingSetting:
-			//	toActivity(SettingActivity.createIntent(context));
-				break;
-			case R.id.llSettingAbout:
-				//toActivity(AboutActivity.createIntent(context));
-				break;
-			case R.id.llSettingLogout:
-				new AlertDialog(context, "退出登录", "确定退出登录？", true, 0, this).show();
-				break;
+//			case R.id.ivSettingHead:
+//				showShortToast("onClick  ivSettingHead");
+//				break;
+//			case R.id.llSettingSetting:
+//			//	toActivity(SettingActivity.createIntent(context));
+//				break;
+//			case R.id.llSettingAbout:
+//				//toActivity(AboutActivity.createIntent(context));
+//				break;
+//			case R.id.llSettingLogout:
+//				new AlertDialog(context, "退出登录", "确定退出登录？", true, 0, this).show();
+//				break;
 			default:
 				break;
 		}

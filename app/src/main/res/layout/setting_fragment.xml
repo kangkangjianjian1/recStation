@@ -1,66 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/activity_page" >
+              style="@style/activity_page">
 
     <ScrollView
         style="@style/ll_vertical_match_match"
-        android:layout_weight="1" >
+        android:layout_weight="1">
 
-        <LinearLayout style="@style/ll_vertical_match_match" >
+        <LinearLayout style="@style/ll_vertical_match_match">
 
-            <ImageView
-                android:id="@+id/ivSettingHead"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:layout_margin="@dimen/item_distance"
-                android:scaleType="centerCrop"
-                android:src="@drawable/default_head" />
+            <LinearLayout
+                style="@style/ll_vertical_match_wrap"
+                android:layout_height="180dp"
+                android:background="@drawable/my_background">
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        style="@style/img_btn"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginEnd="0dp"
+                        android:layout_marginTop="0dp"
+                        android:clickable="true"
+                        android:contentDescription="qiandao"
+                        android:src="@drawable/qiandao_selector"/>
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/ivSettingHead"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="15dp"
+                    android:contentDescription="touxiang"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/my_touxiang"/>
+
+                <TextView
+                    android:id="@+id/tv_user_name"
+                    style="@style/tv_remind"
+                    android:layout_marginTop="15dp"
+                    android:padding="2dp"
+                    android:text="昵称"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tv_user_jifen"
+                        style="@style/tv_remind"
+                        android:layout_marginTop="5dp"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"/>
+                    <TextView
+                        style="@style/tv_remind"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="我的积分"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"/>
+
+                </LinearLayout>
+                <View
+                    style="@style/divider_vertical_1dp_gray"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tv_user_lvye"
+                        style="@style/tv_remind"
+                        android:layout_marginTop="5dp"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"/>
+                    <TextView
+                        style="@style/tv_remind"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="绿叶值"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"/>
+
+                </LinearLayout>
+            </LinearLayout>
             <View
-                style="@style/divider_horizontal_1px"
-                android:layout_marginTop="30dp" />
+                style="@style/divider_horizontal_1px"/>
 
             <LinearLayout
-                android:id="@+id/llSettingSetting"
-                style="@style/content_item_white" >
-
+                android:id="@+id/layout_dingdianguanli"
+                style="@style/content_item_white">
+                <ImageView style="@style/content_item_rt_img"
+                           android:layout_margin="5dp"
+                           android:scaleType="fitXY"
+                           android:adjustViewBounds="true"
+                    android:src="@drawable/my_dingdan"/>
                 <TextView
                     style="@style/content_item_lf_tv"
                     android:layout_weight="1"
-                    android:text="个人设置" />
-
-                <ImageView style="@style/content_item_rt_img" />
+                    android:text="订单管理"/>
             </LinearLayout>
 
-            <View style="@style/divider_horizontal_1px" />
+            <View style="@style/divider_horizontal_1px"/>
 
             <LinearLayout
-                android:id="@+id/llSettingAbout"
-                style="@style/content_item_white" >
-
+                android:id="@+id/layout_jifenguanli"
+                style="@style/content_item_white">
+                <ImageView style="@style/content_item_rt_img"
+                           android:layout_margin="5dp"
+                           android:scaleType="fitXY"
+                           android:adjustViewBounds="true"
+                           android:src="@drawable/my_jifen"/>
                 <TextView
                     style="@style/content_item_lf_tv"
                     android:layout_weight="1"
-                    android:text="关于应用" />
-
-                <ImageView style="@style/content_item_rt_img" />
+                    android:text="积分管理"/>
             </LinearLayout>
 
-            <View style="@style/divider_horizontal_1px" />
-
+            <View style="@style/divider_horizontal_1px"/>
             <LinearLayout
-                android:id="@+id/llSettingLogout"
-                style="@style/content_item_white" >
+            android:id="@+id/layout_shangpinduihuan"
+            style="@style/content_item_white">
+            <ImageView style="@style/content_item_rt_img"
+                       android:layout_margin="5dp"
+                       android:scaleType="fitXY"
+                       android:adjustViewBounds="true"
+                       android:src="@drawable/my_shangpin"/>
+            <TextView
+                style="@style/content_item_lf_tv"
+                android:layout_weight="1"
+                android:text="商品兑换"/>
+        </LinearLayout>
 
+            <View style="@style/divider_horizontal_1px"/>
+            <LinearLayout
+                android:id="@+id/layout_shimingrenzheng"
+                style="@style/content_item_white">
+                <ImageView style="@style/content_item_rt_img"
+                           android:layout_margin="5dp"
+                           android:scaleType="fitXY"
+                           android:adjustViewBounds="true"
+                           android:src="@drawable/my_renzheng"/>
                 <TextView
                     style="@style/content_item_lf_tv"
                     android:layout_weight="1"
-                    android:text="退出登录" />
-
-                <ImageView style="@style/content_item_rt_img" />
+                    android:text="实名认证"/>
             </LinearLayout>
 
-            <View style="@style/divider_horizontal_1px" />
+            <View style="@style/divider_horizontal_1px"/>
+            <LinearLayout
+                android:id="@+id/layout_xitongshezhi"
+                style="@style/content_item_white">
+                <ImageView style="@style/content_item_rt_img"
+                           android:layout_margin="5dp"
+                           android:scaleType="fitXY"
+                           android:adjustViewBounds="true"
+                           android:src="@drawable/my_syssetting"/>
+                <TextView
+                    style="@style/content_item_lf_tv"
+                    android:layout_weight="1"
+                    android:text="系统设置"/>
+            </LinearLayout>
+
+            <View style="@style/divider_horizontal_1px"/>
+            <LinearLayout
+                android:id="@+id/layout_yijianpankui"
+                style="@style/content_item_white">
+                <ImageView style="@style/content_item_rt_img"
+                           android:layout_margin="5dp"
+                           android:scaleType="fitXY"
+                           android:adjustViewBounds="true"
+                           android:src="@drawable/my_jianyi"/>
+                <TextView
+                    style="@style/content_item_lf_tv"
+                    android:layout_weight="1"
+                    android:text="意见反馈"/>
+            </LinearLayout>
+
+            <View style="@style/divider_horizontal_1px"/>
         </LinearLayout>
     </ScrollView>
 

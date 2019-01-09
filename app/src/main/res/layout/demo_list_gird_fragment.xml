@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/activity_page" >
+
     <!-- BaseListXXX的子类布局layout中，AbsListView必须有，且它的id必须按以下写法。padding会导致smoothScrollToPosition失效 -->
 
     <GridView
