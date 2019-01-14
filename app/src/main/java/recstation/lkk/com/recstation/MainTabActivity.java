@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
+import recstation.lkk.com.recstation.DEMO.FirstListGirdFragment;
 import recstation.lkk.com.recstation.fragment.CreditShopFragment;
 import recstation.lkk.com.recstation.fragment.RecMessageFragment;
 import recstation.lkk.com.recstation.fragment.SettingFragment;
@@ -104,7 +105,7 @@ public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDr
             case 3:
                 return CreditShopFragment.createInstance();
             default:
-                return UserListFragment.createInstance(UserListFragment.RANGE_ALL);
+                return FirstListGirdFragment.createInstance();
         }
     }
 

@@ -54,5 +54,29 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:onClick">onReturnClick</item>
     </style>
-
+    <style name="content_item_alpha_gonggao">
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:paddingLeft">@dimen/content_item_left_tv_padding_left</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">@color/alpha_black</item>
+    </style>
+    <style name="lv2">
+        <item name="android:listSelector">@drawable/to_alpha</item>
+        <item name="android:divider">@color/alpha_3</item>
+        <item name="android:dividerHeight">1px</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="btn_biga_round" parent="text_big">
+        <item name="android:background">@drawable/btn_big_selector</item>
+        <item name="android:layout_height">56dp</item>
+    </style>
+    <style name="btn_biga_round2" parent="text_big">
+        <item name="android:background">@drawable/btn_big_selector2</item>
+        <item name="android:layout_height">56dp</item>
+    </style>
 </resources>

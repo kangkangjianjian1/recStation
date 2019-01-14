@@ -396,6 +396,7 @@
         <item name="android:dividerHeight">1px</item>
     </style>
 
+
     <style name="lv_no_divider" parent="lv">
         <item name="android:dividerHeight">0dp</item>
     </style>

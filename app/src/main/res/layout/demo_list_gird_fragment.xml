@@ -11,7 +11,7 @@
         android:layout_margin="18dp"
         android:layout_weight="1"
         android:horizontalSpacing="18dp"
-        android:numColumns="2"
+        android:numColumns="4"
         android:verticalSpacing="18dp" />
 
 </LinearLayout>

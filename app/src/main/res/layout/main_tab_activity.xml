@@ -54,7 +54,7 @@
             <ImageView
                 android:id="@+id/ivBottomTabTab0"
                 style="@style/bottom_tab_iv"
-                android:src="@drawable/shouye"/>
+                android:src="@drawable/shouye_selector"/>
 
             <TextView
                 android:id="@+id/tvBottomTabTab0"
@@ -70,7 +70,7 @@
             <ImageView
                 android:id="@+id/ivBottomTabTab1"
                 style="@style/bottom_tab_iv"
-                android:src="@drawable/huishou"/>
+                android:src="@drawable/huishou_selector"/>
 
             <TextView
                 android:id="@+id/tvBottomTabTab1"
@@ -86,7 +86,7 @@
             <ImageView
                 android:id="@+id/ivBottomTabTab2"
                 style="@style/bottom_tab_iv"
-                android:src="@drawable/xiaoxi"/>
+                android:src="@drawable/xiaoxi_selector"/>
 
             <TextView
                 android:id="@+id/tvBottomTabTab2"
@@ -102,7 +102,7 @@
             <ImageView
                 android:id="@+id/ivBottomTabTab3"
                 style="@style/bottom_tab_iv"
-                android:src="@drawable/shangcheng"/>
+                android:src="@drawable/shangcheng_selector"/>
 
             <TextView
                 android:id="@+id/tvBottomTabTab3"
@@ -118,7 +118,7 @@
             <ImageView
                 android:id="@+id/ivBottomTabTab4"
                 style="@style/bottom_tab_iv"
-                android:src="@drawable/wode"/>
+                android:src="@drawable/wode_selector"/>
 
             <TextView
                 android:id="@+id/tvBottomTabTab4"
