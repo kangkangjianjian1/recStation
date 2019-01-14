@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/activity_page">
+
+    <ScrollView
+        style="@style/ll_vertical_match_match"
+        android:layout_weight="1">
+
+        <LinearLayout style="@style/ll_vertical_match_match">
+
+            <com.daimajia.slider.library.SliderLayout
+                android:id="@+id/slider"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                />
+
+            <LinearLayout
+                android:id="@+id/layout_gonggao"
+                style="@style/content_item_alpha_gonggao"
+                >
+
+                <ImageView
+                    style="@style/content_item_rt_img"
+                    android:layout_margin="1dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/xiaolaba"/>
+
+                <TextView
+                    style="@style/content_item_lf_tv"
+                    android:layout_weight="1"
+                    android:text="订单管理订单管理订单管理订单管理订单管理"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/ll_vertical_match_wrap">
+                <Button
+                    android:id="@+id/btn_yuyue"
+                    android:layout_marginTop="20dp"
+                  style="@style/btn_biga_round"
+                    android:text="预约回收"/>
+                <Button
+                    android:id="@+id/btn_zhoubian"
+                    style="@style/btn_biga_round2"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="周边回收"/>
+
+
+            </LinearLayout>
+
+            <View style="@style/divider_horizontal_1px_gray"/>
+
+            <FrameLayout
+                android:id="@+id/rec_FragmentContainer1"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/rec_FragmentContainer2"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/rec_FragmentContainer3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </FrameLayout>
+            <GridView
+                android:id="@id/lvBaseList"
+                style="@style/lv2"
+                android:layout_margin="18dp"
+                android:horizontalSpacing="18dp"
+                android:numColumns="2"
+                android:verticalSpacing="18dp"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
