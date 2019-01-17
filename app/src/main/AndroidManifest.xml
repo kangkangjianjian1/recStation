@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
-        android:name="recstation.lkk.com.recstation.application.DemoApplication"
+        android:name=".application.DemoApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -20,7 +20,15 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".MainTabActivity"></activity>
+        <activity android:name=".MainTabActivity"/>
+        <activity android:name=".LoginActivity">
+        </activity>
+        <activity android:name=".RegisterActivity">
+        </activity>
+        <activity android:name=".FindpwdActivity">
+        </activity>
+        <activity android:name=".SetpwdActivity">
+        </activity>
     </application>
 
 </manifest>

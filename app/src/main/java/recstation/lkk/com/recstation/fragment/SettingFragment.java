@@ -15,13 +15,17 @@ limitations under the License.*/
 package recstation.lkk.com.recstation.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 
+import recstation.lkk.com.recstation.LoginActivity;
+import recstation.lkk.com.recstation.MainTabActivity;
 import recstation.lkk.com.recstation.R;
 import zuo.biao.library.base.BaseFragment;
 import zuo.biao.library.manager.SystemBarTintManager;
@@ -34,7 +38,8 @@ import zuo.biao.library.ui.AlertDialog.OnDialogButtonClickListener;
  */
 public class SettingFragment extends BaseFragment implements OnClickListener, OnDialogButtonClickListener {
 //	private static final String TAG = "SettingFragment";
-
+	TextView setting_tv_user_name;
+	ImageView setting_ivHead;
 	//与Activity通信<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 	/**创建一个Fragment实例
@@ -67,12 +72,11 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
 
 
 	//UI显示区(操作UI，但不存在数据获取或处理代码，也不存在事件监听代码)<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-	private ImageView ivSettingHead;
 	@Override
 	public void initView() {//必须调用
 
-		ivSettingHead = findView(R.id.ivSettingHead);
+		setting_ivHead = findView(R.id.setting_ivSettingHead,this);
+		setting_tv_user_name = findView(R.id.setting_tv_user_name,this);
 //		SystemBarTintManager tintManager = new SystemBarTintManager(context);
 //		tintManager.setStatusBarTintEnabled(true);
 //		tintManager.setStatusBarTintResource(zuo.biao.library.R.color.topbar_bg_white);//状态背景色，可传drawable资源
@@ -120,8 +124,6 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
 	@Override
 	public void initEvent() {//必须调用
 
-		ivSettingHead.setOnClickListener(this);
-
 //		findView(R.id.llSettingSetting).setOnClickListener(this);
 //		findView(R.id.llSettingAbout).setOnClickListener(this);
 //		findView(R.id.llSettingLogout).setOnClickListener(this);
@@ -150,12 +152,16 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
 	@Override
 	public void onClick(View v) {//直接调用不会显示v被点击效果
 		switch (v.getId()) {
-//			case R.id.ivSettingHead:
-//				showShortToast("onClick  ivSettingHead");
-//				break;
-//			case R.id.llSettingSetting:
-//			//	toActivity(SettingActivity.createIntent(context));
-//				break;
+			case R.id.setting_ivSettingHead:
+				showShortToast("onClick  ivSettingHead");
+
+				startActivity(LoginActivity.createIntent(context));
+				break;
+			case R.id.setting_tv_user_name:
+				showShortToast("onClick  setting_tv_user_name");
+				startActivity(LoginActivity.createIntent(context));
+			//	toActivity(SettingActivity.createIntent(context));
+				break;
 //			case R.id.llSettingAbout:
 //				//toActivity(AboutActivity.createIntent(context));
 //				break;

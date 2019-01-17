@@ -11,11 +11,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
-import recstation.lkk.com.recstation.DEMO.FirstListGirdFragment;
+import recstation.lkk.com.recstation.fragment.FirstListGirdFragment;
 import recstation.lkk.com.recstation.fragment.CreditShopFragment;
 import recstation.lkk.com.recstation.fragment.RecMessageFragment;
 import recstation.lkk.com.recstation.fragment.SettingFragment;
-import recstation.lkk.com.recstation.fragment.UserListFragment;
 import recstation.lkk.com.recstation.fragment.UserRecyclerFragment;
 import zuo.biao.library.base.BaseBottomTabActivity;
 import zuo.biao.library.interfaces.OnBottomDragListener;

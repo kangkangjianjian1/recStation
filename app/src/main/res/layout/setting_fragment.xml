@@ -18,6 +18,7 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
+                        android:id="@+id/setting_img_btn_sign"
                         style="@style/img_btn"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentTop="true"
@@ -29,7 +30,7 @@
                 </RelativeLayout>
 
                 <ImageView
-                    android:id="@+id/ivSettingHead"
+                    android:id="@+id/setting_ivSettingHead"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginTop="15dp"
@@ -38,7 +39,7 @@
                     android:src="@drawable/my_touxiang"/>
 
                 <TextView
-                    android:id="@+id/tv_user_name"
+                    android:id="@+id/setting_tv_user_name"
                     style="@style/tv_remind"
                     android:layout_marginTop="15dp"
                     android:padding="2dp"

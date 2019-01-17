@@ -12,9 +12,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.*/
 
-package recstation.lkk.com.recstation.DEMO;
+package recstation.lkk.com.recstation.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -25,8 +24,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 
-import com.daimajia.slider.library.Animations.DescriptionAnimation;
-import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
@@ -37,9 +34,6 @@ import java.util.List;
 
 import recstation.lkk.com.recstation.R;
 import recstation.lkk.com.recstation.animations.MyDescriptionAnimation;
-import recstation.lkk.com.recstation.fragment.rec_GirdFragment1;
-import recstation.lkk.com.recstation.fragment.rec_GirdFragment2;
-import recstation.lkk.com.recstation.fragment.rec_GirdFragment3;
 import recstation.lkk.com.recstation.util.TestUtil;
 import zuo.biao.library.base.BaseListFragment;
 import zuo.biao.library.interfaces.AdapterCallBack;

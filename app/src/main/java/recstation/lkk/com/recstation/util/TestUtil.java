@@ -14,8 +14,13 @@ limitations under the License.*/
 
 package recstation.lkk.com.recstation.util;
 
+import android.telephony.PhoneNumberUtils;
+import android.text.TextUtils;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import recstation.lkk.com.recstation.model.User;
 
@@ -95,6 +100,27 @@ public class TestUtil {
 
 	public static String getPicture(int index) {
 		return index < 0 || index >= URLS.length ? null : URLS[index];
+	}
+	//判断是否为手机号
+	public static boolean isPhoneNumber(String phoneNo) {
+		if (TextUtils.isEmpty(phoneNo)) {
+			return false;
+		}
+		if (phoneNo.length() == 11) {
+			for (int i = 0; i < 11; i++) {
+				if (!PhoneNumberUtils.isISODigit(phoneNo.charAt(i))) {
+					return false;
+				}
+			}
+			Pattern p = Pattern.compile("^((13[^4,\\D])" + "|(134[^9,\\D])" +
+					"|(14[5,7])" +
+					"|(15[^4,\\D])" +
+					"|(17[3,6-8])" +
+					"|(18[0-9]))\\d{8}$");
+			Matcher m = p.matcher(phoneNo);
+			return m.matches();
+		}
+		return false;
 	}
 
 }
