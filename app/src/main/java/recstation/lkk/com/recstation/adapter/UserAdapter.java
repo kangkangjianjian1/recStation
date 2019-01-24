@@ -22,7 +22,7 @@ import recstation.lkk.com.recstation.view.UserView;
 import zuo.biao.library.base.BaseAdapter;
 
 /**用户adapter
- * @author Lemon
+ * @author lkk
  */
 public class UserAdapter extends BaseAdapter<User, UserView> {
 	//	private static final String TAG = "UserAdapter";

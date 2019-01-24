@@ -43,6 +43,9 @@ public interface DemoApi {
     @POST
     Observable<String> checksms(@Url String url, @Field("USERNAME") String USERNAME,@Field("APPSMS_ID") String APPSMS_ID,@Field("APPSMS_CODE") String APPSMS_CODE);
 
+    @GET
+    Observable<String> index(@Url String url);
+
 
 
     @GET

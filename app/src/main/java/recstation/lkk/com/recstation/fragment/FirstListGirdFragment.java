@@ -14,32 +14,55 @@ limitations under the License.*/
 
 package recstation.lkk.com.recstation.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.GridView;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import recstation.lkk.com.recstation.GonggaoDetailActivity;
+import recstation.lkk.com.recstation.LoginActivity;
 import recstation.lkk.com.recstation.R;
+import recstation.lkk.com.recstation.RecdetailActivity;
 import recstation.lkk.com.recstation.animations.MyDescriptionAnimation;
+import recstation.lkk.com.recstation.application.DemoApplication;
+import recstation.lkk.com.recstation.model.HuishouBean;
+import recstation.lkk.com.recstation.model.Notice;
+import recstation.lkk.com.recstation.model.Piclb;
+import recstation.lkk.com.recstation.util.HKEapiManager;
+import recstation.lkk.com.recstation.util.Logger;
 import recstation.lkk.com.recstation.util.TestUtil;
-import zuo.biao.library.base.BaseListFragment;
-import zuo.biao.library.interfaces.AdapterCallBack;
-import zuo.biao.library.model.Entry;
-import zuo.biao.library.ui.GridAdapter;
+import recstation.lkk.com.recstation.util.URLConfig;
+import recstation.lkk.com.recstation.view.NoticeView;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
+import zuo.biao.library.base.BaseFragment;
 import zuo.biao.library.util.Log;
+
+import static recstation.lkk.com.recstation.util.TestUtil.IsLogin;
+import static zuo.biao.library.util.CommonUtil.toActivity;
 
 
 /**
@@ -52,9 +75,12 @@ import zuo.biao.library.util.Log;
  * @author Lemon
  * @use new DemoListFragment(),具体参考.DemoTabActivity(getFragment方法内)
  */
-public class FirstListGirdFragment extends BaseListFragment<Entry<String, String>, GridView, GridAdapter> {
-//	private static final String TAG = "DemoListFragment";
-
+public class FirstListGirdFragment extends BaseFragment implements View.OnClickListener {
+    //	private static final String TAG = "DemoListFragment";
+    CompositeSubscription mCompositeSubscription = new CompositeSubscription();
+   NoticeView first_noticeview;
+    SliderLayout mSlider;
+    Button btn_yuyue, btn_zhoubian;
     //    TextView tv;
     public static int a = 1;
     //与Activity通信<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -69,8 +95,7 @@ public class FirstListGirdFragment extends BaseListFragment<Entry<String, String
     }
 
     //与Activity通信>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    SliderLayout mSlider;
-    Button btn_yuyue,btn_zhoubian;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -83,8 +108,6 @@ public class FirstListGirdFragment extends BaseListFragment<Entry<String, String
         initEvent();
         //功能归类分区方法，必须调用>>>>>>>>>>
 
-        onRefresh();
-
         return view;//返回值必须为view
     }
 
@@ -93,40 +116,21 @@ public class FirstListGirdFragment extends BaseListFragment<Entry<String, String
 
     @Override
     public void initView() {//必须在onCreateView方法内调用
-        super.initView();
+        first_noticeview = findView(R.id.first_noticeview);
         btn_yuyue = findView(R.id.btn_yuyue);
         btn_zhoubian = findView(R.id.btn_zhoubian);
 //        tv = findView(R.id.gird_title);
         mSlider = findView(R.id.slider);
-        rec_GirdFragment1 fragment1 = rec_GirdFragment1.createInstance();
-        rec_GirdFragment2 fragment2 = rec_GirdFragment2.createInstance();
-        rec_GirdFragment3 fragment3 = rec_GirdFragment3.createInstance();
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.rec_FragmentContainer1, fragment1);
-        transaction.replace(R.id.rec_FragmentContainer2, fragment2);
-        transaction.replace(R.id.rec_FragmentContainer3, fragment3);
-        transaction.commit();
+//        rec_GirdFragment1 fragment1 = rec_GirdFragment1.createInstance(null);
+//        rec_GirdFragment2 fragment2 = rec_GirdFragment2.createInstance(null);
+//        rec_GirdFragment3 fragment3 = rec_GirdFragment3.createInstance(null);
+//        FragmentManager fragmentManager = getChildFragmentManager();
+//        FragmentTransaction transaction = fragmentManager.beginTransaction();
+//        transaction.replace(R.id.rec_FragmentContainer1, fragment1);
+//        transaction.replace(R.id.rec_FragmentContainer2, fragment2);
+//        transaction.replace(R.id.rec_FragmentContainer3, fragment3);
+//        transaction.commit();
 
-    }
-
-    @Override
-    public void setList(final List<Entry<String, String>> list) {
-
-        //示例代码<<<<<<<<<<<<<<<
-        setList(new AdapterCallBack<GridAdapter>() {
-
-            @Override
-            public void refreshAdapter() {
-                adapter.refresh(list);
-            }
-
-            @Override
-            public GridAdapter createAdapter() {
-                return new GridAdapter(context);
-            }
-        });
-        //示例代码>>>>>>>>>>>>>>>
     }
 
 
@@ -137,7 +141,6 @@ public class FirstListGirdFragment extends BaseListFragment<Entry<String, String
 
     @Override
     public void initData() {//必须在onCreateView方法内调用
-        super.initData();
         getBannerData();
 
     }
@@ -146,18 +149,8 @@ public class FirstListGirdFragment extends BaseListFragment<Entry<String, String
     public void onStop() {
         // To prevent a memory leak on rotation, make sure to call stopAutoCycle() on the slider before activity or fragment is destroyed
         mSlider.stopAutoCycle();
+
         super.onStop();
-    }
-    @Override
-    public void getListAsync(int page) {
-        //示例代码<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        showProgressDialog(R.string.loading);
-        List<Entry<String, String>> list = new ArrayList<Entry<String, String>>();
-        for (int i = 0; i < 16; i++) {
-            list.add(new Entry<String, String>(getPictureUrl(i + 6 * page), "联系人" + i + 6 * page));
-        }
-        onLoadSucceed(page, list);
-        //示例代码>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     }
 
 
@@ -168,53 +161,30 @@ public class FirstListGirdFragment extends BaseListFragment<Entry<String, String
 
     @Override
     public void initEvent() {//必须在onCreateView方法内调用
-        super.initEvent();
-        lvBaseList.setOnItemClickListener(this);
-btn_yuyue.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        btn_zhoubian.setBackgroundResource(R.drawable.btn_big_selector2);
-        btn_yuyue.setBackgroundResource(R.drawable.btn_big_selector);
-        //更新页面
-    }
-});
-btn_zhoubian.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        btn_yuyue.setBackgroundResource(R.drawable.btn_big_selector2);
-        btn_zhoubian.setBackgroundResource(R.drawable.btn_big_selector);
-        //更新页面
-    }
-});
+        btn_yuyue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              //  btn_zhoubian.setBackgroundResource(R.drawable.btn_big_selector2);
+                if(IsLogin()){
+//                    btn_yuyue.setBackgroundResource(R.drawable.btn_big_selector);
+                    startActivity(RecdetailActivity.createIntent(context));
+                }else {
+                    toActivity(LoginActivity.createIntent(context));
+                }
+
+                //更新页面
+            }
+        });
+        btn_zhoubian.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                btn_yuyue.setBackgroundResource(R.drawable.btn_big_selector2);
+//                btn_zhoubian.setBackgroundResource(R.drawable.btn_big_selector);
+                //更新页面
+            }
+        });
     }
 
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        if (adapter!=null){
-//            lvBaseList.setAdapter(adapter);
-//        }
-//
-//    }
-
-    //示例代码<<<<<<<<<<<<<<<<<<<
-//	@Override
-//	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//		//实现单选
-//
-//		showShortToast("aaa"+position);
-//		//toActivity(UserActivity.createIntent(context, position));//一般用id，这里position仅用于测试 id));//
-//	}
-    //示例代码>>>>>>>>>>>>>>>>>>>
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        //实现单选
-//		adapter.selectedPosition = adapter.selectedPosition == position ? -1 : position;
-//		adapter.notifyListDataSetChanged();
-        Log.e("kkkkkkwww", "ddddddddwwwkkk");
-        showShortToast("aaa" + position);
-        //toActivity(UserActivity.createIntent(context, position));//一般用id，这里position仅用于测试 id));//
-    }
 
     //生命周期、onActivityResult<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -233,45 +203,184 @@ btn_zhoubian.setOnClickListener(new View.OnClickListener() {
     /**
      * 获取图片地址，仅供测试用
      *
-     * @param userId
      * @return
      */
-    private String getPictureUrl(int userId) {
-        return TestUtil.getPicture(userId % 6);
-    }
 
     private void getBannerData() {
-        HashMap<String,String> url_maps = new HashMap<String, String>();
-        url_maps.put("Hannibal", "http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg");
-        url_maps.put("Big Bang Theory", "http://tvfiles.alphacoders.com/100/hdclearart-10.png");
-        url_maps.put("House of Cards", "http://cdn3.nflximg.net/images/3093/2043093.jpg");
-        url_maps.put("Game of Thrones", "http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg");
 
-        HashMap<String,Integer> file_maps = new HashMap<String, Integer>();
-        file_maps.put("Hannibal",R.drawable.lunbo1);
-        file_maps.put("Big Bang Theory",R.drawable.lunbo2);
-        file_maps.put("House of Cards",R.drawable.lunbo3);
+        Subscription subscription = HKEapiManager.getInstances().demoApi.index(URLConfig.INDEX_URL)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(final String s) {
+                        Logger.e("getBannerDatagetBannerDatagetBannerData", s);
 
-        for(String name : file_maps.keySet()){
-            TextSliderView textSliderView = new TextSliderView(context);
-            // initialize a SliderLayout
-            textSliderView
-                   // .description(name)
-                    .image(file_maps.get(name))
-                    .setScaleType(BaseSliderView.ScaleType.Fit);
 
-            //add your extra information
-            textSliderView.bundle(new Bundle());
-            textSliderView.getBundle()
-                    .putString("extra",name);
+                        try {
+                            JSONObject jsonObject1 = new JSONObject(s);
+                            String code = jsonObject1.getString("code");
+                            if (!"OK".equals(code)) {
+                                showShortToast("网络访问出错，请稍后再试", true);
+                            } else {
+                                JSONArray lbtlist = jsonObject1.getJSONArray("lbtlist");
+                                Gson gson1 = new Gson();
+                                List<Piclb> list = gson1.fromJson(lbtlist.toString(), new TypeToken<List<Piclb>>() {
+                                }.getType());
+                                Logger.e("下载的常见问题list长度", list.size() + "");
+                                initLunBo(list);
 
-            mSlider.addSlider(textSliderView);
-        }
-        mSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
-        mSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-        mSlider.setCustomAnimation(new MyDescriptionAnimation());
-        mSlider.setDuration(4000);
+                                JSONArray noticelist = jsonObject1.getJSONArray("noticelist");
+
+                                List<Notice> noticelist2 = gson1.fromJson(noticelist.toString(), new TypeToken<List<Notice>>() {
+                                }.getType());
+                                Logger.e("下载的noticelist2长度", noticelist2.size() + "");
+                                initNotice(noticelist2);
+                                JSONArray retrievelist = jsonObject1.getJSONArray("retrievelist");
+
+                                JSONArray khsllist = retrievelist.getJSONArray(0);
+                                JSONArray wrwllist = retrievelist.getJSONArray(1);
+                                JSONArray gcllist = retrievelist.getJSONArray(2);
+
+//                                JSONArray khsllist = jsonObject2.getJSONArray("khsllist");
+                                List<HuishouBean> khsllist2 = gson1.fromJson(khsllist.toString(), new TypeToken<List<HuishouBean>>() {
+                                }.getType());
+                                Logger.e("khsllist2", khsllist2.size()+"fzwk");
+//                                JSONArray wrwllist = jsonObject3.getJSONArray("wrwllist");
+                                List<HuishouBean> wrwllist2 = gson1.fromJson(wrwllist.toString(), new TypeToken<List<HuishouBean>>() {
+                                }.getType());
+                                Logger.e("wrwllist2", wrwllist2.size()+"fzwk");
+//                                JSONArray gcllist = jsonObject4.getJSONArray("gcllist");
+                                List<HuishouBean> gcllist2 = gson1.fromJson(gcllist.toString(), new TypeToken<List<HuishouBean>>() {
+                                }.getType());
+                                Logger.e("gcllist2", gcllist2.size()+"fzwk");
+                                initFragmentChild(khsllist2,wrwllist2,gcllist2);
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Logger.e("lkk", "e.printStackTrace");
+                        }
+                    }
+
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        Logger.e("lkk", "throwable22222222222" + throwable.getLocalizedMessage());
+                    }
+                }, new Action0() {
+                    @Override
+                    public void call() {
+//                        Logger.e("lkk", "onCompleted");
+                    }
+                });
+
+        mCompositeSubscription.add(subscription);
+
+
     }
 
+    @Override
+    public void onDestroy() {
+        mCompositeSubscription.clear();
+        super.onDestroy();
+    }
+
+    @Override
+    public void onClick(View view) {
+
+    }
+
+    public void initFragmentChild(List<HuishouBean> list1,List<HuishouBean> list2,List<HuishouBean> list3) {
+        rec_GirdFragment1 fragment1 = rec_GirdFragment1.createInstance(list1);
+        rec_GirdFragment2 fragment2 = rec_GirdFragment2.createInstance(list2);
+        rec_GirdFragment3 fragment3 = rec_GirdFragment3.createInstance(list3);
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.rec_FragmentContainer1, fragment1);
+        transaction.replace(R.id.rec_FragmentContainer2, fragment2);
+        transaction.replace(R.id.rec_FragmentContainer3, fragment3);
+        transaction.commit();
+    }
+
+    public void initNotice(List<Notice> noticeList2) {
+//        List<String> notices = new ArrayList<>();
+//        for (int i = 0; i < noticeList2.size(); i++) {
+//            notices.add(noticeList2.get(i).getTITILE());
+//        }
+        first_noticeview.addNotice(noticeList2);
+        first_noticeview.startFlipping();
+        first_noticeview.setOnNoticeClickListener(new NoticeView.OnNoticeClickListener() {
+            @Override
+            public void onNotieClick(int position, Notice notice) {
+                //打开公告详情页面。
+                Intent i =GonggaoDetailActivity.createIntent(context);
+                i.putExtra("url",notice.getLINKURL());
+                startActivity(i);
+            }
+        });
+    }
+
+    public void initLunBo(List<Piclb> list) {
+
+
+        if (list.size() > 0) {
+            HashMap<String, String> file_maps = new HashMap<String, String>();
+            for (int i = 0; i < list.size(); i++) {
+                file_maps.put(list.get(i).getORDER_ID(), list.get(i).getPATH());
+            }
+            for (String name : file_maps.keySet()) {
+                TextSliderView textSliderView = new TextSliderView(context);
+                // initialize a SliderLayout
+                textSliderView
+                        // .description(name)
+                        .image(file_maps.get(name))
+                        .setScaleType(BaseSliderView.ScaleType.Fit);
+
+                //add your extra information
+                textSliderView.bundle(new Bundle());
+                textSliderView.getBundle()
+                        .putString("extra", name);
+
+                mSlider.addSlider(textSliderView);
+            }
+            mSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
+            mSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+            mSlider.setCustomAnimation(new MyDescriptionAnimation());
+            mSlider.setDuration(4000);
+
+
+        } else {
+            HashMap<String, Integer> file_maps = new HashMap<String, Integer>();
+
+            //轮播默认
+            file_maps.put("Hannibal", R.drawable.lunbo1);
+            file_maps.put("Big Bang Theory", R.drawable.lunbo2);
+            file_maps.put("House of Cards", R.drawable.lunbo3);
+            for (String name : file_maps.keySet()) {
+                TextSliderView textSliderView = new TextSliderView(context);
+                // initialize a SliderLayout
+                textSliderView
+                        // .description(name)
+                        .image(file_maps.get(name))
+                        .setScaleType(BaseSliderView.ScaleType.Fit);
+
+                //add your extra information
+                textSliderView.bundle(new Bundle());
+                textSliderView.getBundle()
+                        .putString("extra", name);
+
+                mSlider.addSlider(textSliderView);
+            }
+            mSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
+            mSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+            mSlider.setCustomAnimation(new MyDescriptionAnimation());
+            mSlider.setDuration(4000);
+
+
+        }
+
+
+    }
 
 }

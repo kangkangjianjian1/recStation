@@ -25,13 +25,18 @@ import android.widget.GridView;
 import java.util.ArrayList;
 import java.util.List;
 
+import recstation.lkk.com.recstation.LoginActivity;
 import recstation.lkk.com.recstation.R;
+import recstation.lkk.com.recstation.ZhoubianActivity;
+import recstation.lkk.com.recstation.model.HuishouBean;
 import recstation.lkk.com.recstation.util.TestUtil;
 import zuo.biao.library.base.BaseListFragment;
 import zuo.biao.library.interfaces.AdapterCallBack;
 import zuo.biao.library.model.Entry;
 import zuo.biao.library.ui.GridAdapter;
 import zuo.biao.library.util.Log;
+
+import static recstation.lkk.com.recstation.util.TestUtil.IsLogin;
 
 
 /**
@@ -44,17 +49,19 @@ import zuo.biao.library.util.Log;
  */
 public class rec_GirdFragment2 extends BaseListFragment<Entry<String, String>, GridView, GridAdapter> {
 //	private static final String TAG = "DemoListFragment";
-
-//    TextView tv;
+public static List<HuishouBean> datalist;
+    //    TextView tv;
     public  static int a =1;
     //与Activity通信<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     /**创建一个Fragment实例
      * @return
      */
-    public static rec_GirdFragment2 createInstance() {
+    public static rec_GirdFragment2 createInstance(List<HuishouBean> list) {
+        datalist = list;
         return new rec_GirdFragment2();
     }
+
 
     //与Activity通信>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -86,7 +93,13 @@ public class rec_GirdFragment2 extends BaseListFragment<Entry<String, String>, G
 
     @Override
     public void setList(final List<Entry<String, String>> list) {
-        int a = list.size()/4+1;
+        int a;
+        if (list.size() % 4 == 0) {
+            a = list.size() / 4 ;
+        } else {
+            a = list.size() / 4 + 1;
+        }
+
         DisplayMetrics dm = new DisplayMetrics();
         context.getWindowManager().getDefaultDisplay().getMetrics(dm);
         ViewGroup.LayoutParams lp;
@@ -127,8 +140,11 @@ public class rec_GirdFragment2 extends BaseListFragment<Entry<String, String>, G
         //示例代码<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         showProgressDialog(R.string.loading);
         List<Entry<String, String>> list = new ArrayList<Entry<String, String>>();
-        for (int i = 0; i <3; i++) {
-            list.add(new Entry<String, String>(getPictureUrl(i + 6 * page), "联系人" + i + 6 * page));
+//        for (int i = 0; i <3; i++) {
+//            list.add(new Entry<String, String>(getPictureUrl(i + 6 * page), "联系人" + i + 6 * page));
+//        }
+        for (int i = 0; i<datalist.size(); i++) {
+            list.add(new Entry<String, String>(datalist.get(i).getPICTUREPATH(), datalist.get(i).getRETRIEVETYPE_NAME()));
         }
         onLoadSucceed(page, list);
         //示例代码>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -167,12 +183,11 @@ public class rec_GirdFragment2 extends BaseListFragment<Entry<String, String>, G
     //示例代码>>>>>>>>>>>>>>>>>>>
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        //实现单选
-//		adapter.selectedPosition = adapter.selectedPosition == position ? -1 : position;
-//		adapter.notifyListDataSetChanged();
-        Log.e("kkkkkkwww", "ddddddddwwwkkk");
-        showShortToast("aaa" + position);
-        //toActivity(UserActivity.createIntent(context, position));//一般用id，这里position仅用于测试 id));//
+        if(IsLogin()){
+            toActivity(ZhoubianActivity.createIntent(context));
+        }else {
+            toActivity(LoginActivity.createIntent(context));
+        }
     }
 
     //生命周期、onActivityResult<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

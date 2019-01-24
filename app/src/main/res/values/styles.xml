@@ -16,15 +16,14 @@
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
+        <item name="android:windowBackground">@drawable/start_img</item>
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
-
-
 
     <style name="SplashTheme" parent="android:Theme.NoTitleBar.Fullscreen">
 
         <!-- 闪屏背景，可用图片 -->
-        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:windowBackground">@drawable/start_img</item>
         <item name="android:windowFullscreen">true</item>
     </style>
 
@@ -60,7 +59,7 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:paddingTop">2dp</item>
         <item name="android:paddingBottom">2dp</item>
-        <item name="android:paddingLeft">@dimen/content_item_left_tv_padding_left</item>
+        <item name="android:paddingLeft">3dp</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:background">@color/alpha_black</item>
     </style>

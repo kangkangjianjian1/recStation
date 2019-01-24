@@ -11,11 +11,14 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
+import recstation.lkk.com.recstation.application.DemoApplication;
 import recstation.lkk.com.recstation.fragment.FirstListGirdFragment;
 import recstation.lkk.com.recstation.fragment.CreditShopFragment;
 import recstation.lkk.com.recstation.fragment.RecMessageFragment;
 import recstation.lkk.com.recstation.fragment.SettingFragment;
 import recstation.lkk.com.recstation.fragment.UserRecyclerFragment;
+import recstation.lkk.com.recstation.fragment.rec_GirdFragment;
+import recstation.lkk.com.recstation.util.HKEapiManager;
 import zuo.biao.library.base.BaseBottomTabActivity;
 import zuo.biao.library.interfaces.OnBottomDragListener;
 
@@ -98,7 +101,7 @@ public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDr
             case 4:
                 return SettingFragment.createInstance();
             case 1:
-                return UserRecyclerFragment.createInstance(UserRecyclerFragment.RANGE_RECOMMEND);
+                return rec_GirdFragment.createInstance();
             case 2:
                 return RecMessageFragment.createInstance();
             case 3:
@@ -175,6 +178,8 @@ public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDr
                     showShortToast("再按一次退出");
                     firstTime = secondTime;
                 } else {//完全退出
+                    HKEapiManager.getInstances().preferences.putStringData(DemoApplication.getInstance(), "loginuser", "no");
+
                     moveTaskToBack(false);//应用退到后台
                     System.exit(0);
                 }
@@ -189,6 +194,12 @@ public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDr
 
     }
     //双击手机返回键退出>>>>>>>>>>>>>>>>>>>>>
+
+    @Override
+    public void onForwardClick(View v) {
+        super.onForwardClick(v);
+        startActivity(ScanActivity.createIntent(MainTabActivity.this));
+    }
 
 
     //生命周期、onActivityResult<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

@@ -10,6 +10,15 @@ public class URLConfig {
 	public static String REGISTER_URL = HEAD_URL + "hdrra/appuser/registerAppUser";
 	public static String SETDPWD_URL = HEAD_URL + "hdrra/appsms/resetPWD";
 	public static String CHECKSMS_URL = HEAD_URL + "hdrra/appsms/checksms";
+	public static String INDEX_URL = HEAD_URL + "hdrra/appmain/index";
 	public static final boolean IS_DEBUG = true;
+
+
+
+
+
+	public static int TYPETOLIST = 1;
+
+
 
 }

@@ -89,10 +89,10 @@ public class RecMessageFragment extends BaseFragment implements OnClickListener,
 
             switch (title) {
                 case "系统消息":
-                    mFragments.add( UserListFragment.createInstance(UserListFragment.RANGE_ALL));
+                    mFragments.add( SystemMsgRecyclerFragment.createInstance());
                     break;
                 case "订单消息":
-                    mFragments.add(UserRecyclerFragment.createInstance(UserRecyclerFragment.RANGE_ALL));
+                    mFragments.add(DingdanMsgRecyclerFragment.createInstance());
                     break;
                 default:
                     break;

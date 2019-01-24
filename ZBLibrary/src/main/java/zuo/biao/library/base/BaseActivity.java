@@ -127,14 +127,14 @@ public abstract class BaseActivity extends FragmentActivity implements ActivityP
 		super.setContentView(layoutResID);
 
 		// 状态栏沉浸，4.4+生效 <<<<<<<<<<<<<<<<<
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-			getWindow().setFlags(
-					WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
-					WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-		}
-		SystemBarTintManager tintManager = new SystemBarTintManager(this);
-		tintManager.setStatusBarTintEnabled(true);
-		tintManager.setStatusBarTintResource(R.color.topbar_bg_white);//状态背景色，可传drawable资源
+//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//			getWindow().setFlags(
+//					WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+//					WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//		}
+//		SystemBarTintManager tintManager = new SystemBarTintManager(this);
+//		tintManager.setStatusBarTintEnabled(true);
+//		tintManager.setStatusBarTintResource(R.color.topbar_bg_white);//状态背景色，可传drawable资源
 		// 状态栏沉浸，4.4+生效 >>>>>>>>>>>>>>>>>
 
 		tvBaseTitle = findView(R.id.tvBaseTitle);//绑定默认标题TextView

@@ -29,6 +29,22 @@
         </activity>
         <activity android:name=".SetpwdActivity">
         </activity>
+        <activity android:name=".GonggaoDetailActivity">
+        </activity>
+        <activity android:name=".RecdetailActivity">
+        </activity>
+        <activity android:name=".ScanActivity">
+        </activity>
+        <activity android:name=".SelectRecTypeActivity">
+        </activity>
+        <activity
+            android:name=".AdressListActivity"
+            android:launchMode="singleTask">
+        </activity>
+        <activity android:name=".AddAdressActivity">
+        </activity>
+        <activity android:name=".ZhoubianActivity">
+        </activity>
     </application>
 
 </manifest>

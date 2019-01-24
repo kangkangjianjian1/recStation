@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/activity_bg"
+    style="@style/match_wrap">
+
+    <!-- BaseListXXX的子类布局layout中，AbsListView必须有，且它的id必须按以下写法。padding会导致smoothScrollToPosition失效 -->
+
+    <GridView
+        android:id="@id/lvBaseList"
+        style="@style/lv2"
+        android:layout_margin="18dp"
+        android:layout_weight="1"
+        android:horizontalSpacing="8dp"
+        android:numColumns="2"
+        android:verticalSpacing="8dp" />
+
+</LinearLayout>

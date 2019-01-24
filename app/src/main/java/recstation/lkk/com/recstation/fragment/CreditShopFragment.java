@@ -91,18 +91,18 @@ public class CreditShopFragment extends BaseFragment implements OnClickListener,
             switch (title) {
                 case  "生活用品":
 //                    mFragments.add( UserListFragment.createInstance(UserListFragment.RANGE_ALL));
-                    mFragments.add(DemoListGirdFragment.createInstance());
+                    mFragments.add(pro_GirdFragment.createInstance());
                     break;
                 case  "学习用品":
-                  mFragments.add( UserListFragment.createInstance(UserListFragment.RANGE_ALL));
+                  mFragments.add( pro_GirdFragment.createInstance());
 //                    mFragments.add(SettingFragment.createInstance());
                     break;
                 case "厨房用品":
-                    mFragments.add(DemoListFragment.createInstance());
+                    mFragments.add(pro_GirdFragment.createInstance());
 //                    mFragments.add(SettingFragment.createInstance());
                     break;
                 case "电子产品":
-                    mFragments.add( UserListFragment.createInstance(UserListFragment.RANGE_ALL));
+                    mFragments.add( pro_GirdFragment.createInstance());
 //                    mFragments.add(SettingFragment.createInstance());
                     break;
                 default:

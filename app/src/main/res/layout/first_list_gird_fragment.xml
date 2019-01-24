@@ -27,10 +27,11 @@
                     android:scaleType="fitXY"
                     android:src="@drawable/xiaolaba"/>
 
-                <TextView
+                <recstation.lkk.com.recstation.view.NoticeView
+                    android:id="@+id/first_noticeview"
                     style="@style/content_item_lf_tv"
                     android:layout_weight="1"
-                    android:text="订单管理订单管理订单管理订单管理订单管理"/>
+                    />
             </LinearLayout>
             <LinearLayout
                 style="@style/ll_vertical_match_wrap">
@@ -74,14 +75,6 @@
                 android:orientation="vertical">
 
             </FrameLayout>
-            <GridView
-                android:id="@id/lvBaseList"
-                style="@style/lv2"
-                android:layout_margin="18dp"
-                android:horizontalSpacing="18dp"
-                android:numColumns="2"
-                android:verticalSpacing="18dp"
-                android:visibility="gone"/>
         </LinearLayout>
 
     </ScrollView>

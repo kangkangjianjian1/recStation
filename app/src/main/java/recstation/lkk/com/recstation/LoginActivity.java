@@ -22,6 +22,7 @@ import recstation.lkk.com.recstation.util.Logger;
 import recstation.lkk.com.recstation.util.NetUtil;
 import recstation.lkk.com.recstation.util.RxHelper;
 import recstation.lkk.com.recstation.util.SharedPreferencesUtils;
+import recstation.lkk.com.recstation.util.TestUtil;
 import recstation.lkk.com.recstation.util.URLConfig;
 import retrofit2.Response;
 import rx.Subscription;
@@ -132,7 +133,9 @@ public class LoginActivity extends BaseActivity implements OnBottomDragListener,
                             if ("OK".equals(code)) {
                                 //登陆成功跳转到首页。
                                 showShortToast(message, true);
-                                HKEapiManager.getInstances().preferences.putStringData(DemoApplication.getInstance(), "islogin", mUserName);
+                                String time = TestUtil.getNowTime();
+                                HKEapiManager.getInstances().preferences.putStringData(DemoApplication.getInstance(), "islogin", time);
+                                HKEapiManager.getInstances().preferences.putStringData(DemoApplication.getInstance(), "loginuser", mUserName);
 
                                 onBackPressed();
 

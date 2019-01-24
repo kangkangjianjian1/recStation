@@ -20,13 +20,15 @@
                     <ImageView
                         android:id="@+id/setting_img_btn_sign"
                         style="@style/img_btn"
+                        android:layout_width="60dp"
+                        android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentTop="true"
-                        android:layout_marginEnd="0dp"
-                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginTop="12dp"
                         android:clickable="true"
                         android:contentDescription="qiandao"
-                        android:src="@drawable/qiandao_selector"/>
+                        android:src="@drawable/qiandao_s"/>
                 </RelativeLayout>
 
                 <ImageView
@@ -52,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <LinearLayout
+                    android:id="@+id/setting_ll_jifen"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -77,6 +80,7 @@
                 <View
                     style="@style/divider_vertical_1dp_gray"/>
                 <LinearLayout
+                    android:id="@+id/setting_ll_lvxin"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -94,7 +98,7 @@
                         style="@style/tv_remind"
                         android:layout_marginTop="3dp"
                         android:layout_marginBottom="8dp"
-                        android:text="绿叶值"
+                        android:text="绿信分"
                         android:textColor="@color/black"
                         android:textSize="13sp"/>
 
@@ -107,6 +111,8 @@
                 android:id="@+id/layout_dingdianguanli"
                 style="@style/content_item_white">
                 <ImageView style="@style/content_item_rt_img"
+                           android:layout_width="30dp"
+                           android:layout_height="30dp"
                            android:layout_margin="5dp"
                            android:scaleType="fitXY"
                            android:adjustViewBounds="true"
@@ -124,6 +130,8 @@
                 style="@style/content_item_white">
                 <ImageView style="@style/content_item_rt_img"
                            android:layout_margin="5dp"
+                           android:layout_width="30dp"
+                           android:layout_height="30dp"
                            android:scaleType="fitXY"
                            android:adjustViewBounds="true"
                            android:src="@drawable/my_jifen"/>
@@ -139,6 +147,8 @@
             style="@style/content_item_white">
             <ImageView style="@style/content_item_rt_img"
                        android:layout_margin="5dp"
+                       android:layout_width="30dp"
+                       android:layout_height="30dp"
                        android:scaleType="fitXY"
                        android:adjustViewBounds="true"
                        android:src="@drawable/my_shangpin"/>
@@ -154,6 +164,8 @@
                 style="@style/content_item_white">
                 <ImageView style="@style/content_item_rt_img"
                            android:layout_margin="5dp"
+                           android:layout_width="30dp"
+                           android:layout_height="30dp"
                            android:scaleType="fitXY"
                            android:adjustViewBounds="true"
                            android:src="@drawable/my_renzheng"/>
@@ -169,6 +181,8 @@
                 style="@style/content_item_white">
                 <ImageView style="@style/content_item_rt_img"
                            android:layout_margin="5dp"
+                           android:layout_width="30dp"
+                           android:layout_height="30dp"
                            android:scaleType="fitXY"
                            android:adjustViewBounds="true"
                            android:src="@drawable/my_syssetting"/>
@@ -184,6 +198,8 @@
                 style="@style/content_item_white">
                 <ImageView style="@style/content_item_rt_img"
                            android:layout_margin="5dp"
+                           android:layout_width="30dp"
+                           android:layout_height="30dp"
                            android:scaleType="fitXY"
                            android:adjustViewBounds="true"
                            android:src="@drawable/my_jianyi"/>

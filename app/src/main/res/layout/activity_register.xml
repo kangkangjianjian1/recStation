@@ -7,9 +7,12 @@
 
             <ImageButton
                 style="@style/topbar_return_img"
-                android:background="@color/black"/>
+               />
         </RelativeLayout>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/black"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,7 +37,7 @@
                 android:layout_marginTop="14dp"
                 android:text="手机号"
                 android:textColor="@color/black"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 android:textSize="16sp" />
 
             <LinearLayout
@@ -46,7 +49,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
+                    android:layout_gravity="center_vertical"
                     android:text="+86"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
@@ -56,6 +59,7 @@
                     android:layout_height="wrap_content"
                     android:drawablePadding="8dip"
                     android:layout_marginLeft="8dp"
+                    android:textSize="16sp"
                     android:hint="请输入手机号"
                     android:textColorHint="@color/gray"
                     android:inputType="textPhonetic"
@@ -69,7 +73,7 @@
                 android:layout_marginTop="14dp"
                 android:text="验证码"
                 android:textColor="@color/black"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 android:textSize="16sp" />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -83,14 +87,13 @@
                     android:layout_width="wrap_content"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-
                     android:hint="请输入验证码"
                     android:inputType="text"
                     android:maxLines="1"
                     android:textColorHint="@color/gray"/>
                 <Button
-                    android:layout_width="105dp"
-                    android:layout_height="40dp"
+                    android:layout_width="109dp"
+                    android:layout_height="43dp"
                     android:id="@+id/register_btn_get_yzm"
                     android:text="获取验证码"
                     android:textSize="11sp"
@@ -106,7 +109,7 @@
                 android:layout_marginTop="14dp"
                 android:text="密码"
                 android:textColor="@color/black"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 android:textSize="16sp" />
             <LinearLayout
                 android:layout_width="match_parent"

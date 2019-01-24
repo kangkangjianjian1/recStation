@@ -10,8 +10,8 @@
         style="@style/lv2"
         android:layout_margin="18dp"
         android:layout_weight="1"
-        android:horizontalSpacing="18dp"
-        android:numColumns="5"
-        android:verticalSpacing="18dp" />
+        android:horizontalSpacing="50dp"
+        android:numColumns="4"
+        android:verticalSpacing="40dp" />
 
 </LinearLayout>

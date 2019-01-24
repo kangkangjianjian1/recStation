@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              style="@style/ll_vertical_match_wrap"
+              android:background="@drawable/to_alpha"
+              android:gravity="center" >
+
+    <zuo.biao.library.ui.SquareRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ImageView
+            android:background="@color/alpha_3"
+            android:scaleType="centerCrop"
+            android:id="@+id/ivGridItemHead"
+            style="@style/match_match" />
+
+    </zuo.biao.library.ui.SquareRelativeLayout>
+
+    <TextView
+        android:id="@+id/tvGridItemName"
+        android:layout_gravity="left"
+        android:layout_marginLeft="8dp"
+        android:textColor="@color/green"
+        style="@style/text_middle"
+        android:text="产品的名字"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            style="@style/wrap_wrap"
+            android:textColor="@color/green"
+            android:textSize="18sp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="8dp"
+            android:text="积分:"
+            />
+        <TextView
+            android:id="@+id/tvGridItemPrice"
+            android:textSize="18sp"
+            android:textColor="@color/green"
+            style="@style/wrap_wrap"
+            android:layout_gravity="left"
+            android:text="400"
+            />
+        <TextView
+            android:textSize="18sp"
+            android:textColor="@color/green"
+            style="@style/wrap_wrap"
+            android:layout_gravity="left"
+            android:text="/个"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            style="@style/wrap_wrap"
+            android:layout_gravity="left"
+            android:layout_marginLeft="8dp"
+           android:src="@drawable/back2"
+            />
+        <TextView
+            android:id="@+id/tvGridItem_personname"
+            android:textSize="18sp"
+            android:textColor="@color/green"
+            style="@style/wrap_wrap"
+            android:layout_gravity="left"
+            android:text="小张"
+            />
+    </LinearLayout>
+</LinearLayout>

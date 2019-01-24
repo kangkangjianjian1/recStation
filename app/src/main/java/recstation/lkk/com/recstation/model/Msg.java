@@ -23,15 +23,12 @@ public class Msg extends BaseModel {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final int MsgType_1 = 0;
-	public static final int MsgType_2 = 1;
 
-	private int msgType; //类型
+	private String msgType; //类型
 	private String title; //标题
 	private String preMsg; //摘要
 	private String time; //时间
 	private String proMsg; //详细内容
-	private boolean starred; //星标
 
 	/**默认构造方法，JSON等解析时必须要有
 	 */
@@ -46,7 +43,46 @@ public class Msg extends BaseModel {
 		this(id);
 		this.title = title;
 	}
-	
+
+	public String getMsgType() {
+		return msgType;
+	}
+
+	public void setMsgType(String msgType) {
+		this.msgType = msgType;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getPreMsg() {
+		return preMsg;
+	}
+
+	public void setPreMsg(String preMsg) {
+		this.preMsg = preMsg;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+	public String getProMsg() {
+		return proMsg;
+	}
+
+	public void setProMsg(String proMsg) {
+		this.proMsg = proMsg;
+	}
 
 	/**
 	 * 以下getter和setter可以自动生成

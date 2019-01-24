@@ -25,7 +25,11 @@ import android.widget.GridView;
 import java.util.ArrayList;
 import java.util.List;
 
+import recstation.lkk.com.recstation.LoginActivity;
 import recstation.lkk.com.recstation.R;
+import recstation.lkk.com.recstation.RecdetailActivity;
+import recstation.lkk.com.recstation.ZhoubianActivity;
+import recstation.lkk.com.recstation.model.HuishouBean;
 import recstation.lkk.com.recstation.util.TestUtil;
 import zuo.biao.library.base.BaseListFragment;
 import zuo.biao.library.interfaces.AdapterCallBack;
@@ -33,26 +37,33 @@ import zuo.biao.library.model.Entry;
 import zuo.biao.library.ui.GridAdapter;
 import zuo.biao.library.util.Log;
 
+import static recstation.lkk.com.recstation.util.TestUtil.IsLogin;
+
 
 /**
  * 使用方法：复制>粘贴>改名>改代码
  */
 
-/**列表Fragment示例
+/**
+ * 列表Fragment示例
+ *
  * @author Lemon
  * @use new DemoListFragment(),具体参考.DemoTabActivity(getFragment方法内)
  */
 public class rec_GirdFragment1 extends BaseListFragment<Entry<String, String>, GridView, GridAdapter> {
-//	private static final String TAG = "DemoListFragment";
-
-//    TextView tv;
-    public  static int a =1;
+    //	private static final String TAG = "DemoListFragment";
+    public static List<HuishouBean> datalist;
+    //    TextView tv;
+    public static int a = 1;
     //与Activity通信<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-    /**创建一个Fragment实例
+    /**
+     * 创建一个Fragment实例
+     *
      * @return
      */
-    public static rec_GirdFragment1 createInstance() {
+    public static rec_GirdFragment1 createInstance(List<HuishouBean> list) {
+        datalist = list;
         return new rec_GirdFragment1();
     }
 
@@ -86,13 +97,19 @@ public class rec_GirdFragment1 extends BaseListFragment<Entry<String, String>, G
 
     @Override
     public void setList(final List<Entry<String, String>> list) {
-        int a = list.size()/4+1;
+        int a;
+        if (list.size() % 4 == 0) {
+           a = list.size() / 4 ;
+        } else {
+            a = list.size() / 4 + 1;
+        }
+
         DisplayMetrics dm = new DisplayMetrics();
         context.getWindowManager().getDefaultDisplay().getMetrics(dm);
         ViewGroup.LayoutParams lp;
-        lp=lvBaseList.getLayoutParams();
-        lp.width=dm.widthPixels;
-        lp.height=dm.widthPixels/4*a;
+        lp = lvBaseList.getLayoutParams();
+        lp.width = dm.widthPixels;
+        lp.height = dm.widthPixels / 4 * a;
         lvBaseList.setLayoutParams(lp);
         //示例代码<<<<<<<<<<<<<<<
         setList(new AdapterCallBack<GridAdapter>() {
@@ -127,8 +144,11 @@ public class rec_GirdFragment1 extends BaseListFragment<Entry<String, String>, G
         //示例代码<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         showProgressDialog(R.string.loading);
         List<Entry<String, String>> list = new ArrayList<Entry<String, String>>();
-        for (int i = 0; i <13; i++) {
-            list.add(new Entry<String, String>(getPictureUrl(i + 6 * page), "联系人" + i + 6 * page));
+//        for (int i = 0; i <13; i++) {
+//            list.add(new Entry<String, String>(getPictureUrl(i + 6 * page), "联系人" + i + 6 * page));
+//        }
+        for (int i = 0; i < datalist.size(); i++) {
+            list.add(new Entry<String, String>(datalist.get(i).getPICTUREPATH(), datalist.get(i).getRETRIEVETYPE_NAME()));
         }
         onLoadSucceed(page, list);
         //示例代码>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -170,8 +190,11 @@ public class rec_GirdFragment1 extends BaseListFragment<Entry<String, String>, G
         //实现单选
 //		adapter.selectedPosition = adapter.selectedPosition == position ? -1 : position;
 //		adapter.notifyListDataSetChanged();
-        Log.e("kkkkkkwww", "ddddddddwwwkkk");
-        showShortToast("aaa" + position);
+        if(IsLogin()){
+            toActivity(ZhoubianActivity.createIntent(context));
+        }else {
+            toActivity(LoginActivity.createIntent(context));
+        }
         //toActivity(UserActivity.createIntent(context, position));//一般用id，这里position仅用于测试 id));//
     }
 
@@ -189,7 +212,9 @@ public class rec_GirdFragment1 extends BaseListFragment<Entry<String, String>, G
 
     //内部类,尽量少用>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-    /**获取图片地址，仅供测试用
+    /**
+     * 获取图片地址，仅供测试用
+     *
      * @param userId
      * @return
      */
