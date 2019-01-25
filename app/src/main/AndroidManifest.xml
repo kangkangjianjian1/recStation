@@ -45,6 +45,10 @@
         </activity>
         <activity android:name=".ZhoubianActivity">
         </activity>
+        <activity android:name=".MypointActivity">
+        </activity>
+        <activity android:name=".MyDingdanActivity">
+        </activity>
     </application>
 
 </manifest>

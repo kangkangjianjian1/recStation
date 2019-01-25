@@ -25,21 +25,29 @@ public class ProductBean extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 
-    private String RETRIEVETYPE; //回收类型
+    private String MALLITEMS_ID; //回收类型
+    private String POINTS; //积分
     private String ORDER_ID; //顺序
     private String PRICE; //价格
-    private String RETRIEVETYPE_ID; //id
     private String PICTUREPATH; //图片路径
-    private String CREATETIME; //创建事件
-    private String RETRIEVETYPE_NAME; //标题
+    private String ITEM_NAME; //标题
     private String BZ; //类属于
 
-    public String getRETRIEVETYPE() {
-        return RETRIEVETYPE;
+
+    public String getMALLITEMS_ID() {
+        return MALLITEMS_ID;
     }
 
-    public void setRETRIEVETYPE(String RETRIEVETYPE) {
-        this.RETRIEVETYPE = RETRIEVETYPE;
+    public void setMALLITEMS_ID(String MALLITEMS_ID) {
+        this.MALLITEMS_ID = MALLITEMS_ID;
+    }
+
+    public String getPOINTS() {
+        return POINTS;
+    }
+
+    public void setPOINTS(String POINTS) {
+        this.POINTS = POINTS;
     }
 
     public String getORDER_ID() {
@@ -58,14 +66,6 @@ public class ProductBean extends BaseModel {
         this.PRICE = PRICE;
     }
 
-    public String getRETRIEVETYPE_ID() {
-        return RETRIEVETYPE_ID;
-    }
-
-    public void setRETRIEVETYPE_ID(String RETRIEVETYPE_ID) {
-        this.RETRIEVETYPE_ID = RETRIEVETYPE_ID;
-    }
-
     public String getPICTUREPATH() {
         return PICTUREPATH;
     }
@@ -74,20 +74,12 @@ public class ProductBean extends BaseModel {
         this.PICTUREPATH = PICTUREPATH;
     }
 
-    public String getCREATETIME() {
-        return CREATETIME;
+    public String getITEM_NAME() {
+        return ITEM_NAME;
     }
 
-    public void setCREATETIME(String CREATETIME) {
-        this.CREATETIME = CREATETIME;
-    }
-
-    public String getRETRIEVETYPE_NAME() {
-        return RETRIEVETYPE_NAME;
-    }
-
-    public void setRETRIEVETYPE_NAME(String RETRIEVETYPE_NAME) {
-        this.RETRIEVETYPE_NAME = RETRIEVETYPE_NAME;
+    public void setITEM_NAME(String ITEM_NAME) {
+        this.ITEM_NAME = ITEM_NAME;
     }
 
     public String getBZ() {

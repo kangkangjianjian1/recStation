@@ -27,6 +27,8 @@ import android.widget.TextView;
 
 import recstation.lkk.com.recstation.LoginActivity;
 import recstation.lkk.com.recstation.MainTabActivity;
+import recstation.lkk.com.recstation.MyDingdanActivity;
+import recstation.lkk.com.recstation.MypointActivity;
 import recstation.lkk.com.recstation.R;
 import recstation.lkk.com.recstation.util.TestUtil;
 import zuo.biao.library.base.BaseBottomTabActivity;
@@ -183,7 +185,7 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
                 break;
             case R.id.setting_ll_jifen:
                 if (TestUtil.IsLogin()) {
-                    ((MainTabActivity)context).selectFragment(2);
+                    startActivity(MypointActivity.createIntent(context));
                 }else {
                     startActivity(LoginActivity.createIntent(context));
                 }
@@ -199,7 +201,7 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
                 break;
             case R.id.layout_dingdianguanli:
                 if (TestUtil.IsLogin()) {
-                    ((MainTabActivity)context).selectFragment(2);
+                    startActivity(MyDingdanActivity.createIntent(context));
                 }else {
                     startActivity(LoginActivity.createIntent(context));
                 }
@@ -207,7 +209,7 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
                 break;
             case R.id.layout_jifenguanli:
                 if (TestUtil.IsLogin()) {
-                    ((MainTabActivity)context).selectFragment(2);
+                    startActivity(MypointActivity.createIntent(context));
                 }else {
                     startActivity(LoginActivity.createIntent(context));
                 }

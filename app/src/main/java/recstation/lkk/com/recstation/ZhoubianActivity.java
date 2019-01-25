@@ -8,12 +8,15 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 import recstation.lkk.com.recstation.adapter.RecPersonAdapter;
@@ -39,6 +42,9 @@ public class ZhoubianActivity extends BaseHttpRecyclerActivity<RecPerson, Recper
     List<RecPerson> mdatalist = new ArrayList<RecPerson>();
     CompositeSubscription mCompositeSubscription = new CompositeSubscription();
     String phoneNum="";
+    String price="";
+    String type="";
+    String picturepath="";
 
     /**
      * 启动这个Activity的Intent
@@ -54,6 +60,10 @@ public class ZhoubianActivity extends BaseHttpRecyclerActivity<RecPerson, Recper
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zhoubian);
+        price = getIntent().getStringExtra("price");
+        type = getIntent().getStringExtra("type");
+        picturepath = getIntent().getStringExtra("picturepath");
+
         //功能归类分区方法，必须调用<<<<<<<<<<
         initView();
         initData();
@@ -133,7 +143,7 @@ public class ZhoubianActivity extends BaseHttpRecyclerActivity<RecPerson, Recper
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        phoneNum = mdatalist.get(position).getPHONE();
+        phoneNum = mdatalist.get(position).getMOBILE();
 
         new AlertDialog(ZhoubianActivity.this, "联系收购人员", "是否拨打电话？", true, 0, this).show();
 
@@ -173,24 +183,41 @@ public class ZhoubianActivity extends BaseHttpRecyclerActivity<RecPerson, Recper
 //        }
         //  showProgressDialog("正在核对验证码");
         Logger.e("nnnnn", "lllfzwk222");
-        Subscription subscription = HKEapiManager.getInstances().demoApi.index(URLConfig.CHECKSMS_URL)
+        Subscription subscription = HKEapiManager.getInstances().demoApi.recperson(URLConfig.RECPERSON_URL,page+"")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<String>() {
                     @Override
                     public void call(String s) {
-                        s = "[{\"NAME\":\"小张\",\"ORDER_ID\":\"1\",\"PRICE\":\"3\",\"PRICE\":\"5\",\"PHONE\":\"13831292593\",\"PICTUREPATH\":\"http://47.92.55.233:8080/hdrra/uploadFiles/uploadImgs/20190116/82b68c5920a24f8790a3922c0b496502.png\",\"CONTENT\":\"为人老实，主要收购玻璃\"}]";
+//                        s = "[{\"NAME\":\"小张\",\"ORDER_ID\":\"1\",\"PRICE\":\"3\",\"PRICE\":\"5\",\"PHONE\":\"13831292593\",\"PICTUREPATH\":\"http://47.92.55.233:8080/hdrra/uploadFiles/uploadImgs/20190116/82b68c5920a24f8790a3922c0b496502.png\",\"CONTENT\":\"为人老实，主要收购玻璃\"}]";
 
                         try {
-                            JSONArray jsonArray = new JSONArray(s);
-                            Gson gson1 = new Gson();
-                            List<RecPerson> khsllist2 = gson1.fromJson(jsonArray.toString(), new TypeToken<List<RecPerson>>() {
-                            }.getType());
-                            Logger.e("nnnnn", khsllist2.size() + "fzwk222");
+                            JSONObject jsonObject = new JSONObject(s);
+                            String code = jsonObject.getString("code");
+                            String message = jsonObject.getString("message");
+                            JSONArray jsonArray = jsonObject.getJSONArray("merchantlist");
+                            JSONObject pageObject = jsonObject.getJSONObject("page");
+                            int totalPage = Integer.parseInt(pageObject.getString("totalPage"));
+                            if ("OK".equals(code)){
+                                Gson gson1 = new Gson();
+                                List<RecPerson> khsllist2 = gson1.fromJson(jsonArray.toString(), new TypeToken<List<RecPerson>>() {
+                                }.getType());
+                                for (int i=0;i<khsllist2.size();i++){
+                                    khsllist2.get(i).setPRICE(price);
+                                    khsllist2.get(i).setPICTUREPATH(picturepath);
+                                    khsllist2.get(i).setTYPE(type);
+                                }
+                                Logger.e("nnnnn", khsllist2.size() + "fzwk222");
 
-                            onHttpResponse(-page, page >= 2 ? null : s, null);
+                                onHttpResponse(-page, page >= totalPage ? null : JSON.toJSONString(khsllist2), null);
+                            }else {
+                                showShortToast(message);
+                            }
+
+
 
                         } catch (JSONException e) {
+                            showShortToast("数据解析异常");
                             e.printStackTrace();
                         }
 
@@ -200,7 +227,7 @@ public class ZhoubianActivity extends BaseHttpRecyclerActivity<RecPerson, Recper
                     @Override
                     public void call(Throwable throwable) {
                         Logger.e("lkk", "throwable22222222222" + throwable.getLocalizedMessage());
-                        showShortToast("验证码核对异常，请稍后再试", true);
+                        showShortToast("网络异常，请稍后再试", true);
 
                     }
                 }, new Action0() {

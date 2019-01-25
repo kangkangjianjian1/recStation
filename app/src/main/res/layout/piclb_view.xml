@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ListView中的ItemView里不要用Button等默认hasFocus的控件，以免onItemClick事件无响应 -->
+<!-- 如果一定要用，则必须在根布局加上 android:descendantFocusability="blocksDescendants" -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              style="@style/ll_vertical_match_wrap"
+              android:background="@drawable/white_to_alpha">
+<LinearLayout
+              style="@style/ll_horizontal_match_wrap"
+              android:background="@drawable/white_to_alpha"
+              android:padding="4dp">
+
+    <ImageView
+        android:id="@+id/ivpiclbViewHead"
+        style="@style/content_item_rt_img"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="5dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/oval_alpha"/>
+
+    <LinearLayout
+        style="@style/ll_vertical_match_wrap"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="4dp">
+
+
+        <TextView
+            android:id="@+id/tvpiclbViewName"
+            style="@style/text_middle_black"
+            android:layout_marginRight="6dp"
+            android:gravity="left"
+            android:text="Name"/>
+
+    </LinearLayout>
+
+</LinearLayout>
+    <View style="@style/divider_horizontal_1px"/>
+</LinearLayout>

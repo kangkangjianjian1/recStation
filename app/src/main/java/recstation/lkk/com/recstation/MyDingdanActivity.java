@@ -2,7 +2,6 @@ package recstation.lkk.com.recstation;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,14 +15,13 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
-import recstation.lkk.com.recstation.adapter.AdressAdapter;
-import recstation.lkk.com.recstation.adapter.HuishouBeanAdapter;
+import recstation.lkk.com.recstation.adapter.PiclibAdapter;
 import recstation.lkk.com.recstation.model.Adress;
-import recstation.lkk.com.recstation.model.HuishouBean;
+import recstation.lkk.com.recstation.model.Piclb;
 import recstation.lkk.com.recstation.util.HKEapiManager;
 import recstation.lkk.com.recstation.util.Logger;
 import recstation.lkk.com.recstation.util.URLConfig;
-import recstation.lkk.com.recstation.view.AdressView;
+import recstation.lkk.com.recstation.view.PiclbView;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
@@ -34,32 +32,33 @@ import zuo.biao.library.base.BaseHttpRecyclerActivity;
 import zuo.biao.library.interfaces.AdapterCallBack;
 import zuo.biao.library.util.JSON;
 
-public class AdressListActivity extends BaseHttpRecyclerActivity<Adress,AdressView,AdressAdapter> {
+public class MyDingdanActivity extends BaseHttpRecyclerActivity<Piclb,PiclbView,PiclibAdapter> {
     CompositeSubscription mCompositeSubscription = new CompositeSubscription();
+    List<Piclb> mdatalist = new ArrayList<Piclb>();
 
-    List<Adress> mdatalist = new ArrayList<Adress>();
-    /**启动这个Activity的Intent
+    /**
+     * 启动这个Activity的Intent
+     *
      * @param context
      * @return
      */
     public static Intent createIntent(Context context) {
-        return new Intent(context, AdressListActivity.class);
-
+        return new Intent(context, MyDingdanActivity.class);
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_adress_list);
-
+        setContentView(R.layout.activity_my_dingdan);
         //功能归类分区方法，必须调用<<<<<<<<<<
         initView();
         initData();
         initEvent();
         //功能归类分区方法，必须调用>>>>>>>>>>
         srlBaseHttpRecycler.autoRefresh();
-    }
 
+    }
     @Override
     public void initView() {
         super.initView();
@@ -77,13 +76,13 @@ public class AdressListActivity extends BaseHttpRecyclerActivity<Adress,AdressVi
 
 
     @Override
-    public void setList(final List<Adress> list) {
+    public void setList(final List<Piclb> list) {
         mdatalist = list;
-        setList(new AdapterCallBack<AdressAdapter>() {
+        setList(new AdapterCallBack<PiclibAdapter>() {
 
             @Override
-            public AdressAdapter createAdapter() {
-                return new AdressAdapter(context);
+            public PiclibAdapter createAdapter() {
+                return new PiclibAdapter(context);
             }
 
             @Override
@@ -94,41 +93,24 @@ public class AdressListActivity extends BaseHttpRecyclerActivity<Adress,AdressVi
     }
     @Override
     public void getListAsync(int page) {
-        getRectypeData(page);
+        getDingdanData(page);
 
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        getRectypeData(0);
-
+    public List<Piclb> parseArray(String json) {
+        return JSON.parseArray(json, Piclb.class);
     }
 
-    @Override
-    public List<Adress> parseArray(String json) {
-        return JSON.parseArray(json, Adress.class);
-    }
 
-    @Override
-    public void onForwardClick(View v) {
-        super.onForwardClick(v);
-        //打开地址编辑页面
-        startActivity(AddAdressActivity.createIntent(AdressListActivity.this));
-    }
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        //打开编辑地址页面
-        Intent intent = new Intent();
+
+        Intent intent = AddAdressActivity.createIntent(MyDingdanActivity.this);
         //把返回数据存入Intent
-        String adress =mdatalist.get(position).getAdressName()+mdatalist.get(position).getRealAdress();
-        Logger.e("nnnnn",adress);
-        Logger.e("nnnnn2",mdatalist.get(position).getPhone());
-        intent.putExtra("adress", adress);
-        intent.putExtra("phone", mdatalist.get(position).getPhone());
+        String orderId =mdatalist.get(position).getORDER_ID();
+        intent.putExtra("orderId", orderId);
         //设置返回数据
-        setResult(RESULT_OK, intent);
-        finish();
 //        Intent i = AddAdressActivity.createIntent(AdressListActivity.this);
 //        i.putExtra("selectRec_rectype1",mdatalist.get(position).getRETRIEVETYPE_NAME());
 //        i.putExtra("selectRec_miaoshu1",mdatalist.get(position).getBZ());
@@ -136,20 +118,8 @@ public class AdressListActivity extends BaseHttpRecyclerActivity<Adress,AdressVi
 //        startActivity(i);
     }
 
-    @Override
-    public void onBackPressed() {
-//        super.onBackPressed();
-        Intent intent = new Intent();
-        //把返回数据存入Intent
-        String adress =mdatalist.get(0).getAdressName()+mdatalist.get(0).getRealAdress();
-        intent.putExtra("adress", adress);
-        intent.putExtra("phone", mdatalist.get(0).getPhone());
-        //设置返回数据
-        setResult(RESULT_OK, intent);
-        finish();
-    }
 
-    public void getRectypeData(final int page) {
+    public void getDingdanData(final int page) {
 //        final String username = findpwd_account_phone.getText().toString();
 //        final String appsms_id = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(),"APPSMS_ID","");
 //        final String appsms_code = findpwd_account_yzm.getText().toString();
@@ -164,9 +134,7 @@ public class AdressListActivity extends BaseHttpRecyclerActivity<Adress,AdressVi
                 .subscribe(new Action1<String>() {
                     @Override
                     public void call(String s) {
-                        s="[{\"name\":\"李小康\",\"phone\":\"13900034567\",\"adressName\":\"河北省 邯郸市 丛台区1\",\"realAdress\":\"八大胡同132号\",\"isDefault\":\"1\"},"+
-                    "{\"name\":\"李小康2\",\"phone\":\"13900034567\",\"adressName\":\"河北省 邯郸市 丛台区2\",\"realAdress\":\"八大胡同132号\",\"isDefault\":\"0\"},"+
-                   "{\"name\":\"李小康3\",\"phone\":\"13900034567\",\"adressName\":\"河北省 邯郸市 丛台区3\",\"realAdress\":\"八大胡同132号\",\"isDefault\":\"0\"}]";
+                        s="[{\"TITLE\":\"预约订单\",\"ORDER_ID\":\"13900034567\",\"PATH\":\"http://47.92.55.233:8080/hdrra/uploadFiles/uploadImgs/20190116/82b68c5920a24f8790a3922c0b496502.png\"},{\"TITLE\":\"回收订单\",\"ORDER_ID\":\"13900034567\",\"PATH\":\"http://47.92.55.233:8080/hdrra/uploadFiles/uploadImgs/20190116/82b68c5920a24f8790a3922c0b496502.png\"},{\"TITLE\":\"系统订单\",\"ORDER_ID\":\"13900034567\",\"PATH\":\"http://47.92.55.233:8080/hdrra/uploadFiles/uploadImgs/20190116/82b68c5920a24f8790a3922c0b496502.png\"}]";
                         try {
                             JSONArray jsonArray = new JSONArray(s);
                             Gson gson1 = new Gson();
@@ -206,4 +174,5 @@ public class AdressListActivity extends BaseHttpRecyclerActivity<Adress,AdressVi
         super.onDestroy();
 
     }
+
 }

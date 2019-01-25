@@ -46,7 +46,8 @@
 
     <LinearLayout
         style="@style/ll_horizontal_match_wrap"
-        android:layout_height="@dimen/topbar_height"
+        android:layout_height="50dp"
+        android:padding="5dp"
         android:background="@color/white">
 
         <LinearLayout

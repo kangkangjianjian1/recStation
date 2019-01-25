@@ -14,6 +14,8 @@ limitations under the License.*/
 
 package recstation.lkk.com.recstation.model;
 
+import java.io.Serializable;
+
 import zuo.biao.library.base.BaseModel;
 
 /**
@@ -21,7 +23,7 @@ import zuo.biao.library.base.BaseModel;
  *
  * @author Lemon
  */
-public class HuishouBean extends BaseModel {
+public class HuishouBean extends BaseModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

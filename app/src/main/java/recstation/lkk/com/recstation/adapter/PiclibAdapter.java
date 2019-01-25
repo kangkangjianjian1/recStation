@@ -17,23 +17,25 @@ package recstation.lkk.com.recstation.adapter;
 import android.app.Activity;
 import android.view.ViewGroup;
 
-import recstation.lkk.com.recstation.model.RecPerson;
-import recstation.lkk.com.recstation.view.RecpersonView;
+import recstation.lkk.com.recstation.model.HuishouBean;
+import recstation.lkk.com.recstation.model.Piclb;
+import recstation.lkk.com.recstation.view.HuishouBeanView;
+import recstation.lkk.com.recstation.view.PiclbView;
 import zuo.biao.library.base.BaseAdapter;
 
 /**用户adapter
  * @author lkk
  */
-public class RecPersonAdapter extends BaseAdapter<RecPerson, RecpersonView> {
-	//	private static final String TAG = "RecPersonAdapter";
+public class PiclibAdapter extends BaseAdapter<Piclb, PiclbView> {
+	//	private static final String TAG = "UserAdapter";
 
-	public RecPersonAdapter(Activity context) {
+	public PiclibAdapter(Activity context) {
 		super(context);
 	}
 
 	@Override
-	public RecpersonView createView(int position, ViewGroup parent) {
-		return new RecpersonView(context, parent);
+	public PiclbView createView(int position, ViewGroup parent) {
+		return new PiclbView(context, parent);
 	}
 
 	@Override

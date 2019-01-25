@@ -25,7 +25,7 @@ import com.bumptech.glide.Glide;
 
 import recstation.lkk.com.recstation.R;
 import recstation.lkk.com.recstation.model.HuishouBean;
-import recstation.lkk.com.recstation.model.RecPerson;
+import recstation.lkk.com.recstation.model.Piclb;
 import zuo.biao.library.base.BaseView;
 import zuo.biao.library.util.StringUtil;
 
@@ -43,40 +43,33 @@ import zuo.biao.library.util.StringUtil;
  * <br> userView.setOnDataChangedListener(onDataChangedListener);data = userView.getData();//非必需
  * <br> userView.setOnClickListener(onClickListener);//非必需
  */
-public class RecpersonView extends BaseView<RecPerson> {
-	private static final String TAG = "RecpersonView";
+public class PiclbView extends BaseView<Piclb> {
+	private static final String TAG = "PiclbView";
 
-	public RecpersonView(Activity context, ViewGroup parent) {
-		super(context, R.layout.recperson_view, parent);
+	public PiclbView(Activity context, ViewGroup parent) {
+		super(context, R.layout.piclb_view, parent);
 	}
 
-	public ImageView iv_recpersionViewHead;
-	public TextView tv_recperson_name;
-	public TextView tv_recperson_price;
-	public TextView tv_recperson_phone;
-	public TextView tv_recperson_content;
+	public ImageView ivpiclbViewHead;
+	public TextView tvpiclbViewName;
 	@SuppressLint("InflateParams")
 	@Override
 	public View createView() {
-		iv_recpersionViewHead = findView(R.id.iv_recpersionViewHead);
-		tv_recperson_name = findView(R.id.tv_recperson_name);
-		tv_recperson_price = findView(R.id.tv_recperson_price);
-		tv_recperson_phone = findView(R.id.tv_recperson_phone);
-		tv_recperson_content = findView(R.id.tv_recperson_content);
+		ivpiclbViewHead = findView(R.id.ivpiclbViewHead);
+
+
+		tvpiclbViewName = findView(R.id.tvpiclbViewName);
 
 		return super.createView();
 	}
 
 	@Override
-	public void bindView(RecPerson data_){
-		super.bindView(data_ != null ? data_ : new RecPerson());
+	public void bindView(Piclb data_){
+		super.bindView(data_ != null ? data_ : new Piclb());
 
-		Glide.with(context).asBitmap().load(data.getPICTUREPATH()).into(iv_recpersionViewHead);
+		Glide.with(context).asBitmap().load(data.getPATH()).into(ivpiclbViewHead);
 
-		tv_recperson_name.setText(StringUtil.getTrimedString(data.getUSERNAME()));
-		tv_recperson_price.setText(data.getPRICE()+"元/公斤");
-		tv_recperson_phone.setText(StringUtil.getNoBlankString(data.getMOBILE()));
-		tv_recperson_content.setText(StringUtil.getNoBlankString(data.getTYPE()));
+		tvpiclbViewName.setText(StringUtil.getTrimedString(data.getTITLE()));
 	}
 
 

@@ -293,8 +293,10 @@ public class FirstListGirdFragment extends BaseFragment implements View.OnClickL
 
     public void initFragmentChild(List<HuishouBean> list1,List<HuishouBean> list2,List<HuishouBean> list3) {
         rec_GirdFragment1 fragment1 = rec_GirdFragment1.createInstance(list1);
-        rec_GirdFragment2 fragment2 = rec_GirdFragment2.createInstance(list2);
-        rec_GirdFragment3 fragment3 = rec_GirdFragment3.createInstance(list3);
+        rec_GirdFragment1 fragment2 = rec_GirdFragment1.createInstance(list2);
+        rec_GirdFragment1 fragment3 = rec_GirdFragment1.createInstance(list3);
+//        rec_GirdFragment2 fragment2 = rec_GirdFragment2.createInstance(list2);
+//        rec_GirdFragment3 fragment3 = rec_GirdFragment3.createInstance(list3);
         FragmentManager fragmentManager = getChildFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.rec_FragmentContainer1, fragment1);

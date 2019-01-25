@@ -17,23 +17,25 @@ package recstation.lkk.com.recstation.adapter;
 import android.app.Activity;
 import android.view.ViewGroup;
 
-import recstation.lkk.com.recstation.model.RecPerson;
-import recstation.lkk.com.recstation.view.RecpersonView;
+import recstation.lkk.com.recstation.model.Msg;
+import recstation.lkk.com.recstation.model.Point;
+import recstation.lkk.com.recstation.view.DingdanMsgView;
+import recstation.lkk.com.recstation.view.PointView;
 import zuo.biao.library.base.BaseAdapter;
 
 /**用户adapter
  * @author lkk
  */
-public class RecPersonAdapter extends BaseAdapter<RecPerson, RecpersonView> {
-	//	private static final String TAG = "RecPersonAdapter";
+public class PointAdapter extends BaseAdapter<Point, PointView> {
+	//	private static final String TAG = "PointAdapter";
 
-	public RecPersonAdapter(Activity context) {
+	public PointAdapter(Activity context) {
 		super(context);
 	}
 
 	@Override
-	public RecpersonView createView(int position, ViewGroup parent) {
-		return new RecpersonView(context, parent);
+	public PointView createView(int position, ViewGroup parent) {
+		return new PointView(context, parent);
 	}
 
 	@Override

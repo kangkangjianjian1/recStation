@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,12 +28,32 @@ import android.view.ViewGroup;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import recstation.lkk.com.recstation.DEMO.DemoListFragment;
 import recstation.lkk.com.recstation.DEMO.DemoListGirdFragment;
 import recstation.lkk.com.recstation.R;
+import recstation.lkk.com.recstation.model.HuishouBean;
+import recstation.lkk.com.recstation.model.Notice;
+import recstation.lkk.com.recstation.model.Piclb;
+import recstation.lkk.com.recstation.model.ProductBean;
+import recstation.lkk.com.recstation.util.HKEapiManager;
+import recstation.lkk.com.recstation.util.Logger;
+import recstation.lkk.com.recstation.util.URLConfig;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 import zuo.biao.library.base.BaseFragment;
 import zuo.biao.library.ui.AlertDialog;
 import zuo.biao.library.ui.AlertDialog.OnDialogButtonClickListener;
@@ -43,7 +64,8 @@ import zuo.biao.library.ui.AlertDialog.OnDialogButtonClickListener;
  * @author Lemon
  * @use new SettingFragment(),详细使用见.DemoFragmentActivity(initData方法内)
  */
-public class CreditShopFragment extends BaseFragment implements OnClickListener, OnDialogButtonClickListener, OnTabSelectListener {
+public class CreditShopFragment extends BaseFragment implements  OnTabSelectListener {
+    CompositeSubscription mCompositeSubscription = new CompositeSubscription();
 
     private Context mContext = getActivity();
     private ArrayList<Fragment> mFragments = new ArrayList<>();
@@ -86,59 +108,14 @@ public class CreditShopFragment extends BaseFragment implements OnClickListener,
 
     @Override
     public void initView() {//必须调用
-        for (String title : mTitles1) {
-
-            switch (title) {
-                case  "生活用品":
-//                    mFragments.add( UserListFragment.createInstance(UserListFragment.RANGE_ALL));
-                    mFragments.add(pro_GirdFragment.createInstance());
-                    break;
-                case  "学习用品":
-                  mFragments.add( pro_GirdFragment.createInstance());
-//                    mFragments.add(SettingFragment.createInstance());
-                    break;
-                case "厨房用品":
-                    mFragments.add(pro_GirdFragment.createInstance());
-//                    mFragments.add(SettingFragment.createInstance());
-                    break;
-                case "电子产品":
-                    mFragments.add( pro_GirdFragment.createInstance());
-//                    mFragments.add(SettingFragment.createInstance());
-                    break;
-                default:
-                    break;
-            }
-        }
-        ViewPager vp =findView(R.id.cre_shop_vp);
-        mAdapter = new MyPagerAdapter(getChildFragmentManager());
-        vp.setAdapter(mAdapter);
-        SlidingTabLayout tabLayout = findView(R.id.cre_shop_tab);
-        tabLayout.setViewPager(vp);
-        tabLayout.setOnTabSelectListener(this);
-        vp.setCurrentItem(0);
-        vp.setOffscreenPageLimit(4);
+        getProductData();
     }
 
-
-    //UI显示区(操作UI，但不存在数据获取或处理代码，也不存在事件监听代码)>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-
-    //Data数据区(存在数据获取或处理代码，但不存在事件监听代码)<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     @Override
     public void initData() {//必须调用
     }
 
-
-    private void logout() {
-        context.finish();
-    }
-
-
-    //Data数据区(存在数据获取或处理代码，但不存在事件监听代码)>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-
-    //Event事件区(只要存在事件监听代码就是)<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     @Override
     public void initEvent() {//必须调用
@@ -146,30 +123,6 @@ public class CreditShopFragment extends BaseFragment implements OnClickListener,
 
     }
 
-
-    @Override
-    public void onDialogButtonClick(int requestCode, boolean isPositive) {
-        if (!isPositive) {
-            return;
-        }
-
-        switch (requestCode) {
-            case 0:
-                logout();
-                break;
-            default:
-                break;
-        }
-    }
-
-
-    @Override
-    public void onClick(View v) {//直接调用不会显示v被点击效果
-        switch (v.getId()) {
-            default:
-                break;
-        }
-    }
 
     @Override
     public void onTabSelect(int position) {
@@ -195,7 +148,7 @@ public class CreditShopFragment extends BaseFragment implements OnClickListener,
 
 
     //内部类,尽量少用>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    private class MyPagerAdapter extends FragmentPagerAdapter {
+    public class MyPagerAdapter extends FragmentPagerAdapter {
         public MyPagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -215,4 +168,133 @@ public class CreditShopFragment extends BaseFragment implements OnClickListener,
             return mFragments.get(position);
         }
     }
+
+
+
+
+    private void getProductData() {
+
+        Subscription subscription = HKEapiManager.getInstances().demoApi.index(URLConfig.PRODUCT_URL)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(final String s) {
+                        Logger.e("getProductData:", s);
+
+
+                        try {
+                            JSONObject jsonObject1 = new JSONObject(s);
+                            String code = jsonObject1.getString("code");
+                            if (!"OK".equals(code)) {
+                                showShortToast("网络访问出错，请稍后再试", true);
+                            } else {
+                                ProductBean productBean = new ProductBean();
+                                productBean.setMALLITEMS_ID("MALLITEMS_ID");
+                                productBean.setPOINTS("400");
+                                productBean.setORDER_ID("ORDER_ID");
+                                productBean.setPRICE("PRICE");
+                                productBean.setPICTUREPATH("http://47.92.55.233:8080/hdrra/uploadFiles/uploadImgs/20190116/82b68c5920a24f8790a3922c0b496502.png");
+                                productBean.setITEM_NAME("ITEM_NAME");
+                                JSONArray malllist = jsonObject1.getJSONArray("malllist");
+
+                                JSONArray shyplist = malllist.getJSONArray(0);
+                                JSONArray xxyplist = malllist.getJSONArray(1);
+                                JSONArray cfyplist = malllist.getJSONArray(2);
+                                JSONArray dzcplist = malllist.getJSONArray(3);
+
+                                Gson gson1 = new Gson();
+                                List<ProductBean> shyplist2 = gson1.fromJson(shyplist.toString(), new TypeToken<List<ProductBean>>() {
+                                }.getType());
+                                shyplist2.add(productBean);
+                                List<ProductBean> xxyplist2 = gson1.fromJson(xxyplist.toString(), new TypeToken<List<ProductBean>>() {
+                                }.getType());
+                                xxyplist2.add(productBean);
+                                xxyplist2.add(productBean);
+
+                                List<ProductBean> cfyplist2 = gson1.fromJson(cfyplist.toString(), new TypeToken<List<ProductBean>>() {
+                                }.getType());
+                                cfyplist2.add(productBean);
+                                cfyplist2.add(productBean);
+                                cfyplist2.add(productBean);
+                                List<ProductBean> dzcplist2 = gson1.fromJson(dzcplist.toString(), new TypeToken<List<ProductBean>>() {
+                                }.getType());
+                                dzcplist2.add(productBean);
+                                dzcplist2.add(productBean);
+                                dzcplist2.add(productBean);
+                                dzcplist2.add(productBean);
+                                initFragmentChild(shyplist2,xxyplist2,cfyplist2,dzcplist2);
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Logger.e("lkk", "e.printStackTrace");
+                        }
+                    }
+
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        Logger.e("lkk", "throwable22222222222" + throwable.getLocalizedMessage());
+                    }
+                }, new Action0() {
+                    @Override
+                    public void call() {
+//                        Logger.e("lkk", "onCompleted");
+                    }
+                });
+
+        mCompositeSubscription.add(subscription);
+
+
+    }
+
+
+    public void initFragmentChild(List<ProductBean> list1,List<ProductBean> list2,List<ProductBean> list3,List<ProductBean> list4) {
+
+        Logger.e("ssss","sdecewef");
+        for (String title : mTitles1) {
+
+            switch (title) {
+                case  "生活用品":
+//                    mFragments.add( UserListFragment.createInstance(UserListFragment.RANGE_ALL));
+                    mFragments.add(pro_GirdFragment.createInstance(list1));
+                    break;
+                case  "学习用品":
+                    mFragments.add( pro_GirdFragment.createInstance(list2));
+//                    mFragments.add(SettingFragment.createInstance());
+                    break;
+                case "厨房用品":
+                    mFragments.add(pro_GirdFragment.createInstance(list3));
+//                    mFragments.add(SettingFragment.createInstance());
+                    break;
+                case "电子产品":
+                    mFragments.add( pro_GirdFragment.createInstance(list4));
+//                    mFragments.add(SettingFragment.createInstance());
+                    break;
+                default:
+                    break;
+            }
+        }
+        ViewPager vp =findView(R.id.cre_shop_vp);
+        mAdapter = new MyPagerAdapter(getChildFragmentManager());
+        vp.setAdapter(mAdapter);
+        SlidingTabLayout tabLayout = findView(R.id.cre_shop_tab);
+        tabLayout.setViewPager(vp);
+        tabLayout.setOnTabSelectListener(this);
+        vp.setCurrentItem(0);
+        vp.setOffscreenPageLimit(4);
+
+
+    }
+
+
+
+
+    @Override
+    public void onDestroy() {
+        mCompositeSubscription.clear();
+        super.onDestroy();
+    }
+
 }

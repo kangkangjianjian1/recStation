@@ -127,14 +127,14 @@ public class GridProductAdapter extends BaseAdapter {
 		}
 
 		final ProductBean kvb = getItem(position);
-		final String name = kvb.getRETRIEVETYPE_NAME();
-		final String price = kvb.getPRICE();
+		final String name = kvb.getITEM_NAME();
+		final String price = kvb.getPOINTS();
 
 		Glide.with(context).load(kvb.getPICTUREPATH()).into(holder.ivGridItemHead);
 			holder.tvGridItemName.setVisibility(View.VISIBLE);
 			holder.tvGridItemName.setText(StringUtil.getTrimedString(name));
 			holder.tvGridItemPrice.setVisibility(View.VISIBLE);
-			holder.tvGridItemPrice.setText(StringUtil.getTrimedString(price));
+			holder.tvGridItemPrice.setText(StringUtil.getTrimedString(price)+"积分");
 
 		return convertView;
 	}

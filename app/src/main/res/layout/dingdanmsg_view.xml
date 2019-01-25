@@ -5,7 +5,7 @@
               style="@style/ll_vertical_match_wrap"
               android:layout_gravity="center"
               android:background="@color/white_alpha_6"
-              android:padding="15dp">
+              android:padding="1dp">
 
     <LinearLayout
         style="@style/ll_vertical_match_wrap"

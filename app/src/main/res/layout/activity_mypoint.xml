@@ -1,0 +1,126 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tl="http://schemas.android.com/apk/res-auto"
+             style="@style/activity_page">
+
+    <LinearLayout style="@style/ll_vertical_match_match">
+
+        <RelativeLayout style="@style/topbar_bg">
+
+            <ImageButton style="@style/topbar_return_img"/>
+
+            <TextView
+                style="@style/topbar_return_tv"
+                android:layout_marginLeft="20dp"
+                android:text="返回"
+                android:textColor="@color/black"/>
+
+            <TextView
+                style="@style/topbar_title"
+                android:layout_centerHorizontal="true"
+                android:text="我的积分"/>
+
+            <Button
+                style="@style/topbar_right_btn"
+                android:text="一键分享"
+                android:textColor="@color/black"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/black"/>
+
+        <LinearLayout
+            style="@style/ll_vertical_match_wrap"
+            android:layout_margin="15dp"
+            android:background="@color/green2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/my_point_point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="20dp"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="20dp"
+                    android:text="积分"
+                    android:textColor="@color/white"
+                    android:textSize="11sp"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:text="今日"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    />
+
+                <TextView
+                    android:id="@+id/my_point_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="2dp"
+                    android:text="+0"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/my_point_tab"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            tl:tl_indicator_color = "#999999"
+            tl:tl_indicator_gravity="BOTTOM"
+            tl:tl_indicator_style="NORMAL"
+            tl:tl_indicator_margin_left="15dp"
+            tl:tl_indicator_margin_right="15dp"
+            tl:tl_tab_space_equal="true"
+            tl:tl_textAllCaps="true"
+            tl:tl_textBold="BOTH"
+            tl:tl_textsize="13sp"
+            tl:tl_textUnselectColor="#000000"
+            tl:tl_textSelectColor="#999999"
+            />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/my_point_vp"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/white_alpha_6"
+        android:layout_height="match_parent"/>
+
+
+    </LinearLayout>
+
+
+</FrameLayout>

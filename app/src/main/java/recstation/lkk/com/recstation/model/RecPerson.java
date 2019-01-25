@@ -26,28 +26,51 @@ public class RecPerson extends BaseModel {
 
     private static final long serialVersionUID = 1L;
 
-    private String NAME; //回收类型
-    private String ORDER_ID; //顺序
+    private String USERNAME; //用户名'
+    private String MOBILE; //手机
+    private String LEGALNAME; //法人
+    private String REGISTERADDRESS; //注册地址
     private String PRICE; //价格
     private String TYPE; //类别
     private String PICTUREPATH; //图片路径
-    private String PHONE; //创建事件
-    private String CONTENT; //标题
 
-    public String getNAME() {
-        return NAME;
+    private String PUBLICACCOUNT; //公司账户
+    private String PROVINCE; //省
+    private String CITY; //市
+    private String AREA; //乡镇
+    private String LON; //经度
+    private String LAT; //纬度
+
+    public String getUSERNAME() {
+        return USERNAME;
     }
 
-    public void setNAME(String NAME) {
-        this.NAME = NAME;
+    public void setUSERNAME(String USERNAME) {
+        this.USERNAME = USERNAME;
     }
 
-    public String getORDER_ID() {
-        return ORDER_ID;
+    public String getMOBILE() {
+        return MOBILE;
     }
 
-    public void setORDER_ID(String ORDER_ID) {
-        this.ORDER_ID = ORDER_ID;
+    public void setMOBILE(String MOBILE) {
+        this.MOBILE = MOBILE;
+    }
+
+    public String getLEGALNAME() {
+        return LEGALNAME;
+    }
+
+    public void setLEGALNAME(String LEGALNAME) {
+        this.LEGALNAME = LEGALNAME;
+    }
+
+    public String getREGISTERADDRESS() {
+        return REGISTERADDRESS;
+    }
+
+    public void setREGISTERADDRESS(String REGISTERADDRESS) {
+        this.REGISTERADDRESS = REGISTERADDRESS;
     }
 
     public String getPRICE() {
@@ -74,25 +97,57 @@ public class RecPerson extends BaseModel {
         this.PICTUREPATH = PICTUREPATH;
     }
 
-    public String getPHONE() {
-        return PHONE;
+    public String getPUBLICACCOUNT() {
+        return PUBLICACCOUNT;
     }
 
-    public void setPHONE(String PHONE) {
-        this.PHONE = PHONE;
+    public void setPUBLICACCOUNT(String PUBLICACCOUNT) {
+        this.PUBLICACCOUNT = PUBLICACCOUNT;
     }
 
-    public String getCONTENT() {
-        return CONTENT;
+    public String getPROVINCE() {
+        return PROVINCE;
     }
 
-    public void setCONTENT(String CONTENT) {
-        this.CONTENT = CONTENT;
+    public void setPROVINCE(String PROVINCE) {
+        this.PROVINCE = PROVINCE;
+    }
+
+    public String getCITY() {
+        return CITY;
+    }
+
+    public void setCITY(String CITY) {
+        this.CITY = CITY;
+    }
+
+    public String getAREA() {
+        return AREA;
+    }
+
+    public void setAREA(String AREA) {
+        this.AREA = AREA;
+    }
+
+    public String getLON() {
+        return LON;
+    }
+
+    public void setLON(String LON) {
+        this.LON = LON;
+    }
+
+    public String getLAT() {
+        return LAT;
+    }
+
+    public void setLAT(String LAT) {
+        this.LAT = LAT;
     }
 
     @Override
     protected boolean isCorrect() {//根据自己的需求决定，也可以直接 return true
-        return StringUtil.isNotEmpty(NAME, true);
+        return StringUtil.isNotEmpty(USERNAME, true);
     }
 
 }

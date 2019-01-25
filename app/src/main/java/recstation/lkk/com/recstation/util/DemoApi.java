@@ -46,6 +46,10 @@ public interface DemoApi {
     @GET
     Observable<String> index(@Url String url);
 
+    @FormUrlEncoded
+    @POST
+    Observable<String> recperson(@Url String url, @Field("currentPage") String currentPage);
+
 
 
     @GET

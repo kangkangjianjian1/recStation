@@ -49,10 +49,8 @@ public class UserListFragment extends BaseHttpListFragment<User, ListView, UserA
 
 	public static UserListFragment createInstance(int range) {
 		UserListFragment fragment = new UserListFragment();
-
 		Bundle bundle = new Bundle();
 		bundle.putInt(ARGUMENT_RANGE, range);
-
 		fragment.setArguments(bundle);
 		return fragment;
 	}

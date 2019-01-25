@@ -11,6 +11,8 @@ public class URLConfig {
 	public static String SETDPWD_URL = HEAD_URL + "hdrra/appsms/resetPWD";
 	public static String CHECKSMS_URL = HEAD_URL + "hdrra/appsms/checksms";
 	public static String INDEX_URL = HEAD_URL + "hdrra/appmain/index";
+	public static String PRODUCT_URL = HEAD_URL + "hdrra/appmain/mallitems";
+	public static String RECPERSON_URL = HEAD_URL + "hdrra/appmerchant/list";
 	public static final boolean IS_DEBUG = true;
 
 

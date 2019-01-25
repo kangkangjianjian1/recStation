@@ -14,6 +14,7 @@ limitations under the License.*/
 
 package recstation.lkk.com.recstation.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -52,7 +53,7 @@ import static recstation.lkk.com.recstation.util.TestUtil.IsLogin;
  */
 public class rec_GirdFragment1 extends BaseListFragment<Entry<String, String>, GridView, GridAdapter> {
     //	private static final String TAG = "DemoListFragment";
-    public static List<HuishouBean> datalist;
+    public List<HuishouBean> datalist;
     //    TextView tv;
     public static int a = 1;
     //与Activity通信<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -63,8 +64,13 @@ public class rec_GirdFragment1 extends BaseListFragment<Entry<String, String>, G
      * @return
      */
     public static rec_GirdFragment1 createInstance(List<HuishouBean> list) {
-        datalist = list;
-        return new rec_GirdFragment1();
+        rec_GirdFragment1 fragment = new rec_GirdFragment1();
+        Bundle bundle = new Bundle();
+        ArrayList list2 = new ArrayList(); //这个list用于在budnle中传递 需要传递的ArrayList<Object>
+        list2.add(list);
+        bundle.putParcelableArrayList("list2",list2);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     //与Activity通信>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -74,7 +80,8 @@ public class rec_GirdFragment1 extends BaseListFragment<Entry<String, String>, G
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         setContentView(R.layout.rec_gird_fragment);
-
+        ArrayList list2 = getArguments().getParcelableArrayList("list2");
+        datalist= (List<HuishouBean>) list2.get(0);
         //功能归类分区方法，必须调用<<<<<<<<<<
         initView();
         initData();
@@ -93,6 +100,7 @@ public class rec_GirdFragment1 extends BaseListFragment<Entry<String, String>, G
     public void initView() {//必须在onCreateView方法内调用
         super.initView();
 //        tv = findView(R.id.gird_title);
+
     }
 
     @Override
@@ -191,7 +199,12 @@ public class rec_GirdFragment1 extends BaseListFragment<Entry<String, String>, G
 //		adapter.selectedPosition = adapter.selectedPosition == position ? -1 : position;
 //		adapter.notifyListDataSetChanged();
         if(IsLogin()){
-            toActivity(ZhoubianActivity.createIntent(context));
+            Intent i = ZhoubianActivity.createIntent(context);
+            i.putExtra("price",datalist.get(position).getPRICE());
+            i.putExtra("type",datalist.get(position).getBZ());
+            i.putExtra("picturepath",datalist.get(position).getPICTUREPATH());
+            toActivity(i);
+
         }else {
             toActivity(LoginActivity.createIntent(context));
         }

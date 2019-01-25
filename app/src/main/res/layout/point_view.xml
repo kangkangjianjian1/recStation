@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ListView中的ItemView里不要用Button等默认hasFocus的控件，以免onItemClick事件无响应 -->
+<!-- 如果一定要用，则必须在根布局加上 android:descendantFocusability="blocksDescendants" -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              style="@style/ll_vertical_match_wrap"
+              android:layout_gravity="center"
+              android:background="@color/white_alpha_6"
+              android:padding="0dp">
+
+    <LinearLayout
+        style="@style/ll_vertical_match_wrap"
+        android:background="@color/white"
+        android:padding="8dp"
+        >
+
+    <LinearLayout
+        style="@style/ll_horizontal_match_match"
+        android:layout_marginTop="10dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_point_view_content"
+            style="@style/text_small"
+            android:layout_marginLeft="10dp"
+            android:gravity="left"
+            android:text="第一次签到赠送三积分。"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tv_point_view_num"
+            style="@style/text_small"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="10dp"
+            android:gravity="right"
+            android:text="+3"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+        <TextView
+            android:id="@+id/tv_point_view_time"
+            style="@style/text_micro"
+            android:layout_width="wrap_content"
+            android:layout_gravity="right"
+            android:layout_height="18dp"
+            android:text="2018-11-11 12:08:09"
+            android:textColor="@color/gray_1"/>
+    </LinearLayout>
+</LinearLayout>
