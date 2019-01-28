@@ -16,6 +16,7 @@ package recstation.lkk.com.recstation.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.RemoteCallbackList;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -34,6 +35,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -78,6 +80,7 @@ import static zuo.biao.library.util.CommonUtil.toActivity;
 public class FirstListGirdFragment extends BaseFragment implements View.OnClickListener {
     //	private static final String TAG = "DemoListFragment";
     CompositeSubscription mCompositeSubscription = new CompositeSubscription();
+    List<HuishouBean> all = new ArrayList<HuishouBean>();
    NoticeView first_noticeview;
     SliderLayout mSlider;
     Button btn_yuyue, btn_zhoubian;
@@ -167,7 +170,9 @@ public class FirstListGirdFragment extends BaseFragment implements View.OnClickL
               //  btn_zhoubian.setBackgroundResource(R.drawable.btn_big_selector2);
                 if(IsLogin()){
 //                    btn_yuyue.setBackgroundResource(R.drawable.btn_big_selector);
-                    startActivity(RecdetailActivity.createIntent(context));
+                    Intent i = RecdetailActivity.createIntent(context);
+                    i.putExtra("alllist", (Serializable) all);
+                    startActivity(i);
                 }else {
                     toActivity(LoginActivity.createIntent(context));
                 }
@@ -292,6 +297,9 @@ public class FirstListGirdFragment extends BaseFragment implements View.OnClickL
     }
 
     public void initFragmentChild(List<HuishouBean> list1,List<HuishouBean> list2,List<HuishouBean> list3) {
+        all.addAll(list1);
+        all.addAll(list2);
+        all.addAll(list3);
         rec_GirdFragment1 fragment1 = rec_GirdFragment1.createInstance(list1);
         rec_GirdFragment1 fragment2 = rec_GirdFragment1.createInstance(list2);
         rec_GirdFragment1 fragment3 = rec_GirdFragment1.createInstance(list3);
