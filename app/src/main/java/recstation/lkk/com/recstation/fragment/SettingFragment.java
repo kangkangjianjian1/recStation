@@ -14,6 +14,7 @@ limitations under the License.*/
 
 package recstation.lkk.com.recstation.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,20 +23,29 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
+
+import recstation.lkk.com.recstation.DingdanDetailActivity;
 import recstation.lkk.com.recstation.LoginActivity;
 import recstation.lkk.com.recstation.MainTabActivity;
 import recstation.lkk.com.recstation.MyDingdanActivity;
 import recstation.lkk.com.recstation.MypointActivity;
 import recstation.lkk.com.recstation.R;
+import recstation.lkk.com.recstation.util.Logger;
 import recstation.lkk.com.recstation.util.TestUtil;
 import zuo.biao.library.base.BaseBottomTabActivity;
 import zuo.biao.library.base.BaseFragment;
 import zuo.biao.library.manager.SystemBarTintManager;
 import zuo.biao.library.ui.AlertDialog;
 import zuo.biao.library.ui.AlertDialog.OnDialogButtonClickListener;
+import zuo.biao.library.ui.CutPictureActivity;
+import zuo.biao.library.ui.SelectPictureActivity;
+import zuo.biao.library.util.DataKeeper;
+import zuo.biao.library.util.StringUtil;
 
 /**
  * 设置fragment
@@ -56,7 +66,11 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
     LinearLayout layout_shimingrenzheng;
     LinearLayout layout_xitongshezhi;
     LinearLayout layout_yijianpankui;
+    ScrollView setting_scrollview;
     //与Activity通信<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    private static final int REQUEST_TO_SELECT_PICTURE = 20;
+    private static final int REQUEST_TO_CUT_PICTURE = 21;
+    private String picturePath;
 
     /**
      * 创建一个Fragment实例
@@ -92,6 +106,7 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
     public void initView() {//必须调用
 
 
+        setting_scrollview = findView(R.id.setting_scrollview, this);
         setting_ivHead = findView(R.id.setting_ivSettingHead, this);
         setting_tv_user_name = findView(R.id.setting_tv_user_name, this);
         setting_img_btn_sign = findView(R.id.setting_img_btn_sign, this);
@@ -163,9 +178,12 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
     public void onClick(View v) {//直接调用不会显示v被点击效果
         switch (v.getId()) {
             case R.id.setting_ivSettingHead:
-                showShortToast("onClick  ivSettingHead");
-
-                startActivity(LoginActivity.createIntent(context));
+                if (TestUtil.IsLogin()) {
+                    selectPicture();
+                    //发送签到消息到后台
+                } else {
+                    startActivity(LoginActivity.createIntent(context));
+                }
                 break;
             case R.id.setting_tv_user_name:
                 showShortToast("onClick  setting_tv_user_name");
@@ -178,7 +196,7 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
                     setting_img_btn_sign.setImageResource(R.drawable.qiandao_n);
                     setting_img_btn_sign.setClickable(false);
                     //发送签到消息到后台
-                }else {
+                } else {
                     startActivity(LoginActivity.createIntent(context));
                 }
                 //	toActivity(SettingActivity.createIntent(context));
@@ -186,15 +204,15 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
             case R.id.setting_ll_jifen:
                 if (TestUtil.IsLogin()) {
                     startActivity(MypointActivity.createIntent(context));
-                }else {
+                } else {
                     startActivity(LoginActivity.createIntent(context));
                 }
                 //	toActivity(SettingActivity.createIntent(context));
                 break;
             case R.id.setting_ll_lvxin:
                 if (TestUtil.IsLogin()) {
-                    ((MainTabActivity)context).selectFragment(2);
-                }else {
+                    ((MainTabActivity) context).selectFragment(2);
+                } else {
                     startActivity(LoginActivity.createIntent(context));
                 }
                 //	toActivity(SettingActivity.createIntent(context));
@@ -202,7 +220,7 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
             case R.id.layout_dingdianguanli:
                 if (TestUtil.IsLogin()) {
                     startActivity(MyDingdanActivity.createIntent(context));
-                }else {
+                } else {
                     startActivity(LoginActivity.createIntent(context));
                 }
                 //	toActivity(SettingActivity.createIntent(context));
@@ -210,39 +228,39 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
             case R.id.layout_jifenguanli:
                 if (TestUtil.IsLogin()) {
                     startActivity(MypointActivity.createIntent(context));
-                }else {
+                } else {
                     startActivity(LoginActivity.createIntent(context));
                 }
                 //	toActivity(SettingActivity.createIntent(context));
                 break;
             case R.id.layout_shangpinduihuan:
                 if (TestUtil.IsLogin()) {
-                    ((MainTabActivity)context).selectFragment(2);
-                }else {
+                    ((MainTabActivity) context).selectFragment(2);
+                } else {
                     startActivity(LoginActivity.createIntent(context));
                 }
                 //	toActivity(SettingActivity.createIntent(context));
                 break;
             case R.id.layout_shimingrenzheng:
                 if (TestUtil.IsLogin()) {
-                    ((MainTabActivity)context).selectFragment(2);
-                }else {
+                    ((MainTabActivity) context).selectFragment(2);
+                } else {
                     startActivity(LoginActivity.createIntent(context));
                 }
                 //	toActivity(SettingActivity.createIntent(context));
                 break;
             case R.id.layout_xitongshezhi:
                 if (TestUtil.IsLogin()) {
-                    ((MainTabActivity)context).selectFragment(2);
-                }else {
+                    ((MainTabActivity) context).selectFragment(2);
+                } else {
                     startActivity(LoginActivity.createIntent(context));
                 }
                 //	toActivity(SettingActivity.createIntent(context));
                 break;
             case R.id.layout_yijianpankui:
                 if (TestUtil.IsLogin()) {
-                    ((MainTabActivity)context).selectFragment(2);
-                }else {
+                    ((MainTabActivity) context).selectFragment(2);
+                } else {
                     startActivity(LoginActivity.createIntent(context));
                 }
                 //	toActivity(SettingActivity.createIntent(context));
@@ -268,8 +286,65 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
 
     //Event事件区(只要存在事件监听代码就是)>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-
+    private void selectPicture() {
+        toActivity(SelectPictureActivity.createIntent(context), REQUEST_TO_SELECT_PICTURE, false);
+    }
     //内部类,尽量少用<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+        switch (requestCode) {
+            case REQUEST_TO_SELECT_PICTURE:
+                if (data != null) {
+                    cutPicture(data.getStringExtra(SelectPictureActivity.RESULT_PICTURE_PATH));
+                }
+                break;
+            case REQUEST_TO_CUT_PICTURE:
+                if (data != null) {
+                    setPicture(data.getStringExtra(CutPictureActivity.RESULT_PICTURE_PATH));
+                }
+                break;
+
+        }
+    }
+
+    /**
+     * 裁剪图片
+     *
+     * @param path
+     */
+    private void cutPicture(String path) {
+        if (StringUtil.isFilePath(path) == false) {
+            showShortToast("找不到图片");
+            return;
+        }
+        this.picturePath = path;
+
+        toActivity(CutPictureActivity.createIntent(context, path
+                , DataKeeper.imagePath, "photo" + System.currentTimeMillis(), 200)
+                , REQUEST_TO_CUT_PICTURE);
+    }
+
+    /**
+     * 显示图片
+     *
+     * @param path
+     */
+    private void setPicture(String path) {
+        if (StringUtil.isFilePath(path) == false) {
+            showShortToast("找不到图片");
+            return;
+        }
+        this.picturePath = path;
+
+        setting_scrollview.smoothScrollTo(0, 0);
+        Logger.e("cccccnnnnnn", path);
+        Glide.with(context).load(path).into(setting_ivHead);
+    }
 
 
     //内部类,尽量少用>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

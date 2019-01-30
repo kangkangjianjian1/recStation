@@ -25,23 +25,23 @@ public interface DemoApi {
 
     @FormUrlEncoded
     @POST
-    Observable<String> login(@Url String url, @Field("USERNAME") String userName,@Field("PASSWORD") String password);
+    Observable<String> login(@Url String url, @Field("USERNAME") String userName, @Field("PASSWORD") String password);
 
     @FormUrlEncoded
     @POST
-    Observable<String> getyzm(@Url String url, @Field("phoneNumbers") String phoneNumbers,@Field("templateCode") String templateCode);
-
-     @FormUrlEncoded
-    @POST
-    Observable<String> register(@Url String url, @Field("USERNAME") String USERNAME,@Field("PASSWORD") String PASSWORD,@Field("APPSMS_ID") String APPSMS_ID,@Field("APPSMS_CODE") String APPSMS_CODE);
+    Observable<String> getyzm(@Url String url, @Field("phoneNumbers") String phoneNumbers, @Field("templateCode") String templateCode);
 
     @FormUrlEncoded
     @POST
-    Observable<String> setpwd(@Url String url, @Field("USERNAME") String USERNAME,@Field("PASSWORD") String PASSWORD,@Field("APPSMS_ID") String APPSMS_ID,@Field("APPSMS_CODE") String APPSMS_CODE);
+    Observable<String> register(@Url String url, @Field("USERNAME") String USERNAME, @Field("PASSWORD") String PASSWORD, @Field("APPSMS_ID") String APPSMS_ID, @Field("APPSMS_CODE") String APPSMS_CODE);
 
     @FormUrlEncoded
     @POST
-    Observable<String> checksms(@Url String url, @Field("USERNAME") String USERNAME,@Field("APPSMS_ID") String APPSMS_ID,@Field("APPSMS_CODE") String APPSMS_CODE);
+    Observable<String> setpwd(@Url String url, @Field("USERNAME") String USERNAME, @Field("PASSWORD") String PASSWORD, @Field("APPSMS_ID") String APPSMS_ID, @Field("APPSMS_CODE") String APPSMS_CODE);
+
+    @FormUrlEncoded
+    @POST
+    Observable<String> checksms(@Url String url, @Field("USERNAME") String USERNAME, @Field("APPSMS_ID") String APPSMS_ID, @Field("APPSMS_CODE") String APPSMS_CODE);
 
     @GET
     Observable<String> index(@Url String url);
@@ -50,19 +50,35 @@ public interface DemoApi {
     @POST
     Observable<String> recperson(@Url String url, @Field("currentPage") String currentPage);
 
+    @FormUrlEncoded
+    @POST
+    Observable<String> querydingdan(@Url String url, @Field("currentPage") String currentPage, @Field("USERNAME") String USERNAME, @Field("STATUS") String STATUS, @Field("SUSERNAME") String SUSERNAME, @Field("PROVINCE") String PROVINCE, @Field("CITY") String CITY, @Field("AREA") String AREA);
+
+    @FormUrlEncoded
+    @POST
+    Observable<String> findAdress(@Url String url, @Field("USERNAME") String USERNAME);
+
+
+    @FormUrlEncoded
+    @POST
+    Observable<String> addAdress(@Url String url, @Field("USERNAME") String USERNAME,@Field("NAME") String NAME,@Field("MOBILE") String MOBILE,@Field("PROVINCE") String PROVINCE,@Field("CITY") String CITY,@Field("AREA") String AREA,@Field("ADDRESS") String ADDRESS);
+    @FormUrlEncoded
+    @POST
+    Observable<String> editAdress(@Url String url, @Field("USERADDRESS_ID") String USERADDRESS_ID, @Field("USERNAME") String USERNAME,@Field("NAME") String NAME,@Field("MOBILE") String MOBILE,@Field("PROVINCE") String PROVINCE,@Field("CITY") String CITY,@Field("AREA") String AREA,@Field("ADDRESS") String ADDRESS);
 
 
     @GET
-    Observable<String> sign1(@Url String url, @Query("RsaCode") String originText, @HeaderMap Map<String,String> headers);
+    Observable<String> sign1(@Url String url, @Query("RsaCode") String originText, @HeaderMap Map<String, String> headers);
 
 
     @FormUrlEncoded
     @POST
+    Observable<String> update(@Url String url, @Field("RsaCode") String versinfoType, @HeaderMap Map<String, String> headers);
 
-    Observable<String> update(@Url String url, @Field("RsaCode") String versinfoType,@HeaderMap Map<String,String> headers);
     @FormUrlEncoded
     @POST
     Observable<ResponseBody> updateAdvertisement(@Url String url, @Field("RsaCode") String Type);
+
     @GET
     Observable<ResponseBody> downloadAdvertisement(@Url String url);
 
@@ -80,6 +96,7 @@ public interface DemoApi {
     @FormUrlEncoded
     @POST
     Observable<String> updateResID(@Url String url, @Field("RsaCode") String rsaCode);
+
     @POST
     Observable<String> delMsgContent(@Url String url);
 }

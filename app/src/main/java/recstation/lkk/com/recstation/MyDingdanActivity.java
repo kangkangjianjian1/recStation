@@ -106,10 +106,12 @@ public class MyDingdanActivity extends BaseHttpRecyclerActivity<Piclb,PiclbView,
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        Intent intent = AddAdressActivity.createIntent(MyDingdanActivity.this);
+        Logger.e("pppp","pppp");
+        Intent intent = DingdanDetailActivity.createIntent(MyDingdanActivity.this);
+        startActivity(intent);
         //把返回数据存入Intent
-        String orderId =mdatalist.get(position).getORDER_ID();
-        intent.putExtra("orderId", orderId);
+//        String orderId =mdatalist.get(position).getORDER_ID();
+//        intent.putExtra("orderId", orderId);
         //设置返回数据
 //        Intent i = AddAdressActivity.createIntent(AdressListActivity.this);
 //        i.putExtra("selectRec_rectype1",mdatalist.get(position).getRETRIEVETYPE_NAME());

@@ -83,11 +83,11 @@ public class AdressView extends BaseView<Adress> implements OnClickListener {
 	public void bindView(Adress data_){
 		super.bindView(data_ != null ? data_ : new Adress());
 
-		tv_adressview_adress_name.setText(data.getAdressName());
-		tv_adressview_isdefault.setBackgroundColor(getColor(data.getIsDefault().equals("1") ? R.color.green2 : R.color.gray_1));
+		tv_adressview_adress_name.setText(data.getPROVINCE()+data.getCITY()+data.getAREA()+data.getADDRESS());
+		tv_adressview_isdefault.setBackgroundColor(getColor(data.getDEFT().equals("1") ? R.color.green2 : R.color.gray_1));
 
-		tv_adressview_phone.setText(":"+StringUtil.getTrimedString(data.getPhone()));
-		tv_adressview_name.setText(data.getName());
+		tv_adressview_phone.setText(":"+StringUtil.getTrimedString(data.getMOBILE()));
+		tv_adressview_name.setText(data.getNAME());
 	}
 
 	@Override
@@ -99,12 +99,12 @@ public class AdressView extends BaseView<Adress> implements OnClickListener {
 		case R.id.ll_adressview_edit:
 
 			Intent i = AddAdressActivity.createIntent(context);
-			i.putExtra("name",data.getName());
-			i.putExtra("phone",data.getPhone());
-			i.putExtra("adressName",data.getAdressName());
-			i.putExtra("realAdress",data.getRealAdress());
-			i.putExtra("isDefault",data.getIsDefault());
-			i.putExtra("id","110");
+			i.putExtra("name",data.getNAME());
+			i.putExtra("phone",data.getMOBILE());
+			i.putExtra("adressName",data.getPROVINCE()+data.getCITY()+data.getAREA());
+			i.putExtra("realAdress",data.getADDRESS());
+			i.putExtra("isDefault",data.getDEFT());
+			i.putExtra("id",data.getUSERADDRESS_ID());
 			context.startActivity(i);
 			//toActivity(WebViewActivity.createIntent(context, data.getName(), data.getHead()));
 			break;

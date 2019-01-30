@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ListView中的ItemView里不要用Button等默认hasFocus的控件，以免onItemClick事件无响应 -->
+<!-- 如果一定要用，则必须在根布局加上 android:descendantFocusability="blocksDescendants" -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ll_horizontal_match_wrap"
+    android:background="@drawable/white_to_alpha"
+    android:padding="4dp" >
+
+    <ImageView
+        android:id="@+id/iv_dingdanbeanview_Head"
+        style="@style/img_fitXY"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/oval_alpha" />
+
+    <LinearLayout
+        style="@style/ll_vertical_match_wrap"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="4dp" >
+
+        <LinearLayout style="@style/ll_horizontal_match_wrap" >
+
+            <LinearLayout
+                style="@style/ll_horizontal_match_wrap"
+                android:layout_weight="1" >
+
+                <TextView
+                    style="@style/text_middle_black"
+                    android:layout_marginRight="6dp"
+                    android:gravity="left"
+                    android:text="回收分类" />
+
+                <TextView
+                    android:id="@+id/tv_dingdanbeanview_fenlei"
+                    style="@style/text_middle_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="金属"
+                   />
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout style="@style/ll_horizontal_match_wrap" >
+
+            <LinearLayout
+                style="@style/ll_horizontal_match_wrap"
+                android:layout_weight="1" >
+
+                <TextView
+                    style="@style/text_micro_black"
+                    android:layout_marginRight="6dp"
+                    android:textColor="@color/gray_1"
+                    android:gravity="left"
+                    android:text="预约时间:" />
+
+                <TextView
+                    android:id="@+id/tv_dingdanbeanview_time"
+                    style="@style/text_micro_black"
+                    android:textColor="@color/gray_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2019-12-12 12:12:33:33"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout style="@style/ll_horizontal_match_wrap" >
+
+            <LinearLayout
+                style="@style/ll_horizontal_match_wrap"
+                android:layout_weight="1" >
+
+                <TextView
+                    style="@style/text_micro_black"
+                    android:layout_marginRight="6dp"
+                    android:textColor="@color/gray_1"
+                    android:gravity="left"
+                    android:text="服务地址:" />
+
+                <TextView
+                    android:id="@+id/tv_dingdanbeanview_adress"
+                    style="@style/text_micro_black"
+                    android:textColor="@color/gray_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="北京市北京市东城区1023号。"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_dingdanbeanview_status"
+            style="@style/text_small"
+            android:text="待分配" />
+    </LinearLayout>
+
+</LinearLayout>

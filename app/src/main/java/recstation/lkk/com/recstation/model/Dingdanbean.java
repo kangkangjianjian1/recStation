@@ -15,30 +15,33 @@ limitations under the License.*/
 package recstation.lkk.com.recstation.model;
 
 import zuo.biao.library.base.BaseModel;
+import zuo.biao.library.util.StringUtil;
 
 /**用户类
  * @author Lemon
  */
-public class Adress extends BaseModel {
+public class Dingdanbean extends BaseModel {
 
 	private static final long serialVersionUID = 1L;
 
-	private String USERADDRESS_ID; //id
 	private String USERNAME; //用户名
-	private String NAME; //地址用户
+	private String RETRIEVEORDER_ID; //ID
+	private String RETRIEVETYPE_NAME; //回收类型
 	private String PROVINCE; //省
-	private String MOBILE; //电话
-	private String CITY; //市
-	private String AREA; //区
+	private String CITY; //市区
+	private String AREA; //县
+	private String STATUS; //状态
 	private String ADDRESS; //地址
-	private String DEFT; //是否默认
+	private String MOBILE; //电话
+	private String YDATE; //日期
+	private String YTIME; //时间
 
-	public String getUSERADDRESS_ID() {
-		return USERADDRESS_ID;
+	public String getSTATUS() {
+		return STATUS;
 	}
 
-	public void setUSERADDRESS_ID(String USERADDRESS_ID) {
-		this.USERADDRESS_ID = USERADDRESS_ID;
+	public void setSTATUS(String STATUS) {
+		this.STATUS = STATUS;
 	}
 
 	public String getUSERNAME() {
@@ -49,12 +52,20 @@ public class Adress extends BaseModel {
 		this.USERNAME = USERNAME;
 	}
 
-	public String getNAME() {
-		return NAME;
+	public String getRETRIEVEORDER_ID() {
+		return RETRIEVEORDER_ID;
 	}
 
-	public void setNAME(String NAME) {
-		this.NAME = NAME;
+	public void setRETRIEVEORDER_ID(String RETRIEVEORDER_ID) {
+		this.RETRIEVEORDER_ID = RETRIEVEORDER_ID;
+	}
+
+	public String getRETRIEVETYPE_NAME() {
+		return RETRIEVETYPE_NAME;
+	}
+
+	public void setRETRIEVETYPE_NAME(String RETRIEVETYPE_NAME) {
+		this.RETRIEVETYPE_NAME = RETRIEVETYPE_NAME;
 	}
 
 	public String getPROVINCE() {
@@ -63,14 +74,6 @@ public class Adress extends BaseModel {
 
 	public void setPROVINCE(String PROVINCE) {
 		this.PROVINCE = PROVINCE;
-	}
-
-	public String getMOBILE() {
-		return MOBILE;
-	}
-
-	public void setMOBILE(String MOBILE) {
-		this.MOBILE = MOBILE;
 	}
 
 	public String getCITY() {
@@ -97,17 +100,33 @@ public class Adress extends BaseModel {
 		this.ADDRESS = ADDRESS;
 	}
 
-	public String getDEFT() {
-		return DEFT;
+	public String getMOBILE() {
+		return MOBILE;
 	}
 
-	public void setDEFT(String DEFT) {
-		this.DEFT = DEFT;
+	public void setMOBILE(String MOBILE) {
+		this.MOBILE = MOBILE;
+	}
+
+	public String getYDATE() {
+		return YDATE;
+	}
+
+	public void setYDATE(String YDATE) {
+		this.YDATE = YDATE;
+	}
+
+	public String getYTIME() {
+		return YTIME;
+	}
+
+	public void setYTIME(String YTIME) {
+		this.YTIME = YTIME;
 	}
 
 	@Override
 	protected boolean isCorrect() {//根据自己的需求决定，也可以直接 return true
-		return !"".equals(NAME);// && StringUtil.isNotEmpty(phone, true);
+		return StringUtil.isNotEmpty(USERNAME, true);
 	}
 
 }

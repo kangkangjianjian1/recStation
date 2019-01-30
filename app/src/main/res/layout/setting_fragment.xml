@@ -3,6 +3,7 @@
               style="@style/activity_page">
 
     <ScrollView
+        android:id="@+id/setting_scrollview"
         style="@style/ll_vertical_match_match"
         android:layout_weight="1">
 

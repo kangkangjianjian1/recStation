@@ -20,28 +20,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import recstation.lkk.com.recstation.adapter.DingdanAdapter;
 import recstation.lkk.com.recstation.adapter.DingdanMsgAdapter;
-import recstation.lkk.com.recstation.model.HuishouBean;
+import recstation.lkk.com.recstation.model.Dingdanbean;
 import recstation.lkk.com.recstation.model.Msg;
 import recstation.lkk.com.recstation.util.HKEapiManager;
-import recstation.lkk.com.recstation.util.HttpRequest;
 import recstation.lkk.com.recstation.util.Logger;
 import recstation.lkk.com.recstation.util.URLConfig;
 import recstation.lkk.com.recstation.view.DingdanMsgView;
+import recstation.lkk.com.recstation.view.DingdanView;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 import zuo.biao.library.base.BaseHttpRecyclerFragment;
 import zuo.biao.library.interfaces.AdapterCallBack;
 import zuo.biao.library.util.JSON;
@@ -54,14 +50,18 @@ import zuo.biao.library.util.JSON;
  * @must 查看 .HttpManager 中的@must和@warn
  * 查看 .SettingUtil 中的@must和@warn
  */
-public class DingdanMsgRecyclerFragment extends BaseHttpRecyclerFragment<Msg, DingdanMsgView, DingdanMsgAdapter> {
+public class DingdanDetailFragment extends BaseHttpRecyclerFragment<Dingdanbean, DingdanView, DingdanAdapter> {
     //	private static final String TAG = "UserListFragment";
+    CompositeSubscription mCompositeSubscription = new CompositeSubscription();
 
+    String status;
     //与Activity通信<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-    public static DingdanMsgRecyclerFragment createInstance() {
-        DingdanMsgRecyclerFragment fragment = new DingdanMsgRecyclerFragment();
-
+    public static DingdanDetailFragment createInstance(String status) {
+        DingdanDetailFragment fragment = new DingdanDetailFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("status", status);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -70,6 +70,7 @@ public class DingdanMsgRecyclerFragment extends BaseHttpRecyclerFragment<Msg, Di
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+        status = getArguments().getString("status");
         //功能归类分区方法，必须调用<<<<<<<<<<
         initView();
         initData();
@@ -91,12 +92,12 @@ public class DingdanMsgRecyclerFragment extends BaseHttpRecyclerFragment<Msg, Di
     }
 
     @Override
-    public void setList(final List<Msg> list) {
-        setList(new AdapterCallBack<DingdanMsgAdapter>() {
+    public void setList(final List<Dingdanbean> list) {
+        setList(new AdapterCallBack<DingdanAdapter>() {
 
             @Override
-            public DingdanMsgAdapter createAdapter() {
-                return new DingdanMsgAdapter(context);
+            public DingdanAdapter createAdapter() {
+                return new DingdanAdapter(context);
             }
 
             @Override
@@ -121,18 +122,18 @@ public class DingdanMsgRecyclerFragment extends BaseHttpRecyclerFragment<Msg, Di
     @Override
     public void getListAsync(final int page) {
         //实际使用时用这个，需要配置服务器地址		HttpRequest.getUserList(range, page, -page, this);
-        getDingdanMsgData(page);
+        getDingdanData(page,status);
     }
 
     @Override
-    public List<Msg> parseArray(String json) {
-        return JSON.parseArray(json, Msg.class);
+    public List<Dingdanbean> parseArray(String json) {
+        return JSON.parseArray(json, Dingdanbean.class);
     }
 
     //Data数据区(存在数据获取或处理代码，但不存在事件监听代码)>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
-    public void getDingdanMsgData(final int page) {
+    public void getDingdanData(final int page, final String status) {
 //        final String username = findpwd_account_phone.getText().toString();
 //        final String appsms_id = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(),"APPSMS_ID","");
 //        final String appsms_code = findpwd_account_yzm.getText().toString();
@@ -147,23 +148,35 @@ public class DingdanMsgRecyclerFragment extends BaseHttpRecyclerFragment<Msg, Di
                     @Override
                     public void call(String s) {
 
-                        s = "[{\"msgType\":\"消息类型\",\"title\":\"消息标题\",\"preMsg\":\"消息摘要\",\"time\":\"2018_12_12 08:00:09\",\"proMsg\":\"消息内容详细信息\"},{\"msgType\":\"消息类型\",\"title\":\"消息标题\",\"preMsg\":\"消息摘要\",\"time\":\"2018_12_12 08:00:09\",\"proMsg\":\"消息内容详细信息\"}，{\"msgType\":\"消息类型\",\"title\":\"消息标题\",\"preMsg\":\"消息摘要\",\"time\":\"2018_12_12 08:00:09\",\"proMsg\":\"消息内容详细信息\"}，{\"msgType\":\"消息类型\",\"title\":\"消息标题\",\"preMsg\":\"消息摘要\",\"time\":\"2018_12_12 08:00:09\",\"proMsg\":\"消息内容详细信息\"}]";
-                        Msg msg = new Msg();
-                        msg.setMsgType("订单消息类型");
-                        msg.setTime("2018_12_12_08:00:09");
-                        msg.setTitle("订单消息标题");
-                        msg.setPreMsg("订单消息摘要");
-                        msg.setProMsg("订单消息内容详细信息");
+//                        s = "[{\"msgType\":\"消息类型\",\"title\":\"消息标题\",\"preMsg\":\"消息摘要\",\"time\":\"2018_12_12 08:00:09\",\"proMsg\":\"消息内容详细信息\"},{\"msgType\":\"消息类型\",\"title\":\"消息标题\",\"preMsg\":\"消息摘要\",\"time\":\"2018_12_12 08:00:09\",\"proMsg\":\"消息内容详细信息\"}，{\"msgType\":\"消息类型\",\"title\":\"消息标题\",\"preMsg\":\"消息摘要\",\"time\":\"2018_12_12 08:00:09\",\"proMsg\":\"消息内容详细信息\"}，{\"msgType\":\"消息类型\",\"title\":\"消息标题\",\"preMsg\":\"消息摘要\",\"time\":\"2018_12_12 08:00:09\",\"proMsg\":\"消息内容详细信息\"}]";
+                        Dingdanbean dingdanbean = new Dingdanbean();
+                        dingdanbean.setRETRIEVETYPE_NAME("订单类型");
+                        dingdanbean.setPROVINCE("河北省");
+                        dingdanbean.setCITY("邯郸市");
+                        dingdanbean.setAREA("邯山区");
+                        dingdanbean.setADDRESS("和平小区8栋403");
+                        dingdanbean.setYDATE("2019-01-30");
+                        dingdanbean.setYTIME("23:00:09");
 //						try {
 //							JSONArray jsonArray = new JSONArray(s);
 //							Gson gson1 = new Gson();
 //							List<Msg> khsllist2 = gson1.fromJson(jsonArray.toString(), new TypeToken<List<Msg>>() {
 //							}.getType());
-                        List<Msg> khsllist2 = new ArrayList<Msg>();
-                        khsllist2.add(msg);
-                        khsllist2.add(msg);
-                        khsllist2.add(msg);
-                        Logger.e("nnnnn", khsllist2.size() + "fzwk");
+                        List<Dingdanbean> khsllist2 = new ArrayList<Dingdanbean>();
+                        if (status.equals("1")){
+                            khsllist2.add(dingdanbean);
+                        }else if (status.equals("2")){
+                            khsllist2.add(dingdanbean);
+                            khsllist2.add(dingdanbean);
+                        }else if (status.equals("3")){
+                            khsllist2.add(dingdanbean);
+                            khsllist2.add(dingdanbean);
+                            khsllist2.add(dingdanbean);
+                        }else {
+                            khsllist2.add(dingdanbean);
+                        khsllist2.add(dingdanbean);
+                        khsllist2.add(dingdanbean);
+                        khsllist2.add(dingdanbean);}
 
                         onHttpResponse(-page, page >= 2 ? null : JSON.toJSONString(khsllist2), null);
                         Logger.e("nnnnn", khsllist2.size() + "fzwk");
@@ -180,7 +193,7 @@ public class DingdanMsgRecyclerFragment extends BaseHttpRecyclerFragment<Msg, Di
                     @Override
                     public void call(Throwable throwable) {
                         Logger.e("lkk", "throwable22222222222" + throwable.getLocalizedMessage());
-                        showShortToast("验证码核对异常，请稍后再试", true);
+                        showShortToast("网络异常，请稍后再试", true);
 
                     }
                 }, new Action0() {
@@ -189,7 +202,7 @@ public class DingdanMsgRecyclerFragment extends BaseHttpRecyclerFragment<Msg, Di
 //                        Logger.e("lkk", "onCompleted");
                     }
                 });
-
+        mCompositeSubscription.add(subscription);
 
     }
 
@@ -227,4 +240,9 @@ public class DingdanMsgRecyclerFragment extends BaseHttpRecyclerFragment<Msg, Di
     //内部类,尽量少用>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
+    @Override
+    public void onDestroy() {
+        mCompositeSubscription.clear();
+        super.onDestroy();
+    }
 }

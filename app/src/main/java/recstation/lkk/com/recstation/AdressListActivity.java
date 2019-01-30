@@ -12,12 +12,14 @@ import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import recstation.lkk.com.recstation.adapter.AdressAdapter;
 import recstation.lkk.com.recstation.adapter.HuishouBeanAdapter;
+import recstation.lkk.com.recstation.application.DemoApplication;
 import recstation.lkk.com.recstation.model.Adress;
 import recstation.lkk.com.recstation.model.HuishouBean;
 import recstation.lkk.com.recstation.util.HKEapiManager;
@@ -121,11 +123,12 @@ public class AdressListActivity extends BaseHttpRecyclerActivity<Adress,AdressVi
         //打开编辑地址页面
         Intent intent = new Intent();
         //把返回数据存入Intent
-        String adress =mdatalist.get(position).getAdressName()+mdatalist.get(position).getRealAdress();
+        String adress =mdatalist.get(position).getPROVINCE()+mdatalist.get(position).getCITY()+mdatalist.get(position).getAREA()+mdatalist.get(position).getADDRESS();
+
         Logger.e("nnnnn",adress);
-        Logger.e("nnnnn2",mdatalist.get(position).getPhone());
+        Logger.e("nnnnn2",mdatalist.get(position).getMOBILE());
         intent.putExtra("adress", adress);
-        intent.putExtra("phone", mdatalist.get(position).getPhone());
+        intent.putExtra("phone", mdatalist.get(position).getMOBILE());
         //设置返回数据
         setResult(RESULT_OK, intent);
         finish();
@@ -141,9 +144,9 @@ public class AdressListActivity extends BaseHttpRecyclerActivity<Adress,AdressVi
 //        super.onBackPressed();
         Intent intent = new Intent();
         //把返回数据存入Intent
-        String adress =mdatalist.get(0).getAdressName()+mdatalist.get(0).getRealAdress();
+        String adress =mdatalist.get(0).getPROVINCE()+mdatalist.get(0).getCITY()+mdatalist.get(0).getAREA()+mdatalist.get(0).getADDRESS();
         intent.putExtra("adress", adress);
-        intent.putExtra("phone", mdatalist.get(0).getPhone());
+        intent.putExtra("phone", mdatalist.get(0).getMOBILE());
         //设置返回数据
         setResult(RESULT_OK, intent);
         finish();
@@ -156,37 +159,40 @@ public class AdressListActivity extends BaseHttpRecyclerActivity<Adress,AdressVi
 //        if (prepareForFindpwd(appsms_id)){
 //            return;
 //        }
+        String username =HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(), "loginuser", "-1");
 
         //showProgressDialog("正在核对验证码");
-        Subscription subscription = HKEapiManager.getInstances().demoApi.index(URLConfig.CHECKSMS_URL)
+        Subscription subscription = HKEapiManager.getInstances().demoApi.findAdress(URLConfig.FINDADDRESS_URL,username)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<String>() {
                     @Override
                     public void call(String s) {
-                        s="[{\"name\":\"李小康\",\"phone\":\"13900034567\",\"adressName\":\"河北省 邯郸市 丛台区1\",\"realAdress\":\"八大胡同132号\",\"isDefault\":\"1\"},"+
-                    "{\"name\":\"李小康2\",\"phone\":\"13900034567\",\"adressName\":\"河北省 邯郸市 丛台区2\",\"realAdress\":\"八大胡同132号\",\"isDefault\":\"0\"},"+
-                   "{\"name\":\"李小康3\",\"phone\":\"13900034567\",\"adressName\":\"河北省 邯郸市 丛台区3\",\"realAdress\":\"八大胡同132号\",\"isDefault\":\"0\"}]";
+                        Logger.e("nimabi",s);
+//                        s2="[{\"name\":\"李小康\",\"phone\":\"13900034567\",\"adressName\":\"河北省 邯郸市 丛台区1\",\"realAdress\":\"八大胡同132号\",\"isDefault\":\"1\"},"+
+//                    "{\"name\":\"李小康2\",\"phone\":\"13900034567\",\"adressName\":\"河北省 邯郸市 丛台区2\",\"realAdress\":\"八大胡同132号\",\"isDefault\":\"0\"},"+
+//                   "{\"name\":\"李小康3\",\"phone\":\"13900034567\",\"adressName\":\"河北省 邯郸市 丛台区3\",\"realAdress\":\"八大胡同132号\",\"isDefault\":\"0\"}]";
                         try {
-                            JSONArray jsonArray = new JSONArray(s);
+                            JSONObject jsonObject = new JSONObject(s);
+
+                            JSONArray jsonArray = jsonObject.getJSONArray("addresslist");
                             Gson gson1 = new Gson();
                             List<Adress> khsllist2 = gson1.fromJson(jsonArray.toString(), new TypeToken<List<Adress>>() {
                             }.getType());
                             Logger.e("nnnnn",khsllist2.size()+"fzwk");
 
-                            onHttpResponse(-page, page >= 2 ? null : s, null);
+                            onHttpResponse(-page, page >= 1 ? null :  JSON.toJSONString(khsllist2), null);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
 
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
                         Logger.e("lkk", "throwable22222222222" + throwable.getLocalizedMessage());
-                        showShortToast("验证码核对异常，请稍后再试",true);
+                        showShortToast("网络异常，请稍后再试",true);
 
                     }
                 }, new Action0() {
@@ -206,4 +212,6 @@ public class AdressListActivity extends BaseHttpRecyclerActivity<Adress,AdressVi
         super.onDestroy();
 
     }
+
+
 }

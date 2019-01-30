@@ -19,22 +19,34 @@ import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import recstation.lkk.com.recstation.application.DemoApplication;
 import recstation.lkk.com.recstation.model.Adress;
 import recstation.lkk.com.recstation.model.JsonBean;
+import recstation.lkk.com.recstation.util.HKEapiManager;
+import recstation.lkk.com.recstation.util.Logger;
 import recstation.lkk.com.recstation.util.TestUtil;
 import recstation.lkk.com.recstation.util.URLConfig;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 import zuo.biao.library.base.BaseActivity;
+import zuo.biao.library.util.JSON;
 
 public class AddAdressActivity extends BaseActivity implements View.OnClickListener {
     CompositeSubscription mCompositeSubscription = new CompositeSubscription();
-    String isDefault ="1";
+    String isDefault = "1";
     private EditText add_address_name;
     private EditText add_address_phone;
     private Button add_address_addressname;
@@ -42,11 +54,13 @@ public class AddAdressActivity extends BaseActivity implements View.OnClickListe
     private LinearLayout add_address_addressname_click;
     private Button add_address_savebtn;
     private ImageView iv_add_address_isdefault;
-    String SETADDRESS_URL= URLConfig.INDEX_URL;
-    String CHANGEADDRESS_URL=URLConfig.INDEX_URL;
-    String URL=SETADDRESS_URL;
-
-
+    String SETADDRESS_URL = URLConfig.ADDADDRESS_URL;
+    String CHANGEADDRESS_URL = URLConfig.EDITADDRESS_URL;
+    String URL = SETADDRESS_URL;
+    String id="";
+    String PROVINCE = "";
+    String CITY = "";
+    String AREA ="";
     private List<JsonBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
@@ -58,19 +72,18 @@ public class AddAdressActivity extends BaseActivity implements View.OnClickListe
     private static boolean isLoaded = false;
 
 
-
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
 
                 case MSG_LOAD_SUCCESS:
-                   // Toast.makeText(AddAdressActivity.this, "Parse Succeed", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(AddAdressActivity.this, "Parse Succeed", Toast.LENGTH_SHORT).show();
                     isLoaded = true;
                     break;
 
                 case MSG_LOAD_FAILED:
-                   // Toast.makeText(AddAdressActivity.this, "Parse Failed", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(AddAdressActivity.this, "Parse Failed", Toast.LENGTH_SHORT).show();
                     break;
             }
         }
@@ -90,18 +103,19 @@ public class AddAdressActivity extends BaseActivity implements View.OnClickListe
     }
 
 
-
     @Override
     public void initView() {
-        add_address_name = findView(R.id.add_address_name,this);
-        add_address_phone = findView(R.id.add_address_phone,this);
-        add_address_addressname = findView(R.id.add_address_addressname,this);
-        add_address_addressreal = findView(R.id.add_address_addressreal,this);
-        add_address_addressname_click = findView(R.id.add_address_addressname_click,this);
-        add_address_savebtn = findView(R.id.add_address_savebtn,this);
-        iv_add_address_isdefault = findView(R.id.iv_add_address_isdefault,this);
+        add_address_name = findView(R.id.add_address_name, this);
+        add_address_phone = findView(R.id.add_address_phone, this);
+        add_address_addressname = findView(R.id.add_address_addressname, this);
+        add_address_addressreal = findView(R.id.add_address_addressreal, this);
+        add_address_addressname_click = findView(R.id.add_address_addressname_click, this);
+        add_address_savebtn = findView(R.id.add_address_savebtn, this);
+        iv_add_address_isdefault = findView(R.id.iv_add_address_isdefault, this);
+
 
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -124,12 +138,12 @@ public class AddAdressActivity extends BaseActivity implements View.OnClickListe
                 break;
             case R.id.add_address_savebtn:
                 //提交数据
-                 Toast.makeText(AddAdressActivity.this, "保存地址到服务器", Toast.LENGTH_SHORT).show();
-
+//                Toast.makeText(AddAdressActivity.this, "保存地址到服务器", Toast.LENGTH_SHORT).show();
+                saveAdress();
                 break;
             case R.id.iv_add_address_isdefault:
                 //更改默认和图片。
-                if (isDefault.equals("1")){
+                if (isDefault.equals("1")) {
                     isDefault = "0";
                     iv_add_address_isdefault.setImageResource(R.drawable.off);
                 } else {
@@ -141,37 +155,42 @@ public class AddAdressActivity extends BaseActivity implements View.OnClickListe
         }
 
     }
+
     @Override
     public void initData() {
-        String name =getIntent().getStringExtra("name");
-        String phone =getIntent().getStringExtra("phone");
-        String adressName =getIntent().getStringExtra("adressName");
-        String realAdress =getIntent().getStringExtra("realAdress");
-        String isDefault =getIntent().getStringExtra("isDefault");
-        String id =getIntent().getStringExtra("id");
-        if (!"".equals(name)){
+        String name = getIntent().getStringExtra("name");
+        String phone = getIntent().getStringExtra("phone");
+        String adressName = getIntent().getStringExtra("adressName");
+        String realAdress = getIntent().getStringExtra("realAdress");
+        String isDefault = getIntent().getStringExtra("isDefault");
+       id = getIntent().getStringExtra("id");
+       Logger.e("idshisha",id+"ffff");
+        if (!"".equals(name)) {
             add_address_name.setText(name);
         }
-        if (!"".equals(phone)){
+        if (!"".equals(phone)) {
             add_address_phone.setText(phone);
         }
-        if (!"".equals(adressName)){
+        if (!"".equals(adressName)) {
             add_address_addressname.setText(adressName);
         }
-        if (!"".equals(realAdress)){
+        if (!"".equals(realAdress)) {
             add_address_addressreal.setText(realAdress);
         }
-        if (!"".equals(isDefault)){
-            if ("1".equals(isDefault)){
+        if (!"".equals(isDefault)) {
+            if ("1".equals(isDefault)) {
                 iv_add_address_isdefault.setImageResource(R.drawable.on);
-            }else {
+            } else {
                 iv_add_address_isdefault.setImageResource(R.drawable.off);
 
             }
 
         }
-        if (!"".equals(id)){
-            URL=CHANGEADDRESS_URL;
+        if (!"".equals(id)) {
+          URL = CHANGEADDRESS_URL;
+          add_address_savebtn.setText("确认修改");
+        }else {
+            add_address_savebtn.setText("保存地址");
         }
 
         thread = new Thread(new Runnable() {
@@ -299,6 +318,9 @@ public class AddAdressActivity extends BaseActivity implements View.OnClickListe
                         options3Items.get(options1).get(options2).get(options3) : "";
 
                 String tx = opt1tx + opt2tx + opt3tx;
+                PROVINCE =opt1tx;
+                CITY =opt2tx;
+                AREA =opt3tx;
                 add_address_addressname.setText(tx);
                 Toast.makeText(AddAdressActivity.this, tx, Toast.LENGTH_SHORT).show();
             }
@@ -315,5 +337,90 @@ public class AddAdressActivity extends BaseActivity implements View.OnClickListe
         pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
         pvOptions.show();
     }
+
+
+    public void saveAdress() {
+
+
+        String username = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(), "loginuser", "-1");
+
+        final String name = add_address_name.getText().toString();
+        final String MOBILE = add_address_phone.getText().toString();
+        final String ADDRESS = add_address_addressreal.getText().toString();
+
+        if (!"".equals(id)){
+            Subscription subscription = HKEapiManager.getInstances().demoApi.editAdress(URLConfig.EDITADDRESS_URL,id, username, name, MOBILE, PROVINCE, CITY, AREA, ADDRESS)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Action1<String>() {
+                        @Override
+                        public void call(String s) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(s);
+
+                                String code = jsonObject.getString("code");
+                                if (code.equals("OK")){
+                                    showShortToast("修改成功", true);
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }, new Action1<Throwable>() {
+                        @Override
+                        public void call(Throwable throwable) {
+                            Logger.e("lkk", "throwable22222222222" + throwable.getLocalizedMessage());
+                            showShortToast("网络异常，请稍后再试", true);
+
+                        }
+                    }, new Action0() {
+                        @Override
+                        public void call() {
+//                        Logger.e("lkk", "onCompleted");
+                        }
+                    });
+            mCompositeSubscription.add(subscription);
+        }else {
+
+        //showProgressDialog("正在核对验证码");
+        Subscription subscription = HKEapiManager.getInstances().demoApi.addAdress(URL, username, name, MOBILE, PROVINCE, CITY, AREA, ADDRESS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(s);
+
+                            String code = jsonObject.getString("code");
+                            if (code.equals("OK")){
+                                showShortToast("添加成功", true);
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        Logger.e("lkk", "throwable22222222222" + throwable.getLocalizedMessage());
+                        showShortToast("网络异常，请稍后再试", true);
+
+                    }
+                }, new Action0() {
+                    @Override
+                    public void call() {
+//                        Logger.e("lkk", "onCompleted");
+                    }
+                });
+            mCompositeSubscription.add(subscription);
+        }
+
+    }
+
 
 }
