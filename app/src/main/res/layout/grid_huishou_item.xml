@@ -16,14 +16,6 @@
 
     </zuo.biao.library.ui.SquareRelativeLayout>
 
-    <TextView
-        android:id="@+id/tvGridItemName"
-        android:layout_gravity="left"
-        android:layout_marginLeft="8dp"
-        android:textColor="@color/green"
-        style="@style/text_middle"
-        android:text="产品的名字"
-        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,44 +23,62 @@
         <TextView
             style="@style/wrap_wrap"
             android:textColor="@color/green"
-            android:textSize="18sp"
+            android:textSize="12sp"
             android:layout_gravity="left"
             android:layout_marginLeft="8dp"
-            android:text="积分:"
+            android:text="地址:"
             />
         <TextView
-            android:id="@+id/tvGridItemPrice"
-            android:textSize="18sp"
+            android:id="@+id/tvGridItemName"
+            android:textSize="12sp"
             android:textColor="@color/green"
             style="@style/wrap_wrap"
             android:layout_gravity="left"
-            android:text="400"
+            android:text="河北省邯郸市肥乡县"
             />
-        <TextView
-            android:textSize="18sp"
-            android:textColor="@color/green"
-            style="@style/wrap_wrap"
-            android:layout_gravity="left"
-            android:text="/个"
-            />
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <ImageView
+        <TextView
             style="@style/wrap_wrap"
+            android:textColor="@color/green"
+            android:textSize="12sp"
             android:layout_gravity="left"
             android:layout_marginLeft="8dp"
-           android:src="@drawable/back2"
+            android:text="创建日期:"
             />
         <TextView
-            android:id="@+id/tvGridItem_personname"
-            android:textSize="18sp"
+            android:id="@+id/tvGridItemTime"
+            android:textSize="10sp"
             android:textColor="@color/green"
             style="@style/wrap_wrap"
             android:layout_gravity="left"
-            android:text="小张"
+            android:text="400"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            style="@style/wrap_wrap"
+            android:textColor="@color/green"
+            android:textSize="13sp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="8dp"
+            android:text="预约日期:"
+            />
+        <TextView
+            android:id="@+id/tvGridItem_personname"
+            android:textSize="13sp"
+            android:textColor="@color/green"
+            style="@style/wrap_wrap"
+            android:layout_gravity="left"
+            android:text="2019-12-21"
             />
     </LinearLayout>
 </LinearLayout>

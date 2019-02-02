@@ -170,8 +170,9 @@ public class RecdetailActivity extends BaseHttpRecyclerActivity<HuishouBean, Hui
 //        }
         Intent i = SelectRecTypeActivity.createIntent(RecdetailActivity.this);
         i.putExtra("selectRec_rectype1", mdatalist.get(position).getRETRIEVETYPE_NAME());
-        i.putExtra("selectRec_miaoshu1", mdatalist.get(position).getBZ());
-        i.putExtra("selectRec_price1", mdatalist.get(position).getPRICE());
+        i.putExtra("selectRec_miaoshu1", mdatalist.get(position).getRETRIEVETYPE_NAME());
+        i.putExtra("selectRec_price1", "7");
+        i.putExtra("selectRec_RETRIEVETYPE_ID", mdatalist.get(position).getRETRIEVETYPE_ID());
         startActivity(i);
     }
 

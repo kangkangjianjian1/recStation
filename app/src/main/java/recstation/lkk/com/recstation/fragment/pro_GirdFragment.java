@@ -14,6 +14,7 @@ limitations under the License.*/
 
 package recstation.lkk.com.recstation.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -31,6 +32,7 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
+import recstation.lkk.com.recstation.ProDetailActivity;
 import recstation.lkk.com.recstation.R;
 import recstation.lkk.com.recstation.adapter.GridProductAdapter;
 import recstation.lkk.com.recstation.model.HuishouBean;
@@ -173,7 +175,75 @@ public class pro_GirdFragment extends BaseListFragment<ProductBean, GridView, Gr
     }
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        showShortToast("aaa" + position);
+      String name = datalist.get(position).getITEM_NAME();
+        switch (name){
+            case "不锈钢包饺子器":
+                Intent intent = ProDetailActivity.createIntent(context);
+                intent.putExtra("id1",R.drawable.jiaozi1);
+                intent.putExtra("id2",R.drawable.jiaozi2);
+                intent.putExtra("id3",R.drawable.jiaozi3);
+                startActivity(intent);
+                break;
+            case "碎菜绞肉机":
+                Intent intent2 = ProDetailActivity.createIntent(context);
+                intent2.putExtra("id1",R.drawable.jiaorou1);
+                intent2.putExtra("id2",R.drawable.jiaorou2);
+                intent2.putExtra("id3",R.drawable.jiaorou3);
+                startActivity(intent2);
+                break;
+            case "97件双层木盒套装(豪华款)":
+                Intent intent3 = ProDetailActivity.createIntent(context);
+                intent3.putExtra("id1",R.drawable.muhe1);
+                intent3.putExtra("id2",R.drawable.muhe2);
+                startActivity(intent3);
+                break;
+            case "投影闹钟":
+                Intent intent4 = ProDetailActivity.createIntent(context);
+                intent4.putExtra("id1",R.drawable.naozhong1);
+                intent4.putExtra("id2",R.drawable.naozhong2);
+                intent4.putExtra("id3",R.drawable.naozhong3);
+                startActivity(intent4);
+                break;
+            case "小鹿存钱罐":
+                Intent intent5 = ProDetailActivity.createIntent(context);
+                intent5.putExtra("id1",R.drawable.chuqianguan1);
+                intent5.putExtra("id2",R.drawable.chuqianguan2);
+                intent5.putExtra("id3",R.drawable.chuqianguan3);
+                startActivity(intent5);
+                break;
+            case "新年卡通呆萌小挂件":
+                Intent intent6 = ProDetailActivity.createIntent(context);
+                intent6.putExtra("id1",R.drawable.guajian1);
+                intent6.putExtra("id2",R.drawable.guajia2);
+                intent6.putExtra("id3",R.drawable.guajian1);
+                startActivity(intent6);
+                break;
+
+            case "磁悬浮炫光地球仪":
+                Intent intent7 = ProDetailActivity.createIntent(context);
+                intent7.putExtra("id1",R.drawable.diqiuyi1);
+                intent7.putExtra("id2",R.drawable.diqiuyi2);
+                intent7.putExtra("id3",R.drawable.diqiuyi3);
+                startActivity(intent7);
+                break;
+            case "台电32G手电脑两用Ｕ盘":
+                Intent intent8 = ProDetailActivity.createIntent(context);
+                intent8.putExtra("id1",R.drawable.u1);
+                intent8.putExtra("id2",R.drawable.u2);
+                intent8.putExtra("id3",R.drawable.u3);
+                startActivity(intent8);
+                break;
+            case "小米九号平衡车":
+                Intent intent9 = ProDetailActivity.createIntent(context);
+                intent9.putExtra("id1",R.drawable.pinghengche1);
+                intent9.putExtra("id2",R.drawable.pinghengche2);
+                startActivity(intent9);
+                break;
+                default:
+                    showShortToast("此商品数据详情配置出错");
+                    break;
+        }
+      //  showShortToast("aaa" + position);
     }
 
 }

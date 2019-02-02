@@ -337,7 +337,9 @@ public class FirstListGirdFragment extends BaseFragment implements View.OnClickL
         if (list.size() > 0) {
             HashMap<String, String> file_maps = new HashMap<String, String>();
             for (int i = 0; i < list.size(); i++) {
-                file_maps.put(list.get(i).getORDER_ID(), list.get(i).getPATH());
+                file_maps.put(list.get(i).getPICTURES_ID(), list.get(i).getPATH());
+
+
             }
             for (String name : file_maps.keySet()) {
                 TextSliderView textSliderView = new TextSliderView(context);
@@ -357,7 +359,7 @@ public class FirstListGirdFragment extends BaseFragment implements View.OnClickL
             mSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
             mSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
             mSlider.setCustomAnimation(new MyDescriptionAnimation());
-            mSlider.setDuration(4000);
+            mSlider.setDuration(3500);
 
 
         } else {
@@ -385,7 +387,7 @@ public class FirstListGirdFragment extends BaseFragment implements View.OnClickL
             mSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
             mSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
             mSlider.setCustomAnimation(new MyDescriptionAnimation());
-            mSlider.setDuration(4000);
+            mSlider.setDuration(3500);
 
 
         }
@@ -393,4 +395,11 @@ public class FirstListGirdFragment extends BaseFragment implements View.OnClickL
 
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mSlider.startAutoCycle();
+
+    }
 }

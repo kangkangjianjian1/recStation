@@ -1,9 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="recstation.lkk.com.recstation">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    //获取设备网络状态，禁用后无法获取网络状态
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    //网络权限，当禁用后，无法进行检索等相关业务
+    <uses-permission android:name="android.permission.INTERNET"/>
+    //读取设备硬件信息，统计数据
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    //读取系统信息，包含系统版本等信息，用作统计
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
+    //获取设备的网络状态，鉴权所需网络代理
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    //允许sd卡写权限，需写入地图数据，禁用后无法显示地图
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    //这个权限用于进行网络定位
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions"/>
+    //这个权限用于访问GPS定位
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    //获取统计数据
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    //使用步行AR导航，配置Camera权限
+    <uses-permission android:name="android.permission.CAMERA"/>
+    //程序在手机屏幕关闭后后台进程仍然运行
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <!-- 这个权限用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:name=".application.DemoApplication"
@@ -13,43 +41,115 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashActivity">
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".MainTabActivity"/>
-        <activity android:name=".LoginActivity">
+        <activity
+            android:name=".MainTabActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".RegisterActivity">
+        <activity
+            android:name=".RegisterActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".FindpwdActivity">
+        <activity
+            android:name=".FindpwdActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".SetpwdActivity">
+        <activity
+            android:name=".SetpwdActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".GonggaoDetailActivity">
+        <activity
+            android:name=".GonggaoDetailActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".RecdetailActivity">
+        <activity
+            android:name=".RecdetailActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ScanActivity">
+        <activity
+            android:name=".ScanActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".SelectRecTypeActivity">
+        <activity
+            android:name=".SelectRecTypeActivity"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".AdressListActivity"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".AddAdressActivity">
+        <activity
+            android:name=".AddAdressActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ZhoubianActivity">
+        <activity
+            android:name=".ZhoubianActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".MypointActivity">
+        <activity
+            android:name=".MypointActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".MyDingdanActivity">
+        <activity
+            android:name=".MyDingdanActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".DingdanDetailActivity">
+        <activity
+            android:name=".DingdanDetailActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".ShanghuguanliActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".QRCodeActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"/>
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="FabkKTiKO2N34n4NdGkL2fE4tCeP5VEy"/>
+
+        <activity
+            android:name=".MapActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".ProDetailActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".AboutUsActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".ShanghuReisterActivity"
+            android:label="@string/title_activity_shanghu_reister"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".ShanghuReisterPhotoActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".SucessActivity">
         </activity>
     </application>
 

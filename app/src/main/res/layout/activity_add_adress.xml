@@ -129,6 +129,16 @@
         android:layout_width="match_parent"
         android:gravity="bottom"
         android:layout_height="match_parent">
+        <Button
+            android:id="@+id/add_address_delbtn"
+            style="@style/btn_biga_round"
+            android:text="删除"
+            android:layout_above="@+id/add_address_savebtn"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_margin="15dp"
+            android:visibility="gone"
+            android:gravity="center"/>
     <Button
         android:id="@+id/add_address_savebtn"
         style="@style/btn_biga_round"

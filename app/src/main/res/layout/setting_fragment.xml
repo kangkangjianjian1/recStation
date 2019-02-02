@@ -121,7 +121,7 @@
                 <TextView
                     style="@style/content_item_lf_tv"
                     android:layout_weight="1"
-                    android:text="订单管理"/>
+                    android:text="我的订单"/>
             </LinearLayout>
 
             <View style="@style/divider_horizontal_1px"/>
@@ -139,29 +139,43 @@
                 <TextView
                     style="@style/content_item_lf_tv"
                     android:layout_weight="1"
-                    android:text="积分管理"/>
+                    android:text="我的积分"/>
             </LinearLayout>
-
             <View style="@style/divider_horizontal_1px"/>
             <LinearLayout
-            android:id="@+id/layout_shangpinduihuan"
-            style="@style/content_item_white">
-            <ImageView style="@style/content_item_rt_img"
-                       android:layout_margin="5dp"
-                       android:layout_width="30dp"
-                       android:layout_height="30dp"
-                       android:scaleType="fitXY"
-                       android:adjustViewBounds="true"
-                       android:src="@drawable/my_shangpin"/>
-            <TextView
-                style="@style/content_item_lf_tv"
-                android:layout_weight="1"
-                android:text="商品兑换"/>
-        </LinearLayout>
-
+                android:id="@+id/layout_huishoubaojia"
+                style="@style/content_item_white">
+                <ImageView style="@style/content_item_rt_img"
+                           android:layout_margin="5dp"
+                           android:layout_width="30dp"
+                           android:layout_height="30dp"
+                           android:scaleType="fitXY"
+                           android:adjustViewBounds="true"
+                           android:src="@drawable/my_hsbj"/>
+                <TextView
+                    style="@style/content_item_lf_tv"
+                    android:layout_weight="1"
+                    android:text="回收报价"/>
+            </LinearLayout>
             <View style="@style/divider_horizontal_1px"/>
             <LinearLayout
-                android:id="@+id/layout_shimingrenzheng"
+                android:id="@+id/layout_myerweima"
+                style="@style/content_item_white">
+                <ImageView style="@style/content_item_rt_img"
+                           android:layout_margin="5dp"
+                           android:layout_width="30dp"
+                           android:layout_height="30dp"
+                           android:scaleType="fitXY"
+                           android:adjustViewBounds="true"
+                           android:src="@drawable/my_erweima"/>
+                <TextView
+                    style="@style/content_item_lf_tv"
+                    android:layout_weight="1"
+                    android:text="我的二维码"/>
+            </LinearLayout>
+            <View style="@style/divider_horizontal_1px"/>
+            <LinearLayout
+                android:id="@+id/layout_shanghuguanli"
                 style="@style/content_item_white">
                 <ImageView style="@style/content_item_rt_img"
                            android:layout_margin="5dp"
@@ -173,9 +187,8 @@
                 <TextView
                     style="@style/content_item_lf_tv"
                     android:layout_weight="1"
-                    android:text="实名认证"/>
+                    android:text="商户管理"/>
             </LinearLayout>
-
             <View style="@style/divider_horizontal_1px"/>
             <LinearLayout
                 android:id="@+id/layout_xitongshezhi"
@@ -190,10 +203,11 @@
                 <TextView
                     style="@style/content_item_lf_tv"
                     android:layout_weight="1"
-                    android:text="系统设置"/>
+                    android:text="设置"/>
             </LinearLayout>
 
             <View style="@style/divider_horizontal_1px"/>
+
             <LinearLayout
                 android:id="@+id/layout_yijianpankui"
                 style="@style/content_item_white">
@@ -208,6 +222,22 @@
                     style="@style/content_item_lf_tv"
                     android:layout_weight="1"
                     android:text="意见反馈"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_guanyuwomen"
+                style="@style/content_item_white">
+                <ImageView style="@style/content_item_rt_img"
+                           android:layout_margin="5dp"
+                           android:layout_width="30dp"
+                           android:layout_height="30dp"
+                           android:scaleType="fitXY"
+                           android:adjustViewBounds="true"
+                           android:src="@drawable/my_renzheng"/>
+                <TextView
+                    style="@style/content_item_lf_tv"
+                    android:layout_weight="1"
+                    android:text="关于我们"/>
             </LinearLayout>
 
             <View style="@style/divider_horizontal_1px"/>

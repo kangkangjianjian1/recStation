@@ -83,8 +83,8 @@ public class HuishouBeanView extends BaseView<HuishouBean> {
 		Glide.with(context).asBitmap().load(data.getPICTUREPATH()).into(iv_huishouViewHead);
 
 		tv_huishoubeanView_typename.setText(StringUtil.getTrimedString(data.getRETRIEVETYPE_NAME()));
-		tv_huishoubean_miaoshu.setText(data.getRETRIEVETYPE());
-		tv_huishoubeanView_typeprice.setText(StringUtil.getNoBlankString(data.getPRICE())+"元/公斤");
+		tv_huishoubean_miaoshu.setText(data.getRETRIEVETYPE_NAME());
+		tv_huishoubeanView_typeprice.setText(StringUtil.getNoBlankString("7")+"元/公斤");
 	}
 
 

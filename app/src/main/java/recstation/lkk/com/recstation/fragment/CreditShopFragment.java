@@ -189,13 +189,6 @@ public class CreditShopFragment extends BaseFragment implements  OnTabSelectList
                             if (!"OK".equals(code)) {
                                 showShortToast("网络访问出错，请稍后再试", true);
                             } else {
-                                ProductBean productBean = new ProductBean();
-                                productBean.setMALLITEMS_ID("MALLITEMS_ID");
-                                productBean.setPOINTS("400");
-                                productBean.setORDER_ID("ORDER_ID");
-                                productBean.setPRICE("PRICE");
-                                productBean.setPICTUREPATH("http://47.92.55.233:8080/hdrra/uploadFiles/uploadImgs/20190116/82b68c5920a24f8790a3922c0b496502.png");
-                                productBean.setITEM_NAME("ITEM_NAME");
                                 JSONArray malllist = jsonObject1.getJSONArray("malllist");
 
                                 JSONArray shyplist = malllist.getJSONArray(0);
@@ -206,23 +199,17 @@ public class CreditShopFragment extends BaseFragment implements  OnTabSelectList
                                 Gson gson1 = new Gson();
                                 List<ProductBean> shyplist2 = gson1.fromJson(shyplist.toString(), new TypeToken<List<ProductBean>>() {
                                 }.getType());
-                                shyplist2.add(productBean);
+
                                 List<ProductBean> xxyplist2 = gson1.fromJson(xxyplist.toString(), new TypeToken<List<ProductBean>>() {
                                 }.getType());
-                                xxyplist2.add(productBean);
-                                xxyplist2.add(productBean);
+
 
                                 List<ProductBean> cfyplist2 = gson1.fromJson(cfyplist.toString(), new TypeToken<List<ProductBean>>() {
                                 }.getType());
-                                cfyplist2.add(productBean);
-                                cfyplist2.add(productBean);
-                                cfyplist2.add(productBean);
+
                                 List<ProductBean> dzcplist2 = gson1.fromJson(dzcplist.toString(), new TypeToken<List<ProductBean>>() {
                                 }.getType());
-                                dzcplist2.add(productBean);
-                                dzcplist2.add(productBean);
-                                dzcplist2.add(productBean);
-                                dzcplist2.add(productBean);
+
                                 initFragmentChild(shyplist2,xxyplist2,cfyplist2,dzcplist2);
 
                             }

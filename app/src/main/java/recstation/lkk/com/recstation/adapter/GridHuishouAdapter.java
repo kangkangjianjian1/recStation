@@ -154,8 +154,8 @@ public class GridHuishouAdapter extends BaseAdapter {
 
             holder = new ViewHolder();
             holder.ivGridItemHead = convertView.findViewById(R.id.ivGridItemHead);
-            holder.tvGridItemName = convertView.findViewById(R.id.tvGridItem_personname);
-            holder.tvGridItemPrice = convertView.findViewById(R.id.tvGridItemPrice);
+            holder.tvGridItemName = convertView.findViewById(R.id.tvGridItemName);
+            holder.tvGridItemPrice = convertView.findViewById(R.id.tvGridItemTime);
             holder.tvGridItem_personname = convertView.findViewById(R.id.tvGridItem_personname);
 
 
@@ -163,16 +163,16 @@ public class GridHuishouAdapter extends BaseAdapter {
         }
 
         final HuishouBean kvb = getItem(position);
-        final String name = kvb.getRETRIEVETYPE_NAME();
-        final String price = kvb.getPRICE();
-        final String personName = kvb.getRETRIEVETYPE_NAME();
+        final String adress = kvb.getPROVINCE()+kvb.getCITY()+kvb.getAREA();
+        final String time =kvb.getCREATETIME();
+        final String phone = kvb.getYDATE();
 
         Glide.with(context).load(kvb.getPICTUREPATH()).into(holder.ivGridItemHead);
 
         holder.tvGridItemName.setVisibility(View.VISIBLE);
-        holder.tvGridItemName.setText(StringUtil.getTrimedString(name));
-        holder.tvGridItemPrice.setText(StringUtil.getTrimedString(price));
-        holder.tvGridItem_personname.setText(StringUtil.getTrimedString("小张"));
+        holder.tvGridItemName.setText(StringUtil.getTrimedString(adress));
+        holder.tvGridItemPrice.setText(StringUtil.getTrimedString(time));
+        holder.tvGridItem_personname.setText(StringUtil.getTrimedString(phone));
 
 
         return convertView;

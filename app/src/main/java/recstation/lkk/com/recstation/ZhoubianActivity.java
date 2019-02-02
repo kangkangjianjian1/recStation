@@ -251,5 +251,9 @@ public class ZhoubianActivity extends BaseHttpRecyclerActivity<RecPerson, Recper
 
     }
 
-
+    @Override
+    public void onForwardClick(View v) {
+        super.onForwardClick(v);
+        toActivity(MapActivity.createIntent(ZhoubianActivity.this));
+    }
 }

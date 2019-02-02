@@ -161,6 +161,12 @@ public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDr
     @Override
     public void initEvent() {// 必须调用
         super.initEvent();
+        ivbtn_dingwei.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toActivity(MapActivity.createIntent(MainTabActivity.this));
+            }
+        });
     }
 
     //将Activity的onDragBottom事件传递到Fragment，非必要>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -200,7 +206,6 @@ public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDr
         super.onForwardClick(v);
         startActivity(ScanActivity.createIntent(MainTabActivity.this));
     }
-
 
     //生命周期、onActivityResult<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 

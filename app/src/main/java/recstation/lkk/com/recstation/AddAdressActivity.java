@@ -53,6 +53,7 @@ public class AddAdressActivity extends BaseActivity implements View.OnClickListe
     private EditText add_address_addressreal;
     private LinearLayout add_address_addressname_click;
     private Button add_address_savebtn;
+    private Button add_address_delbtn;
     private ImageView iv_add_address_isdefault;
     String SETADDRESS_URL = URLConfig.ADDADDRESS_URL;
     String CHANGEADDRESS_URL = URLConfig.EDITADDRESS_URL;
@@ -111,6 +112,7 @@ public class AddAdressActivity extends BaseActivity implements View.OnClickListe
         add_address_addressreal = findView(R.id.add_address_addressreal, this);
         add_address_addressname_click = findView(R.id.add_address_addressname_click, this);
         add_address_savebtn = findView(R.id.add_address_savebtn, this);
+        add_address_delbtn = findView(R.id.add_address_delbtn, this);
         iv_add_address_isdefault = findView(R.id.iv_add_address_isdefault, this);
 
 
@@ -140,6 +142,11 @@ public class AddAdressActivity extends BaseActivity implements View.OnClickListe
                 //提交数据
 //                Toast.makeText(AddAdressActivity.this, "保存地址到服务器", Toast.LENGTH_SHORT).show();
                 saveAdress();
+                break;
+            case R.id.add_address_delbtn:
+                //提交数据
+//                Toast.makeText(AddAdressActivity.this, "保存地址到服务器", Toast.LENGTH_SHORT).show();
+                delAdress();
                 break;
             case R.id.iv_add_address_isdefault:
                 //更改默认和图片。
@@ -186,10 +193,12 @@ public class AddAdressActivity extends BaseActivity implements View.OnClickListe
             }
 
         }
-        if (!"".equals(id)) {
+        if (!("".equals(id)||id==null)) {
           URL = CHANGEADDRESS_URL;
           add_address_savebtn.setText("确认修改");
+            add_address_delbtn.setVisibility(View.VISIBLE);
         }else {
+            add_address_delbtn.setVisibility(View.GONE);
             add_address_savebtn.setText("保存地址");
         }
 
@@ -348,8 +357,8 @@ public class AddAdressActivity extends BaseActivity implements View.OnClickListe
         final String MOBILE = add_address_phone.getText().toString();
         final String ADDRESS = add_address_addressreal.getText().toString();
 
-        if (!"".equals(id)){
-            Subscription subscription = HKEapiManager.getInstances().demoApi.editAdress(URLConfig.EDITADDRESS_URL,id, username, name, MOBILE, PROVINCE, CITY, AREA, ADDRESS)
+        if (!("".equals(id)||id==null)){
+            Subscription subscription = HKEapiManager.getInstances().demoApi.editAdress(URLConfig.EDITADDRESS_URL,isDefault,id, username, name, MOBILE, PROVINCE, CITY, AREA, ADDRESS)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Action1<String>() {
@@ -385,7 +394,7 @@ public class AddAdressActivity extends BaseActivity implements View.OnClickListe
         }else {
 
         //showProgressDialog("正在核对验证码");
-        Subscription subscription = HKEapiManager.getInstances().demoApi.addAdress(URL, username, name, MOBILE, PROVINCE, CITY, AREA, ADDRESS)
+        Subscription subscription = HKEapiManager.getInstances().demoApi.addAdress(URL,isDefault,username, name, MOBILE, PROVINCE, CITY, AREA, ADDRESS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<String>() {
@@ -422,5 +431,45 @@ public class AddAdressActivity extends BaseActivity implements View.OnClickListe
 
     }
 
+    public void delAdress() {
 
+
+
+        if (!("".equals(id) || id == null)) {
+            Subscription subscription2 = HKEapiManager.getInstances().demoApi.delAdress(URLConfig.DELADDRESS_URL,id)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Action1<String>() {
+                        @Override
+                        public void call(String s) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(s);
+
+                                String code = jsonObject.getString("code");
+                                if (code.equals("OK")) {
+                                    showShortToast("删除成功", true);
+                                    finish();
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }, new Action1<Throwable>() {
+                        @Override
+                        public void call(Throwable throwable) {
+                            Logger.e("lkk", "throwable22222222222" + throwable.getLocalizedMessage());
+                            showShortToast("网络异常，请稍后再试", true);
+
+                        }
+                    }, new Action0() {
+                        @Override
+                        public void call() {
+//                        Logger.e("lkk", "onCompleted");
+                        }
+                    });
+            mCompositeSubscription.add(subscription2);
+        }
+    }
 }

@@ -4,6 +4,9 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+
 public class NetUtil {
 	public static boolean isNetConnected(Context context) {
 		boolean isNetConnected;
@@ -18,4 +21,12 @@ public class NetUtil {
 		}
 		return isNetConnected;
 	}
+
+
+	public static RequestBody toRequestBody(String value) {
+		RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain"), value);
+		return requestBody;
+	}
+
+
 }

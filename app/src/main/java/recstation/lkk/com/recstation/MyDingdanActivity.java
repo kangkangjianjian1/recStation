@@ -105,10 +105,23 @@ public class MyDingdanActivity extends BaseHttpRecyclerActivity<Piclb,PiclbView,
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-        Logger.e("pppp","pppp");
-        Intent intent = DingdanDetailActivity.createIntent(MyDingdanActivity.this);
-        startActivity(intent);
+        Logger.e("pppp", "pppp");
+        String title = mdatalist.get(position).getTITLE();
+        switch (title){
+            case "回收订单":
+                Intent intent = DingdanDetailActivity.createIntent(MyDingdanActivity.this);
+                startActivity(intent);
+                break;
+            case "商城订单":
+                Intent intent2 = DingdanDetailActivity.createIntent(MyDingdanActivity.this);
+                startActivity(intent2);
+                break;
+                default:
+                    break;
+        }
+//        Logger.e("pppp","pppp");
+//        Intent intent = DingdanDetailActivity.createIntent(MyDingdanActivity.this);
+//        startActivity(intent);
         //把返回数据存入Intent
 //        String orderId =mdatalist.get(position).getORDER_ID();
 //        intent.putExtra("orderId", orderId);
@@ -136,7 +149,7 @@ public class MyDingdanActivity extends BaseHttpRecyclerActivity<Piclb,PiclbView,
                 .subscribe(new Action1<String>() {
                     @Override
                     public void call(String s) {
-                        s="[{\"TITLE\":\"预约订单\",\"ORDER_ID\":\"13900034567\",\"PATH\":\"http://47.92.55.233:8080/hdrra/uploadFiles/uploadImgs/20190116/82b68c5920a24f8790a3922c0b496502.png\"},{\"TITLE\":\"回收订单\",\"ORDER_ID\":\"13900034567\",\"PATH\":\"http://47.92.55.233:8080/hdrra/uploadFiles/uploadImgs/20190116/82b68c5920a24f8790a3922c0b496502.png\"},{\"TITLE\":\"系统订单\",\"ORDER_ID\":\"13900034567\",\"PATH\":\"http://47.92.55.233:8080/hdrra/uploadFiles/uploadImgs/20190116/82b68c5920a24f8790a3922c0b496502.png\"}]";
+                        s="[{\"TITLE\":\"回收订单\",\"ORDER_ID\":\"13900034567\",\"PATH\":\"http://47.92.55.233:8080/hdrra/uploadFiles/uploadImgs/20190116/82b68c5920a24f8790a3922c0b496502.png\"},{\"TITLE\":\"商城订单\",\"ORDER_ID\":\"13900034567\",\"PATH\":\"http://47.92.55.233:8080/hdrra/uploadFiles/uploadImgs/20190116/82b68c5920a24f8790a3922c0b496502.png\"}]";
                         try {
                             JSONArray jsonArray = new JSONArray(s);
                             Gson gson1 = new Gson();

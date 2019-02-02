@@ -128,6 +128,10 @@ public class AdressListActivity extends BaseHttpRecyclerActivity<Adress,AdressVi
         Logger.e("nnnnn",adress);
         Logger.e("nnnnn2",mdatalist.get(position).getMOBILE());
         intent.putExtra("adress", adress);
+        intent.putExtra("ADDRESSreal", mdatalist.get(position).getADDRESS());
+        intent.putExtra("PROVINCE", mdatalist.get(position).getPROVINCE());
+        intent.putExtra("CITY", mdatalist.get(position).getCITY());
+        intent.putExtra("AREA", mdatalist.get(position).getAREA());
         intent.putExtra("phone", mdatalist.get(position).getMOBILE());
         //设置返回数据
         setResult(RESULT_OK, intent);
@@ -169,6 +173,7 @@ public class AdressListActivity extends BaseHttpRecyclerActivity<Adress,AdressVi
                     @Override
                     public void call(String s) {
                         Logger.e("nimabi",s);
+
 //                        s2="[{\"name\":\"李小康\",\"phone\":\"13900034567\",\"adressName\":\"河北省 邯郸市 丛台区1\",\"realAdress\":\"八大胡同132号\",\"isDefault\":\"1\"},"+
 //                    "{\"name\":\"李小康2\",\"phone\":\"13900034567\",\"adressName\":\"河北省 邯郸市 丛台区2\",\"realAdress\":\"八大胡同132号\",\"isDefault\":\"0\"},"+
 //                   "{\"name\":\"李小康3\",\"phone\":\"13900034567\",\"adressName\":\"河北省 邯郸市 丛台区3\",\"realAdress\":\"八大胡同132号\",\"isDefault\":\"0\"}]";
@@ -179,7 +184,6 @@ public class AdressListActivity extends BaseHttpRecyclerActivity<Adress,AdressVi
                             Gson gson1 = new Gson();
                             List<Adress> khsllist2 = gson1.fromJson(jsonArray.toString(), new TypeToken<List<Adress>>() {
                             }.getType());
-                            Logger.e("nnnnn",khsllist2.size()+"fzwk");
 
                             onHttpResponse(-page, page >= 1 ? null :  JSON.toJSONString(khsllist2), null);
 

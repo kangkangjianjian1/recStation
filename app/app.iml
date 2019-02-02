@@ -100,6 +100,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/symbols" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/transforms" />
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
+      <excludeFolder url="file://$MODULE_DIR$/build/reports" />
       <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 27 Platform" jdkType="Android SDK" />
@@ -111,6 +112,7 @@
     <orderEntry type="library" name="Gradle: com.android.support:support-core-ui-27.1.1" level="project" />
     <orderEntry type="library" name="Gradle: io.reactivex:rxandroid-1.2.1" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support.constraint:constraint-layout-1.1.3" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:C.\Users\hubk\AndroidStudioProjects\recStation\app\libs\component_common_sdk_1.0.0.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.bumptech.glide:annotations:4.8.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.scwang.smartrefresh:SmartRefreshLayout-1.0.4-4" level="project" />
     <orderEntry type="library" name="Gradle: io.reactivex:rxjava:1.1.8@jar" level="project" />
@@ -140,6 +142,7 @@
     <orderEntry type="library" name="Gradle: com.flyco.tablayout:FlycoTabLayout_Lib-2.1.2" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-vector-drawable-27.1.1" level="project" />
     <orderEntry type="library" name="Gradle: com.contrarywind:wheelview-4.0.9" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:C.\Users\hubk\AndroidStudioProjects\recStation\app\libs\BaiduLBS_Android.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.daimajia.slider:library-1.1.5" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-core-utils-27.1.1" level="project" />
     <orderEntry type="library" name="Gradle: com.nineoldandroids:library:2.4.0@jar" level="project" />

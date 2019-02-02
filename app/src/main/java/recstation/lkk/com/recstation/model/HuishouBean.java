@@ -17,6 +17,7 @@ package recstation.lkk.com.recstation.model;
 import java.io.Serializable;
 
 import zuo.biao.library.base.BaseModel;
+import zuo.biao.library.util.StringUtil;
 
 /**
  * 用户类
@@ -27,37 +28,44 @@ public class HuishouBean extends BaseModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String RETRIEVETYPE; //回收类型
-    private String ORDER_ID; //顺序
-    private String PRICE; //价格
-    private String RETRIEVETYPE_ID; //id
+    private String AREA; //县
+    private String ADDRESS; //详细地址
+    private String RETRIEVETYPE_ID; //类型
+    private String SUSERNAME; //商家代号
+    private String RETRIEVEORDER_ID; //订单
+    private String YDATE; //日期
+    private String CREATETIME; //创建时间
+    private String STATUS; //状态
+    private String YTIME; //时间
+    private String MOBILE; //电话
+    private String APPRAISE; //标题
+    private String PROVINCE; //省
+    private String CITY; //省
     private String PICTUREPATH; //图片路径
-    private String CREATETIME; //创建事件
-    private String RETRIEVETYPE_NAME; //标题
-    private String BZ; //类属于
+    private String RETRIEVETYPE_NAME; //类型名
 
-    public String getRETRIEVETYPE() {
-        return RETRIEVETYPE;
+    public String getCITY() {
+        return CITY;
     }
 
-    public void setRETRIEVETYPE(String RETRIEVETYPE) {
-        this.RETRIEVETYPE = RETRIEVETYPE;
+    public void setCITY(String CITY) {
+        this.CITY = CITY;
     }
 
-    public String getORDER_ID() {
-        return ORDER_ID;
+    public String getAREA() {
+        return AREA;
     }
 
-    public void setORDER_ID(String ORDER_ID) {
-        this.ORDER_ID = ORDER_ID;
+    public void setAREA(String AREA) {
+        this.AREA = AREA;
     }
 
-    public String getPRICE() {
-        return PRICE;
+    public String getADDRESS() {
+        return ADDRESS;
     }
 
-    public void setPRICE(String PRICE) {
-        this.PRICE = PRICE;
+    public void setADDRESS(String ADDRESS) {
+        this.ADDRESS = ADDRESS;
     }
 
     public String getRETRIEVETYPE_ID() {
@@ -68,12 +76,28 @@ public class HuishouBean extends BaseModel implements Serializable {
         this.RETRIEVETYPE_ID = RETRIEVETYPE_ID;
     }
 
-    public String getPICTUREPATH() {
-        return PICTUREPATH;
+    public String getSUSERNAME() {
+        return SUSERNAME;
     }
 
-    public void setPICTUREPATH(String PICTUREPATH) {
-        this.PICTUREPATH = PICTUREPATH;
+    public void setSUSERNAME(String SUSERNAME) {
+        this.SUSERNAME = SUSERNAME;
+    }
+
+    public String getRETRIEVEORDER_ID() {
+        return RETRIEVEORDER_ID;
+    }
+
+    public void setRETRIEVEORDER_ID(String RETRIEVEORDER_ID) {
+        this.RETRIEVEORDER_ID = RETRIEVEORDER_ID;
+    }
+
+    public String getYDATE() {
+        return YDATE;
+    }
+
+    public void setYDATE(String YDATE) {
+        this.YDATE = YDATE;
     }
 
     public String getCREATETIME() {
@@ -84,6 +108,54 @@ public class HuishouBean extends BaseModel implements Serializable {
         this.CREATETIME = CREATETIME;
     }
 
+    public String getSTATUS() {
+        return STATUS;
+    }
+
+    public void setSTATUS(String STATUS) {
+        this.STATUS = STATUS;
+    }
+
+    public String getYTIME() {
+        return YTIME;
+    }
+
+    public void setYTIME(String YTIME) {
+        this.YTIME = YTIME;
+    }
+
+    public String getMOBILE() {
+        return MOBILE;
+    }
+
+    public void setMOBILE(String MOBILE) {
+        this.MOBILE = MOBILE;
+    }
+
+    public String getAPPRAISE() {
+        return APPRAISE;
+    }
+
+    public void setAPPRAISE(String APPRAISE) {
+        this.APPRAISE = APPRAISE;
+    }
+
+    public String getPROVINCE() {
+        return PROVINCE;
+    }
+
+    public void setPROVINCE(String PROVINCE) {
+        this.PROVINCE = PROVINCE;
+    }
+
+    public String getPICTUREPATH() {
+        return PICTUREPATH;
+    }
+
+    public void setPICTUREPATH(String PICTUREPATH) {
+        this.PICTUREPATH = PICTUREPATH;
+    }
+
     public String getRETRIEVETYPE_NAME() {
         return RETRIEVETYPE_NAME;
     }
@@ -92,17 +164,9 @@ public class HuishouBean extends BaseModel implements Serializable {
         this.RETRIEVETYPE_NAME = RETRIEVETYPE_NAME;
     }
 
-    public String getBZ() {
-        return BZ;
-    }
-
-    public void setBZ(String BZ) {
-        this.BZ = BZ;
-    }
-
     @Override
     protected boolean isCorrect() {//根据自己的需求决定，也可以直接 return true
-        return id > 0;// && StringUtil.isNotEmpty(phone, true);
+        return  StringUtil.isNotEmpty(RETRIEVEORDER_ID, true);
     }
 
 }

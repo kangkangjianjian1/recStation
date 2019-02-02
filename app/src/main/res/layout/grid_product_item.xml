@@ -23,7 +23,8 @@
         android:id="@+id/tvGridItemName"
         android:layout_gravity="left"
         android:layout_marginLeft="8dp"
-        android:textColor="@color/green"
+        android:textColor="@color/gray_1"
+        android:textSize="11sp"
         style="@style/text_middle"
         android:text="产品的名字"
         />
@@ -34,23 +35,23 @@
         android:orientation="horizontal">
         <TextView
             style="@style/wrap_wrap"
-            android:textColor="@color/green"
-            android:textSize="18sp"
+            android:textColor="@color/gray_1"
+            android:textSize="12sp"
             android:layout_gravity="left"
             android:layout_marginLeft="8dp"
             android:text="积分:"
             />
         <TextView
             android:id="@+id/tvGridItemPrice"
-            android:textSize="18sp"
-            android:textColor="@color/green"
+            android:textSize="12sp"
+            android:textColor="@color/gray_1"
             style="@style/wrap_wrap"
             android:layout_gravity="left"
             android:text="400"
             />
         <TextView
-            android:textSize="18sp"
-            android:textColor="@color/green"
+            android:textSize="12sp"
+            android:textColor="@color/gray_1"
             style="@style/wrap_wrap"
             android:layout_gravity="left"
             android:text="/个"

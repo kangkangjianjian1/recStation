@@ -24,7 +24,7 @@ public class Piclb extends BaseModel {
 	private static final long serialVersionUID = 1L;
 
 	private String PATH; //标题
-	private String ORDER_ID; //标题
+	private String PICTURES_ID; //标题
 	private String TITLE; //摘要
 
 
@@ -33,12 +33,12 @@ public class Piclb extends BaseModel {
 	public Piclb() {
 		//default
 	}
-	public Piclb(String ORDER_ID) {
+	public Piclb(String PICTURES_ID) {
 		this();
-		this.ORDER_ID = ORDER_ID;
+		this.PICTURES_ID = PICTURES_ID;
 	}
-	public Piclb(String ORDER_ID, String TITLE, String PATH) {
-		this(ORDER_ID);
+	public Piclb(String PICTURES_ID, String TITLE, String PATH) {
+		this(PICTURES_ID);
 		this.TITLE = TITLE;
 		this.PATH = PATH;
 	}
@@ -52,12 +52,12 @@ public class Piclb extends BaseModel {
 		this.PATH = PATH;
 	}
 
-	public String getORDER_ID() {
-		return ORDER_ID;
+	public String getPICTURES_ID() {
+		return PICTURES_ID;
 	}
 
-	public void setORDER_ID(String ORDER_ID) {
-		this.ORDER_ID = ORDER_ID;
+	public void setPICTURES_ID(String PICTURES_ID) {
+		this.PICTURES_ID = PICTURES_ID;
 	}
 
 	public String getTITLE() {

@@ -29,12 +29,15 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import recstation.lkk.com.recstation.AboutUsActivity;
 import recstation.lkk.com.recstation.DingdanDetailActivity;
 import recstation.lkk.com.recstation.LoginActivity;
 import recstation.lkk.com.recstation.MainTabActivity;
 import recstation.lkk.com.recstation.MyDingdanActivity;
 import recstation.lkk.com.recstation.MypointActivity;
+import recstation.lkk.com.recstation.QRCodeActivity;
 import recstation.lkk.com.recstation.R;
+import recstation.lkk.com.recstation.ShanghuguanliActivity;
 import recstation.lkk.com.recstation.util.Logger;
 import recstation.lkk.com.recstation.util.TestUtil;
 import zuo.biao.library.base.BaseBottomTabActivity;
@@ -44,6 +47,7 @@ import zuo.biao.library.ui.AlertDialog;
 import zuo.biao.library.ui.AlertDialog.OnDialogButtonClickListener;
 import zuo.biao.library.ui.CutPictureActivity;
 import zuo.biao.library.ui.SelectPictureActivity;
+import zuo.biao.library.util.CommonUtil;
 import zuo.biao.library.util.DataKeeper;
 import zuo.biao.library.util.StringUtil;
 
@@ -62,10 +66,12 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
     LinearLayout setting_ll_jifen;
     LinearLayout layout_dingdianguanli;
     LinearLayout layout_jifenguanli;
-    LinearLayout layout_shangpinduihuan;
-    LinearLayout layout_shimingrenzheng;
+    LinearLayout layout_huishoubaojia;
+    LinearLayout layout_shanghuguanli;
+    LinearLayout layout_myerweima;
     LinearLayout layout_xitongshezhi;
     LinearLayout layout_yijianpankui;
+    LinearLayout layout_guanyuwomen;
     ScrollView setting_scrollview;
     //与Activity通信<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     private static final int REQUEST_TO_SELECT_PICTURE = 20;
@@ -113,11 +119,13 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
         setting_ll_lvxin = findView(R.id.setting_ll_lvxin, this);
         setting_ll_jifen = findView(R.id.setting_ll_jifen, this);
         layout_dingdianguanli = findView(R.id.layout_dingdianguanli, this);
+        layout_shanghuguanli = findView(R.id.layout_shanghuguanli, this);
         layout_jifenguanli = findView(R.id.layout_jifenguanli, this);
-        layout_shangpinduihuan = findView(R.id.layout_shangpinduihuan, this);
-        layout_shimingrenzheng = findView(R.id.layout_shimingrenzheng, this);
+        layout_huishoubaojia = findView(R.id.layout_huishoubaojia, this);
+        layout_myerweima = findView(R.id.layout_myerweima, this);
         layout_xitongshezhi = findView(R.id.layout_xitongshezhi, this);
         layout_yijianpankui = findView(R.id.layout_yijianpankui, this);
+        layout_guanyuwomen = findView(R.id.layout_guanyuwomen, this);
 
 //访问网络查看签到状态
 
@@ -211,7 +219,7 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
                 break;
             case R.id.setting_ll_lvxin:
                 if (TestUtil.IsLogin()) {
-                    ((MainTabActivity) context).selectFragment(2);
+                    showShortToast("功能正在开发");
                 } else {
                     startActivity(LoginActivity.createIntent(context));
                 }
@@ -233,17 +241,25 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
                 }
                 //	toActivity(SettingActivity.createIntent(context));
                 break;
-            case R.id.layout_shangpinduihuan:
+            case R.id.layout_huishoubaojia:
                 if (TestUtil.IsLogin()) {
-                    ((MainTabActivity) context).selectFragment(2);
+                   showShortToast("功能正在开发");
                 } else {
                     startActivity(LoginActivity.createIntent(context));
                 }
                 //	toActivity(SettingActivity.createIntent(context));
                 break;
-            case R.id.layout_shimingrenzheng:
+                case R.id.layout_shanghuguanli:
                 if (TestUtil.IsLogin()) {
-                    ((MainTabActivity) context).selectFragment(2);
+                    startActivity(ShanghuguanliActivity.createIntent(context));
+                } else {
+                    startActivity(LoginActivity.createIntent(context));
+                }
+                //	toActivity(SettingActivity.createIntent(context));
+                break;
+            case R.id.layout_myerweima:
+                if (TestUtil.IsLogin()) {
+                    CommonUtil.toActivity(context, QRCodeActivity.createIntent(context, 1));
                 } else {
                     startActivity(LoginActivity.createIntent(context));
                 }
@@ -251,7 +267,8 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
                 break;
             case R.id.layout_xitongshezhi:
                 if (TestUtil.IsLogin()) {
-                    ((MainTabActivity) context).selectFragment(2);
+                   // CommonUtil.toActivity(context, AboutUsActivity.createIntent(context));
+                    showShortToast("系统设置正在开发");
                 } else {
                     startActivity(LoginActivity.createIntent(context));
                 }
@@ -259,13 +276,20 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
                 break;
             case R.id.layout_yijianpankui:
                 if (TestUtil.IsLogin()) {
-                    ((MainTabActivity) context).selectFragment(2);
+                    showShortToast("功能正在开发");
                 } else {
                     startActivity(LoginActivity.createIntent(context));
                 }
                 //	toActivity(SettingActivity.createIntent(context));
                 break;
-
+            case R.id.layout_guanyuwomen:
+                if (TestUtil.IsLogin()) {
+                    CommonUtil.toActivity(context, AboutUsActivity.createIntent(context));
+                } else {
+                    startActivity(LoginActivity.createIntent(context));
+                }
+                //	toActivity(SettingActivity.createIntent(context));
+                break;
 //			case R.id.llSettingAbout:
 //				//toActivity(AboutActivity.createIntent(context));
 //				break;

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              style="@style/activity_page">
+
+    <RelativeLayout style="@style/topbar_bg">
+
+        <ImageButton style="@style/topbar_return_img"/>
+        <TextView
+            style="@style/topbar_title"
+            android:layout_centerHorizontal="true"
+            android:text="关于我们"/>
+    </RelativeLayout>
+
+        <LinearLayout style="@style/ll_vertical_match_match">
+
+            <LinearLayout
+                style="@style/ll_vertical_match_wrap"
+                android:layout_height="180dp"
+                android:background="@color/white">
+
+                <ImageView
+                    android:id="@+id/about_ivSettingHead"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="15dp"
+                    android:contentDescription="touxiang"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_launcher_round"/>
+
+                <TextView
+                    android:id="@+id/about_tv_name"
+                    style="@style/tv_remind"
+                    android:layout_marginTop="15dp"
+                    android:padding="2dp"
+                    android:text="马上回收"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/about_tv_version"
+                    style="@style/tv_remind"
+                    android:padding="2dp"
+                    android:text="V1.0"
+                    android:textColor="@color/gray_1"
+                    android:textSize="11sp"/>
+            </LinearLayout>
+
+            <View
+                style="@style/divider_horizontal_1px"
+                android:layout_height="8dp"
+                android:background="@color/divider"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="left"
+                android:layout_marginLeft="8dp"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="7dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:background="@color/green2"/>
+
+                <TextView
+                    style="@style/text_middle_black"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="3dp"
+                    android:padding="4dp"
+                    android:text="App介绍"/>
+            </LinearLayout>
+
+            <View style="@style/divider_horizontal_1px"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/white"
+               >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:textSize="15sp"
+                    android:text="   马上回收APP是一款采用“互联网+上门回收”O2O业务模式，用户只需一键下单即可实现资源再生上门回收。"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:textSize="15sp"
+                    android:text="　　品牌统一，形象统一，回收规范化，传统回收模式下的那些骑三轮手拿铃铛到处吆喝，长期服务于大街小巷、居民小区、写字楼、企事业单位、周边商户以及工厂之间废品回收人员（含废品回收公司和专业废品回收人员）将会被品牌重塑。"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:textSize="15sp"
+                    android:text="   网上回收服务平台的诞生将彻底改变传统回收模式，以一种高质、快速专业化O2O回收模式呈现。"/>
+
+                <RelativeLayout
+                    android:id="@+id/about_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom"
+
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_gravity="bottom"
+                        android:layout_marginBottom="25dp"
+                        android:gravity="center_horizontal"
+                        android:text="联系我们:400-1234-400"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_gravity="bottom"
+                        android:gravity="center_horizontal"
+                        android:textSize="11sp"
+                        android:layout_marginBottom="5dp"
+                        android:text="邯郸回收驿站"/>
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+</LinearLayout>

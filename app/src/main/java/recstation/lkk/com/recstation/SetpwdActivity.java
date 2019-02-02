@@ -66,6 +66,7 @@ public class SetpwdActivity extends BaseActivity implements View.OnClickListener
         password = setpwd_account_pwd.getText().toString().trim();
 
 
+
     }
 
     @Override
@@ -93,7 +94,7 @@ public class SetpwdActivity extends BaseActivity implements View.OnClickListener
             return;
         }
         showProgressDialog("正在设置新的密码");
-        Subscription subscription = HKEapiManager.getInstances().demoApi.setpwd(URLConfig.CHECKSMS_URL, username,password,appsms_id,appsms_code)
+        Subscription subscription = HKEapiManager.getInstances().demoApi.setpwd(URLConfig.SETDPWD_URL, username,setpwd_account_pwd.getText().toString().trim(),appsms_id,appsms_code)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<String>() {
@@ -109,11 +110,11 @@ public class SetpwdActivity extends BaseActivity implements View.OnClickListener
                                 //登陆成功跳转到首页。
                                 showShortToast(message,true);
 
-                                Intent intent = LoginActivity.createIntent(SetpwdActivity.this);
-//                                intent.putExtra("username",username);
-//                                intent.putExtra("appsms_id",appsms_id);
-//                                intent.putExtra("appsms_code",appsms_code);
-                                startActivity(intent);
+//                                Intent intent = LoginActivity.createIntent(SetpwdActivity.this);
+////                                intent.putExtra("username",username);
+////                                intent.putExtra("appsms_id",appsms_id);
+////                                intent.putExtra("appsms_code",appsms_code);
+//                                startActivity(intent);
                                 finish();
 
                             }else{

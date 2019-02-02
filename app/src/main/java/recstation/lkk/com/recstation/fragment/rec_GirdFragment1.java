@@ -200,8 +200,8 @@ public class rec_GirdFragment1 extends BaseListFragment<Entry<String, String>, G
 //		adapter.notifyListDataSetChanged();
         if(IsLogin()){
             Intent i = ZhoubianActivity.createIntent(context);
-            i.putExtra("price",datalist.get(position).getPRICE());
-            i.putExtra("type",datalist.get(position).getBZ());
+            i.putExtra("price","45");
+            i.putExtra("type",datalist.get(position).getRETRIEVETYPE_NAME());
             i.putExtra("picturepath",datalist.get(position).getPICTUREPATH());
             toActivity(i);
 

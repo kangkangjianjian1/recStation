@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              style="@style/activity_page">
+
+    <RelativeLayout style="@style/topbar_bg">
+
+        <ImageButton style="@style/topbar_return_img"/>
+        <TextView
+            style="@style/topbar_title"
+            android:layout_centerHorizontal="true"
+            android:text="商户认证"/>
+    </RelativeLayout>
+    <View style="@style/divider_horizontal_1px"/>
+    <LinearLayout style="@style/ll_vertical_match_match"
+                  android:gravity="left"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="8dp"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="7dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@color/green2"/>
+
+            <TextView
+                style="@style/text_middle_black"
+                android:layout_gravity="center"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="10dp"
+                android:padding="4dp"
+                android:text="上传身份证"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_idcard"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                    <LinearLayout
+                        android:id="@+id/front_layout2"
+                        android:layout_width="160dp"
+                        android:layout_height="90dp"
+                        android:layout_margin="12dp"
+                        android:layout_gravity="center"
+                        android:background="@color/green2"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        >
+                        <ImageView
+                            android:id="@+id/front_layout"
+                            android:layout_width="match_parent"
+                            android:scaleType="fitXY"
+                            android:layout_height="match_parent"
+                            android:visibility="gone"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="点击上传身份证人像面照片"
+                            android:textColor="@color/black"
+                            android:textSize="11sp"/>
+
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                    <LinearLayout
+                        android:id="@+id/back_layout2"
+                        android:layout_width="160dp"
+                        android:layout_height="90dp"
+                        android:layout_margin="12dp"
+                        android:layout_gravity="center"
+                        android:background="@color/green2"
+                        android:gravity="center"
+                        android:scaleType="fitXY"
+                        android:orientation="vertical"
+                        >
+                        <ImageView
+                            android:id="@+id/back_layout"
+                            android:visibility="gone"
+                            android:scaleType="fitXY"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="点击上传身份证国徽面照片"
+                            android:textColor="@color/black"
+                            android:textSize="11sp"/>
+
+                    </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="8dp"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="7dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@color/green2"/>
+
+            <TextView
+                style="@style/text_middle_black"
+                android:layout_gravity="center"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="10dp"
+                android:padding="4dp"
+                android:text="上传营业执照"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal">
+
+                <LinearLayout
+                    android:id="@+id/yingyezhizhao_layout2"
+                    android:layout_width="160dp"
+                    android:layout_height="90dp"
+                    android:layout_margin="12dp"
+                    android:layout_gravity="center"
+                    android:background="@color/green2"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    >
+
+                    <ImageView
+                        android:id="@+id/yingyezhizhao_layout"
+                        android:visibility="gone"
+                        android:scaleType="fitXY"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:gravity="center"
+                        android:text="点击上传营业执照照片"
+                        android:textColor="@color/black"
+                        android:textSize="11sp"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <View style="@style/divider_horizontal_1px"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/white"
+            >
+
+            <RelativeLayout
+                android:id="@+id/about_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+
+                >
+                <Button
+                    android:id="@+id/shanghu_photo_savebtn"
+                    style="@style/btn_biga_round"
+                    android:text="上传"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_margin="15dp"
+                    android:gravity="center"/>
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
