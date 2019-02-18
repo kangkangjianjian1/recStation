@@ -14,6 +14,7 @@ public class URLConfig {
 	public static String PRODUCT_URL = HEAD_URL + "hdrra/appmain/mallitems";
 	public static String RECPERSON_URL = HEAD_URL + "hdrra/appmerchant/list";
 	public static String DINGDAN_URL = HEAD_URL + "hdrra/apporder/list";
+	public static String EDITDINGDAN_URL = HEAD_URL + "hdrra/apporder/edit";
 	public static String ADDADDRESS_URL = HEAD_URL + "hdrra/appuseraddr/save";
 	public static String DELADDRESS_URL = HEAD_URL + "hdrra/appuseraddr/delete";
 	public static String FINDADDRESS_URL = HEAD_URL + "hdrra/appuseraddr/findByUsername";

@@ -42,6 +42,8 @@ import java.util.List;
 
 import recstation.lkk.com.recstation.GonggaoDetailActivity;
 import recstation.lkk.com.recstation.LoginActivity;
+import recstation.lkk.com.recstation.MyZhoubianActivity;
+import recstation.lkk.com.recstation.MyZhoubianActivity2;
 import recstation.lkk.com.recstation.R;
 import recstation.lkk.com.recstation.RecdetailActivity;
 import recstation.lkk.com.recstation.animations.MyDescriptionAnimation;
@@ -81,7 +83,10 @@ public class FirstListGirdFragment extends BaseFragment implements View.OnClickL
     //	private static final String TAG = "DemoListFragment";
     CompositeSubscription mCompositeSubscription = new CompositeSubscription();
     List<HuishouBean> all = new ArrayList<HuishouBean>();
-   NoticeView first_noticeview;
+    List<HuishouBean> list1 = new ArrayList<HuishouBean>();
+    List<HuishouBean> list2 = new ArrayList<HuishouBean>();
+    List<HuishouBean> list3 = new ArrayList<HuishouBean>();
+    NoticeView first_noticeview;
     SliderLayout mSlider;
     Button btn_yuyue, btn_zhoubian;
     //    TextView tv;
@@ -167,13 +172,13 @@ public class FirstListGirdFragment extends BaseFragment implements View.OnClickL
         btn_yuyue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  btn_zhoubian.setBackgroundResource(R.drawable.btn_big_selector2);
-                if(IsLogin()){
+                //  btn_zhoubian.setBackgroundResource(R.drawable.btn_big_selector2);
+                if (IsLogin()) {
 //                    btn_yuyue.setBackgroundResource(R.drawable.btn_big_selector);
                     Intent i = RecdetailActivity.createIntent(context);
                     i.putExtra("alllist", (Serializable) all);
                     startActivity(i);
-                }else {
+                } else {
                     toActivity(LoginActivity.createIntent(context));
                 }
 
@@ -186,6 +191,14 @@ public class FirstListGirdFragment extends BaseFragment implements View.OnClickL
 //                btn_yuyue.setBackgroundResource(R.drawable.btn_big_selector2);
 //                btn_zhoubian.setBackgroundResource(R.drawable.btn_big_selector);
                 //更新页面
+                if (IsLogin()) {
+//                    btn_yuyue.setBackgroundResource(R.drawable.btn_big_selector);
+                    Intent i = MyZhoubianActivity2.createIntent(context,list1,list2,list3);
+                 //   Intent i = MyZhoubianActivity2.createIntent(context,all);
+                    startActivity(i);
+                } else {
+                    toActivity(LoginActivity.createIntent(context));
+                }
             }
         });
     }
@@ -247,19 +260,13 @@ public class FirstListGirdFragment extends BaseFragment implements View.OnClickL
                                 JSONArray wrwllist = retrievelist.getJSONArray(1);
                                 JSONArray gcllist = retrievelist.getJSONArray(2);
 
-//                                JSONArray khsllist = jsonObject2.getJSONArray("khsllist");
-                                List<HuishouBean> khsllist2 = gson1.fromJson(khsllist.toString(), new TypeToken<List<HuishouBean>>() {
+                               list1 = gson1.fromJson(khsllist.toString(), new TypeToken<List<HuishouBean>>() {
                                 }.getType());
-                                Logger.e("khsllist2", khsllist2.size()+"fzwk");
-//                                JSONArray wrwllist = jsonObject3.getJSONArray("wrwllist");
-                                List<HuishouBean> wrwllist2 = gson1.fromJson(wrwllist.toString(), new TypeToken<List<HuishouBean>>() {
+                              list2 = gson1.fromJson(wrwllist.toString(), new TypeToken<List<HuishouBean>>() {
                                 }.getType());
-                                Logger.e("wrwllist2", wrwllist2.size()+"fzwk");
-//                                JSONArray gcllist = jsonObject4.getJSONArray("gcllist");
-                                List<HuishouBean> gcllist2 = gson1.fromJson(gcllist.toString(), new TypeToken<List<HuishouBean>>() {
+                                list3 = gson1.fromJson(gcllist.toString(), new TypeToken<List<HuishouBean>>() {
                                 }.getType());
-                                Logger.e("gcllist2", gcllist2.size()+"fzwk");
-                                initFragmentChild(khsllist2,wrwllist2,gcllist2);
+                                initFragmentChild(list1, list2, list3);
 
                             }
                         } catch (JSONException e) {
@@ -296,21 +303,22 @@ public class FirstListGirdFragment extends BaseFragment implements View.OnClickL
 
     }
 
-    public void initFragmentChild(List<HuishouBean> list1,List<HuishouBean> list2,List<HuishouBean> list3) {
+    public void initFragmentChild(List<HuishouBean> list1, List<HuishouBean> list2, List<HuishouBean> list3) {
         all.addAll(list1);
         all.addAll(list2);
         all.addAll(list3);
-        rec_GirdFragment1 fragment1 = rec_GirdFragment1.createInstance(list1);
-        rec_GirdFragment1 fragment2 = rec_GirdFragment1.createInstance(list2);
-        rec_GirdFragment1 fragment3 = rec_GirdFragment1.createInstance(list3);
-//        rec_GirdFragment2 fragment2 = rec_GirdFragment2.createInstance(list2);
-//        rec_GirdFragment3 fragment3 = rec_GirdFragment3.createInstance(list3);
-        FragmentManager fragmentManager = getChildFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.rec_FragmentContainer1, fragment1);
-        transaction.replace(R.id.rec_FragmentContainer2, fragment2);
-        transaction.replace(R.id.rec_FragmentContainer3, fragment3);
-        transaction.commit();
+
+//        rec_GirdFragment1 fragment1 = rec_GirdFragment1.createInstance(list1);
+//        rec_GirdFragment1 fragment2 = rec_GirdFragment1.createInstance(list2);
+//        rec_GirdFragment1 fragment3 = rec_GirdFragment1.createInstance(list3);
+////        rec_GirdFragment2 fragment2 = rec_GirdFragment2.createInstance(list2);
+////        rec_GirdFragment3 fragment3 = rec_GirdFragment3.createInstance(list3);
+//        FragmentManager fragmentManager = getChildFragmentManager();
+//        FragmentTransaction transaction = fragmentManager.beginTransaction();
+//        transaction.replace(R.id.rec_FragmentContainer1, fragment1);
+//        transaction.replace(R.id.rec_FragmentContainer2, fragment2);
+//        transaction.replace(R.id.rec_FragmentContainer3, fragment3);
+//        transaction.commit();
     }
 
     public void initNotice(List<Notice> noticeList2) {
@@ -324,8 +332,8 @@ public class FirstListGirdFragment extends BaseFragment implements View.OnClickL
             @Override
             public void onNotieClick(int position, Notice notice) {
                 //打开公告详情页面。
-                Intent i =GonggaoDetailActivity.createIntent(context);
-                i.putExtra("url",notice.getLINKURL());
+                Intent i = GonggaoDetailActivity.createIntent(context);
+                i.putExtra("url", notice.getLINKURL());
                 startActivity(i);
             }
         });

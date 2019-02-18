@@ -82,15 +82,25 @@ public class DingdanView extends BaseView<Dingdanbean> {
     @Override
     public void bindView(Dingdanbean data_) {
         super.bindView(data_ != null ? data_ : new Dingdanbean());
-
-        iv_dingdanbeanview_Head.setImageResource(R.drawable.ic_launcher);
+        Glide.with(context).load(data.getPICTUREPATH()).into(iv_dingdanbeanview_Head);
         tv_dingdanbeanview_fenlei.setText(data.getRETRIEVETYPE_NAME());
         tv_dingdanbeanview_adress.setText(data.getPROVINCE()+data.getCITY()+data.getAREA()+data.getADDRESS());
         tv_dingdanbeanview_time.setText(data.getYDATE()+" "+data.getYTIME());
 
 
         //根据订单状态显示，目前应该市没有此数据。
-        tv_dingdanbeanview_status.setText("等待分配");
+        if (data.getSTATUS().equals("0")){
+            tv_dingdanbeanview_status.setText("进行中");
+
+        }else if (data.getSTATUS().equals("1")){
+            tv_dingdanbeanview_status.setText("待评价");
+        }else if (data.getSTATUS().equals("9")){
+            tv_dingdanbeanview_status.setText("已完成");
+
+        }else{
+            tv_dingdanbeanview_status.setText("状态异常");
+        }
+
 
     }
 

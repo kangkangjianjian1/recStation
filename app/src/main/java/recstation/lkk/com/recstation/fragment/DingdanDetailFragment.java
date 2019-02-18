@@ -14,21 +14,34 @@ limitations under the License.*/
 
 package recstation.lkk.com.recstation.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import recstation.lkk.com.recstation.DingdanResultActivity;
+import recstation.lkk.com.recstation.LoginActivity;
 import recstation.lkk.com.recstation.adapter.DingdanAdapter;
 import recstation.lkk.com.recstation.adapter.DingdanMsgAdapter;
+import recstation.lkk.com.recstation.application.DemoApplication;
 import recstation.lkk.com.recstation.model.Dingdanbean;
+import recstation.lkk.com.recstation.model.HuishouBean;
 import recstation.lkk.com.recstation.model.Msg;
 import recstation.lkk.com.recstation.util.HKEapiManager;
 import recstation.lkk.com.recstation.util.Logger;
+import recstation.lkk.com.recstation.util.TestUtil;
 import recstation.lkk.com.recstation.util.URLConfig;
 import recstation.lkk.com.recstation.view.DingdanMsgView;
 import recstation.lkk.com.recstation.view.DingdanView;
@@ -53,6 +66,7 @@ import zuo.biao.library.util.JSON;
 public class DingdanDetailFragment extends BaseHttpRecyclerFragment<Dingdanbean, DingdanView, DingdanAdapter> {
     //	private static final String TAG = "UserListFragment";
     CompositeSubscription mCompositeSubscription = new CompositeSubscription();
+    List<Dingdanbean> mDatalist =new ArrayList<Dingdanbean>();
 
     String status;
     //与Activity通信<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -93,6 +107,7 @@ public class DingdanDetailFragment extends BaseHttpRecyclerFragment<Dingdanbean,
 
     @Override
     public void setList(final List<Dingdanbean> list) {
+        mDatalist = list;
         setList(new AdapterCallBack<DingdanAdapter>() {
 
             @Override
@@ -134,58 +149,48 @@ public class DingdanDetailFragment extends BaseHttpRecyclerFragment<Dingdanbean,
 
 
     public void getDingdanData(final int page, final String status) {
-//        final String username = findpwd_account_phone.getText().toString();
-//        final String appsms_id = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(),"APPSMS_ID","");
-//        final String appsms_code = findpwd_account_yzm.getText().toString();
-//        if (prepareForFindpwd(appsms_id)){
-//            return;
-//        }
-        //  showProgressDialog("正在核对验证码");
-        Subscription subscription = HKEapiManager.getInstances().demoApi.index(URLConfig.CHECKSMS_URL)
+        String USERNAME = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(), "loginuser", "-1");
+        String STATUS = null;
+       if (status.equals("5")){
+           STATUS = null;
+       }else {
+           STATUS = status;
+       }
+                Subscription subscription = HKEapiManager.getInstances().demoApi.querydingdan(URLConfig.DINGDAN_URL,page+"",USERNAME,STATUS,null,null,null,null)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<String>() {
                     @Override
                     public void call(String s) {
 
-//                        s = "[{\"msgType\":\"消息类型\",\"title\":\"消息标题\",\"preMsg\":\"消息摘要\",\"time\":\"2018_12_12 08:00:09\",\"proMsg\":\"消息内容详细信息\"},{\"msgType\":\"消息类型\",\"title\":\"消息标题\",\"preMsg\":\"消息摘要\",\"time\":\"2018_12_12 08:00:09\",\"proMsg\":\"消息内容详细信息\"}，{\"msgType\":\"消息类型\",\"title\":\"消息标题\",\"preMsg\":\"消息摘要\",\"time\":\"2018_12_12 08:00:09\",\"proMsg\":\"消息内容详细信息\"}，{\"msgType\":\"消息类型\",\"title\":\"消息标题\",\"preMsg\":\"消息摘要\",\"time\":\"2018_12_12 08:00:09\",\"proMsg\":\"消息内容详细信息\"}]";
-                        Dingdanbean dingdanbean = new Dingdanbean();
-                        dingdanbean.setRETRIEVETYPE_NAME("订单类型");
-                        dingdanbean.setPROVINCE("河北省");
-                        dingdanbean.setCITY("邯郸市");
-                        dingdanbean.setAREA("邯山区");
-                        dingdanbean.setADDRESS("和平小区8栋403");
-                        dingdanbean.setYDATE("2019-01-30");
-                        dingdanbean.setYTIME("23:00:09");
-//						try {
-//							JSONArray jsonArray = new JSONArray(s);
-//							Gson gson1 = new Gson();
-//							List<Msg> khsllist2 = gson1.fromJson(jsonArray.toString(), new TypeToken<List<Msg>>() {
-//							}.getType());
-                        List<Dingdanbean> khsllist2 = new ArrayList<Dingdanbean>();
-                        if (status.equals("1")){
-                            khsllist2.add(dingdanbean);
-                        }else if (status.equals("2")){
-                            khsllist2.add(dingdanbean);
-                            khsllist2.add(dingdanbean);
-                        }else if (status.equals("3")){
-                            khsllist2.add(dingdanbean);
-                            khsllist2.add(dingdanbean);
-                            khsllist2.add(dingdanbean);
-                        }else {
-                            khsllist2.add(dingdanbean);
-                        khsllist2.add(dingdanbean);
-                        khsllist2.add(dingdanbean);
-                        khsllist2.add(dingdanbean);}
+                        Logger.e("getDingdanDatagetDingdanData:",s);
+                        try {
+                            JSONObject jsonObject = new JSONObject(s);
+                            String code = jsonObject.getString("code");
+                            String message = jsonObject.getString("message");
+                            JSONArray jsonArray = jsonObject.getJSONArray("orderlist");
+                            JSONObject pageObject = jsonObject.getJSONObject("page");
+                            int totalPage = Integer.parseInt(pageObject.getString("totalPage"));
+                            if ("OK".equals(code)){
+                                Gson gson1 = new Gson();
+                                List<Dingdanbean> khsllist2 = gson1.fromJson(jsonArray.toString(), new TypeToken<List<Dingdanbean>>() {
+                                }.getType());
+                                onHttpResponse(-page, page >= totalPage ? null : JSON.toJSONString(khsllist2), null);
 
-                        onHttpResponse(-page, page >= 2 ? null : JSON.toJSONString(khsllist2), null);
-                        Logger.e("nnnnn", khsllist2.size() + "fzwk");
+                            }else {
+                                showShortToast(message);
+                            }
 
-//							onHttpResponse(-page, page >= 2 ? null : s, null);
 
-//						} catch (JSONException e) {
-//							e.printStackTrace();
-//						}
+
+                        } catch (JSONException e) {
+                            showShortToast("数据解析异常");
+                            e.printStackTrace();
+                        }
+
+
+
+
 
 
                     }
@@ -219,8 +224,31 @@ public class DingdanDetailFragment extends BaseHttpRecyclerFragment<Dingdanbean,
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (id > 0) {
-            //	toActivity(UserActivity.createIntent(context, id));
+        //实现单选
+        if (TestUtil.IsLogin()){
+            Dingdanbean hu1 =  mDatalist.get(position);
+            HuishouBean hu = new HuishouBean();
+            hu.setADDRESS(hu1.getADDRESS());
+            hu.setAREA(hu1.getAREA());
+            hu.setRETRIEVETYPE_ID(hu1.getRETRIEVETYPE_ID());
+            hu.setSUSERNAME(hu1.getSUSERNAME());
+            hu.setRETRIEVEORDER_ID(hu1.getRETRIEVEORDER_ID());
+            hu.setYDATE(hu1.getYDATE());
+            hu.setCREATETIME(hu1.getCREATETIME());
+            hu.setYTIME(hu1.getYTIME());
+            hu.setMOBILE(hu1.getMOBILE());
+            hu.setAPPRAISE(hu1.getAPPRAISE());
+            hu.setPROVINCE(hu1.getPROVINCE());
+            hu.setCITY(hu1.getCITY());
+            hu.setSTATUS(hu1.getSTATUS());
+            hu.setPICTUREPATH(hu1.getPICTUREPATH());
+            hu.setRETRIEVETYPE_NAME(hu1.getRETRIEVETYPE_NAME());
+            Intent i = DingdanResultActivity.createIntent(context);
+            i.putExtra("data",hu);
+            i.putExtra("state","2");
+            startActivity(i);
+        }else {
+            toActivity(LoginActivity.createIntent(context));
         }
     }
 

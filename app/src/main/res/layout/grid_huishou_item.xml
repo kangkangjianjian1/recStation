@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               style="@style/ll_vertical_match_wrap"
-              android:background="@drawable/to_alpha"
+              android:background="@drawable/white_to_alpha"
               android:gravity="center" >
 
     <zuo.biao.library.ui.SquareRelativeLayout
@@ -10,6 +10,10 @@
 
         <ImageView
             android:background="@color/alpha_3"
+          android:layout_marginTop="25dp"
+          android:layout_marginLeft="25dp"
+          android:layout_marginRight="25dp"
+          android:layout_marginBottom="10dp"
             android:scaleType="centerCrop"
             android:id="@+id/ivGridItemHead"
             style="@style/match_match" />
@@ -26,7 +30,7 @@
             android:textSize="12sp"
             android:layout_gravity="left"
             android:layout_marginLeft="8dp"
-            android:text="地址:"
+            android:text="品类:"
             />
         <TextView
             android:id="@+id/tvGridItemName"
@@ -34,7 +38,7 @@
             android:textColor="@color/green"
             style="@style/wrap_wrap"
             android:layout_gravity="left"
-            android:text="河北省邯郸市肥乡县"
+            android:text="玻璃"
             />
 
     </LinearLayout>
@@ -48,15 +52,15 @@
             android:textSize="12sp"
             android:layout_gravity="left"
             android:layout_marginLeft="8dp"
-            android:text="创建日期:"
+            android:text="价格:"
             />
         <TextView
             android:id="@+id/tvGridItemTime"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:textColor="@color/green"
             style="@style/wrap_wrap"
             android:layout_gravity="left"
-            android:text="400"
+            android:text="6毛/斤"
             />
 
     </LinearLayout>

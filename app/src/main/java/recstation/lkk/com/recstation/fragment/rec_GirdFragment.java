@@ -14,6 +14,7 @@ limitations under the License.*/
 
 package recstation.lkk.com.recstation.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,8 +29,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import recstation.lkk.com.recstation.DingdanResultActivity;
+import recstation.lkk.com.recstation.LoginActivity;
 import recstation.lkk.com.recstation.R;
 import recstation.lkk.com.recstation.adapter.GridHuishouAdapter;
 import recstation.lkk.com.recstation.adapter.GridProductAdapter;
@@ -39,12 +43,14 @@ import recstation.lkk.com.recstation.model.ProductBean;
 import recstation.lkk.com.recstation.model.RecPerson;
 import recstation.lkk.com.recstation.util.HKEapiManager;
 import recstation.lkk.com.recstation.util.Logger;
+import recstation.lkk.com.recstation.util.TestUtil;
 import recstation.lkk.com.recstation.util.URLConfig;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 import zuo.biao.library.base.BaseListFragment;
 import zuo.biao.library.interfaces.AdapterCallBack;
 import zuo.biao.library.util.JSON;
@@ -63,6 +69,8 @@ import zuo.biao.library.util.Log;
  */
 public class rec_GirdFragment extends BaseListFragment<HuishouBean, GridView, GridHuishouAdapter> {
     public static int a = 1;
+    CompositeSubscription mCompositeSubscription = new CompositeSubscription();
+    List<HuishouBean> mDatalist =new ArrayList<HuishouBean>();
     //与Activity通信<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     /**
      * 创建一个Fragment实例
@@ -103,6 +111,7 @@ public class rec_GirdFragment extends BaseListFragment<HuishouBean, GridView, Gr
 
     @Override
     public void setList(final List<HuishouBean> list) {
+        mDatalist =list;
 //        int a;
 //        if (list.size() % 4 == 0) {
 //           a = list.size() / 4 ;
@@ -150,15 +159,6 @@ public class rec_GirdFragment extends BaseListFragment<HuishouBean, GridView, Gr
         //示例代码<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         showProgressDialog(R.string.loading);
         getRectypeData(page);
-//        List<ProductBean> list = new ArrayList<ProductBean>();
-////        for (int i = 0; i <13; i++) {
-////            list.add(new Entry<String, String>(getPictureUrl(i + 6 * page), "联系人" + i + 6 * page));
-////        }
-////        for (int i = 0; i < datalist.size(); i++) {
-////            list.add(new Entry<String, String>(datalist.get(i).getPICTUREPATH(), datalist.get(i).getRETRIEVETYPE_NAME()));
-////        }
-//        onLoadSucceed(page, list);
-        //示例代码>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     }
 
 
@@ -195,10 +195,22 @@ public class rec_GirdFragment extends BaseListFragment<HuishouBean, GridView, Gr
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         //实现单选
+        if (TestUtil.IsLogin()){
+            HuishouBean hu =  mDatalist.get(position);
+            Intent i = DingdanResultActivity.createIntent(context);
+            i.putExtra("data",hu);
+            i.putExtra("state","1");
+            startActivity(i);
+        }else {
+            toActivity(LoginActivity.createIntent(context));
+        }
+
+
 //		adapter.selectedPosition = adapter.selectedPosition == position ? -1 : position;
 //		adapter.notifyListDataSetChanged();
-        Log.e("kkkkkkwww", "ddddddddwwwkkk");
-        showShortToast("aaa" + position);
+//        Log.e("kkkkkkwww", "ddddddddwwwkkk");
+//        showShortToast("aaa" + position);
+
         //toActivity(UserActivity.createIntent(context, position));//一般用id，这里position仅用于测试 id));//
     }
 
@@ -280,6 +292,17 @@ public class rec_GirdFragment extends BaseListFragment<HuishouBean, GridView, Gr
 //                        Logger.e("lkk", "onCompleted");
                     }
                 });
+
+        mCompositeSubscription.add(subscription);
+
+
+    }
+
+
+    @Override
+    public void onDestroy() {
+        mCompositeSubscription.clear();
+        super.onDestroy();
 
     }
 }

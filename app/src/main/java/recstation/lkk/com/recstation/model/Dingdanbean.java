@@ -24,57 +24,21 @@ public class Dingdanbean extends BaseModel {
 
 	private static final long serialVersionUID = 1L;
 
-	private String USERNAME; //用户名
-	private String RETRIEVEORDER_ID; //ID
-	private String RETRIEVETYPE_NAME; //回收类型
-	private String PROVINCE; //省
-	private String CITY; //市区
 	private String AREA; //县
-	private String STATUS; //状态
-	private String ADDRESS; //地址
-	private String MOBILE; //电话
+	private String ADDRESS; //详细地址
+	private String RETRIEVETYPE_ID; //类型
+	private String SUSERNAME; //商家代号
+	private String RETRIEVEORDER_ID; //订单
 	private String YDATE; //日期
+	private String CREATETIME; //创建时间
+	private String STATUS; //状态
 	private String YTIME; //时间
-
-	public String getSTATUS() {
-		return STATUS;
-	}
-
-	public void setSTATUS(String STATUS) {
-		this.STATUS = STATUS;
-	}
-
-	public String getUSERNAME() {
-		return USERNAME;
-	}
-
-	public void setUSERNAME(String USERNAME) {
-		this.USERNAME = USERNAME;
-	}
-
-	public String getRETRIEVEORDER_ID() {
-		return RETRIEVEORDER_ID;
-	}
-
-	public void setRETRIEVEORDER_ID(String RETRIEVEORDER_ID) {
-		this.RETRIEVEORDER_ID = RETRIEVEORDER_ID;
-	}
-
-	public String getRETRIEVETYPE_NAME() {
-		return RETRIEVETYPE_NAME;
-	}
-
-	public void setRETRIEVETYPE_NAME(String RETRIEVETYPE_NAME) {
-		this.RETRIEVETYPE_NAME = RETRIEVETYPE_NAME;
-	}
-
-	public String getPROVINCE() {
-		return PROVINCE;
-	}
-
-	public void setPROVINCE(String PROVINCE) {
-		this.PROVINCE = PROVINCE;
-	}
+	private String MOBILE; //电话
+	private String APPRAISE; //标题
+	private String PROVINCE; //省
+	private String CITY; //省
+	private String PICTUREPATH; //图片路径
+	private String RETRIEVETYPE_NAME; //类型名
 
 	public String getCITY() {
 		return CITY;
@@ -100,12 +64,28 @@ public class Dingdanbean extends BaseModel {
 		this.ADDRESS = ADDRESS;
 	}
 
-	public String getMOBILE() {
-		return MOBILE;
+	public String getRETRIEVETYPE_ID() {
+		return RETRIEVETYPE_ID;
 	}
 
-	public void setMOBILE(String MOBILE) {
-		this.MOBILE = MOBILE;
+	public void setRETRIEVETYPE_ID(String RETRIEVETYPE_ID) {
+		this.RETRIEVETYPE_ID = RETRIEVETYPE_ID;
+	}
+
+	public String getSUSERNAME() {
+		return SUSERNAME;
+	}
+
+	public void setSUSERNAME(String SUSERNAME) {
+		this.SUSERNAME = SUSERNAME;
+	}
+
+	public String getRETRIEVEORDER_ID() {
+		return RETRIEVEORDER_ID;
+	}
+
+	public void setRETRIEVEORDER_ID(String RETRIEVEORDER_ID) {
+		this.RETRIEVEORDER_ID = RETRIEVEORDER_ID;
 	}
 
 	public String getYDATE() {
@@ -116,6 +96,22 @@ public class Dingdanbean extends BaseModel {
 		this.YDATE = YDATE;
 	}
 
+	public String getCREATETIME() {
+		return CREATETIME;
+	}
+
+	public void setCREATETIME(String CREATETIME) {
+		this.CREATETIME = CREATETIME;
+	}
+
+	public String getSTATUS() {
+		return STATUS;
+	}
+
+	public void setSTATUS(String STATUS) {
+		this.STATUS = STATUS;
+	}
+
 	public String getYTIME() {
 		return YTIME;
 	}
@@ -124,9 +120,49 @@ public class Dingdanbean extends BaseModel {
 		this.YTIME = YTIME;
 	}
 
+	public String getMOBILE() {
+		return MOBILE;
+	}
+
+	public void setMOBILE(String MOBILE) {
+		this.MOBILE = MOBILE;
+	}
+
+	public String getAPPRAISE() {
+		return APPRAISE;
+	}
+
+	public void setAPPRAISE(String APPRAISE) {
+		this.APPRAISE = APPRAISE;
+	}
+
+	public String getPROVINCE() {
+		return PROVINCE;
+	}
+
+	public void setPROVINCE(String PROVINCE) {
+		this.PROVINCE = PROVINCE;
+	}
+
+	public String getPICTUREPATH() {
+		return PICTUREPATH;
+	}
+
+	public void setPICTUREPATH(String PICTUREPATH) {
+		this.PICTUREPATH = PICTUREPATH;
+	}
+
+	public String getRETRIEVETYPE_NAME() {
+		return RETRIEVETYPE_NAME;
+	}
+
+	public void setRETRIEVETYPE_NAME(String RETRIEVETYPE_NAME) {
+		this.RETRIEVETYPE_NAME = RETRIEVETYPE_NAME;
+	}
+
 	@Override
 	protected boolean isCorrect() {//根据自己的需求决定，也可以直接 return true
-		return StringUtil.isNotEmpty(USERNAME, true);
+		return  StringUtil.isNotEmpty(RETRIEVEORDER_ID, true);
 	}
 
 }

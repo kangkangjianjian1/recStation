@@ -184,7 +184,7 @@ public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDr
                     showShortToast("再按一次退出");
                     firstTime = secondTime;
                 } else {//完全退出
-                    HKEapiManager.getInstances().preferences.putStringData(DemoApplication.getInstance(), "loginuser", "no");
+                  //  HKEapiManager.getInstances().preferences.putStringData(DemoApplication.getInstance(), "loginuser", "no");
 
                     moveTaskToBack(false);//应用退到后台
                     System.exit(0);
@@ -201,12 +201,16 @@ public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDr
     }
     //双击手机返回键退出>>>>>>>>>>>>>>>>>>>>>
 
+//    @Override
+//    public void onForwardClick(View v) {
+//        super.onForwardClick(v);
+//        startActivity(ScanActivity.createIntent(MainTabActivity.this));
+//    }
     @Override
     public void onForwardClick(View v) {
         super.onForwardClick(v);
         startActivity(ScanActivity.createIntent(MainTabActivity.this));
     }
-
     //生命周期、onActivityResult<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 

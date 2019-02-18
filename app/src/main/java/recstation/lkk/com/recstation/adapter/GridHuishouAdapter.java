@@ -163,15 +163,15 @@ public class GridHuishouAdapter extends BaseAdapter {
         }
 
         final HuishouBean kvb = getItem(position);
-        final String adress = kvb.getPROVINCE()+kvb.getCITY()+kvb.getAREA();
+        final String type = kvb.getRETRIEVETYPE_NAME();
         final String time =kvb.getCREATETIME();
         final String phone = kvb.getYDATE();
 
         Glide.with(context).load(kvb.getPICTUREPATH()).into(holder.ivGridItemHead);
 
         holder.tvGridItemName.setVisibility(View.VISIBLE);
-        holder.tvGridItemName.setText(StringUtil.getTrimedString(adress));
-        holder.tvGridItemPrice.setText(StringUtil.getTrimedString(time));
+        holder.tvGridItemName.setText(StringUtil.getTrimedString(type));
+        holder.tvGridItemPrice.setText(StringUtil.getTrimedString("6毛/斤"));
         holder.tvGridItem_personname.setText(StringUtil.getTrimedString(phone));
 
 

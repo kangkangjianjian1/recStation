@@ -12,12 +12,13 @@
             <com.daimajia.slider.library.SliderLayout
                 android:id="@+id/slider"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
+                android:layout_height="210dp"
                 />
 
             <LinearLayout
                 android:id="@+id/layout_gonggao"
                 style="@style/content_item_alpha_gonggao"
+                android:background="#FDFCE5"
                 >
 
                 <ImageView
@@ -38,19 +39,19 @@
                 <Button
                     android:id="@+id/btn_yuyue"
                     android:layout_marginTop="20dp"
-                  style="@style/btn_biga_round"
+                  style="@style/btn_biga_round2"
                     android:text="预约回收"/>
                 <Button
                     android:id="@+id/btn_zhoubian"
                     style="@style/btn_biga_round2"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="65dp"
                     android:layout_marginBottom="10dp"
                     android:text="周边回收"/>
 
 
             </LinearLayout>
 
-            <View style="@style/divider_horizontal_1px_gray"/>
+            <!--<View style="@style/divider_horizontal_1px_gray"/>-->
 
             <FrameLayout
                 android:id="@+id/rec_FragmentContainer1"

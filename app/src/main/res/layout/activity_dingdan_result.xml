@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             style="@style/activity_page">
+
+    <LinearLayout style="@style/ll_vertical_match_match">
+
+        <RelativeLayout style="@style/topbar_bg">
+
+            <ImageButton style="@style/topbar_return_img"/>
+
+            <TextView
+                style="@style/topbar_title"
+                android:layout_marginLeft="20dp"
+                android:text="订单详情"
+                android:textColor="@color/black"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/gray_1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+
+                android:background="@color/green2"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/dingdanresult_status"
+                    style="@style/text_middle_black"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:padding="4dp"
+                    android:text="订单状态未分配"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dingdanresult_userLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="22dp"
+                android:layout_marginRight="22dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/dingdanresult_name"
+                        style="@style/text_middle_black"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="3dp"
+                        android:padding="4dp"
+                        android:text="用户名"/>
+
+                    <TextView
+                        android:id="@+id/dingdanresult_mobile"
+                        style="@style/text_middle_black"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="3dp"
+                        android:padding="4dp"
+                        android:text="13833388787"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="22dp"
+                android:layout_marginRight="22dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_micro_black"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="3dp"
+                    android:padding="4dp"
+                    android:text="收货地址："/>
+
+                <TextView
+                    android:id="@+id/dingdanresult_adress"
+                    style="@style/text_micro_black"
+                    android:layout_gravity="left"
+                    android:padding="4dp"
+                    android:text="河北省邯郸市邯山区北国商城223号码"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/gray_1"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="22dp"
+                android:layout_marginRight="22dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/text_middle_black"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="3dp"
+                        android:padding="4dp"
+                        android:text="预约时间"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="end"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/dingdanresult_time"
+                        style="@style/text_small_black"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="2019-12-12 21:22:33"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/gray_1"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="22dp"
+                android:layout_marginRight="22dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_small_black"
+                    android:layout_marginLeft="3dp"
+                    android:padding="4dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="已选分类"/>
+
+                <TextView
+                    android:id="@+id/dingdanresult_typeName"
+                    style="@style/text_small_black"
+                    android:layout_marginLeft="3dp"
+                    android:padding="4dp"
+                    android:text="分类名称"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/gray_1"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="22dp"
+                android:layout_marginRight="22dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_micro"
+                    android:gravity="left"
+                    android:padding="10dp"
+                    android:text="订单编号:"
+                    android:textColor="@color/gray_1"
+
+                    />
+
+                <TextView
+                    android:id="@+id/dingdanresult_No"
+                    style="@style/text_micro"
+                    android:gravity="left"
+                    android:padding="10dp"
+                    android:text="12344565677754343"
+                    android:textColor="@color/gray_1"
+
+                    />
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/gray_1"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom">
+
+            <Button
+                android:id="@+id/dingdanresult_btn"
+                style="@style/btn_biga_round"
+                android:layout_width="match_parent"
+                android:layout_margin="15dp"
+                android:gravity="center"
+                android:text="取消订单"
+                android:textColor="@color/white"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+</FrameLayout>

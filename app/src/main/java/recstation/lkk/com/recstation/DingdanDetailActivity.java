@@ -115,13 +115,13 @@ public class DingdanDetailActivity extends BaseActivity  implements OnTabSelectL
                     mFragments.add(DingdanDetailFragment.createInstance("5"));
                     break;
                 case  "进行中":
-                    mFragments.add(DingdanDetailFragment.createInstance("1"));
+                    mFragments.add(DingdanDetailFragment.createInstance("0"));
                     break;
                 case "待评价":
-                    mFragments.add(DingdanDetailFragment.createInstance("2"));
+                    mFragments.add(DingdanDetailFragment.createInstance("1"));
                     break;
                 case "已完成":
-                    mFragments.add(DingdanDetailFragment.createInstance("3"));
+                    mFragments.add(DingdanDetailFragment.createInstance("9"));
                     break;
                 default:
                     break;

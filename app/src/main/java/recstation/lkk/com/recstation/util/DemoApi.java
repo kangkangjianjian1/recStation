@@ -35,6 +35,12 @@ public interface DemoApi {
     @FormUrlEncoded
     @POST
     Observable<String> getdingdanlist(@Url String url, @Field("currentPage") String currentPage, @Field("USERNAME") String userName);
+    @FormUrlEncoded
+    @POST
+    Observable<String> jieshoudindan(@Url String url,  @Field("RETRIEVEORDER_ID") String RETRIEVEORDER_ID,  @Field("STATUS") String STATUS,  @Field("SUSERNAME") String SUSERNAME,  @Field("APPRAISE") String APPRAISE);
+    @FormUrlEncoded
+    @POST
+    Observable<String> chexiaodindan(@Url String url,  @Field("RETRIEVEORDER_ID") String RETRIEVEORDER_ID,  @Field("STATUS") String STATUS);
 
     @FormUrlEncoded
     @POST
