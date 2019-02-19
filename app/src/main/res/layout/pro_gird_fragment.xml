@@ -9,10 +9,10 @@
     <GridView
         android:id="@id/lvBaseList"
         style="@style/lv2"
-        android:layout_margin="18dp"
+        android:layout_margin="2dp"
         android:layout_weight="1"
-        android:horizontalSpacing="15dp"
+        android:horizontalSpacing="5dp"
         android:numColumns="2"
-        android:verticalSpacing="15dp" />
+        android:verticalSpacing="5dp" />
 
 </LinearLayout>

@@ -9,6 +9,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -33,6 +34,7 @@ import recstation.lkk.com.recstation.model.Adress;
 import recstation.lkk.com.recstation.model.JsonBean;
 import recstation.lkk.com.recstation.util.HKEapiManager;
 import recstation.lkk.com.recstation.util.Logger;
+import recstation.lkk.com.recstation.util.NetUtil;
 import recstation.lkk.com.recstation.util.TestUtil;
 import recstation.lkk.com.recstation.util.URLConfig;
 import rx.Subscription;
@@ -43,6 +45,7 @@ import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 import zuo.biao.library.base.BaseActivity;
 import zuo.biao.library.util.JSON;
+import zuo.biao.library.util.StringUtil;
 
 public class AddAdressActivity extends BaseActivity implements View.OnClickListener {
     CompositeSubscription mCompositeSubscription = new CompositeSubscription();
@@ -58,10 +61,10 @@ public class AddAdressActivity extends BaseActivity implements View.OnClickListe
     String SETADDRESS_URL = URLConfig.ADDADDRESS_URL;
     String CHANGEADDRESS_URL = URLConfig.EDITADDRESS_URL;
     String URL = SETADDRESS_URL;
-    String id="";
+    String id = "";
     String PROVINCE = "";
     String CITY = "";
-    String AREA ="";
+    String AREA = "";
     private List<JsonBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
@@ -101,6 +104,7 @@ public class AddAdressActivity extends BaseActivity implements View.OnClickListe
         initView();
         initData();
         initEvent();
+
     }
 
 
@@ -124,6 +128,9 @@ public class AddAdressActivity extends BaseActivity implements View.OnClickListe
 
             case R.id.add_address_addressname:
                 //地区选择
+                hideInput();
+
+
                 if (isLoaded) {
                     showPickerView();
                 } else {
@@ -170,8 +177,11 @@ public class AddAdressActivity extends BaseActivity implements View.OnClickListe
         String adressName = getIntent().getStringExtra("adressName");
         String realAdress = getIntent().getStringExtra("realAdress");
         String isDefault = getIntent().getStringExtra("isDefault");
-       id = getIntent().getStringExtra("id");
-       Logger.e("idshisha",id+"ffff");
+        PROVINCE = getIntent().getStringExtra("PROVINCE");
+        CITY = getIntent().getStringExtra("CITY");
+        AREA = getIntent().getStringExtra("AREA");
+        id = getIntent().getStringExtra("id");
+        Logger.e("idshisha", id + "ffff");
         if (!"".equals(name)) {
             add_address_name.setText(name);
         }
@@ -193,11 +203,11 @@ public class AddAdressActivity extends BaseActivity implements View.OnClickListe
             }
 
         }
-        if (!("".equals(id)||id==null)) {
-          URL = CHANGEADDRESS_URL;
-          add_address_savebtn.setText("确认修改");
+        if (!("".equals(id) || id == null)) {
+            URL = CHANGEADDRESS_URL;
+            add_address_savebtn.setText("确认修改");
             add_address_delbtn.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             add_address_delbtn.setVisibility(View.GONE);
             add_address_savebtn.setText("保存地址");
         }
@@ -327,9 +337,9 @@ public class AddAdressActivity extends BaseActivity implements View.OnClickListe
                         options3Items.get(options1).get(options2).get(options3) : "";
 
                 String tx = opt1tx + opt2tx + opt3tx;
-                PROVINCE =opt1tx;
-                CITY =opt2tx;
-                AREA =opt3tx;
+                PROVINCE = opt1tx;
+                CITY = opt2tx;
+                AREA = opt3tx;
                 add_address_addressname.setText(tx);
                 Toast.makeText(AddAdressActivity.this, tx, Toast.LENGTH_SHORT).show();
             }
@@ -350,15 +360,43 @@ public class AddAdressActivity extends BaseActivity implements View.OnClickListe
 
     public void saveAdress() {
 
-
-        String username = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(), "loginuser", "-1");
-
         final String name = add_address_name.getText().toString();
         final String MOBILE = add_address_phone.getText().toString();
         final String ADDRESS = add_address_addressreal.getText().toString();
+        if (StringUtil.isEmpty(PROVINCE)) {
+            showShortToast("请选址地区信息");
+            return;
+        }
+        if (StringUtil.isEmpty(ADDRESS)) {
+            showShortToast("请填写详细地址");
+            return;
+        }
+        if (StringUtil.isEmpty(MOBILE)) {
+            showShortToast("请输入联系方式");
+            return;
+        }
+        if (StringUtil.isEmpty(name) ){
+            showShortToast("请填写用户姓名");
+            return;
+        }
+        if (StringUtil.isEmpty(PROVINCE)) {
+            showShortToast("请选址地区信息");
+            return;
+        }
+        if (!NetUtil.isNetConnected(this)) {
+            showShortToast("没有网络");
+            Logger.e("wcnmd","没有网络");
+            return;
+        }
 
-        if (!("".equals(id)||id==null)){
-            Subscription subscription = HKEapiManager.getInstances().demoApi.editAdress(URLConfig.EDITADDRESS_URL,isDefault,id, username, name, MOBILE, PROVINCE, CITY, AREA, ADDRESS)
+        showProgressDialog("正在申请验证码");
+
+
+        String username = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(), "loginuser", "-1");
+
+
+        if (!("".equals(id) || id == null)) {
+            Subscription subscription = HKEapiManager.getInstances().demoApi.editAdress(URLConfig.EDITADDRESS_URL, isDefault, id, username, name, MOBILE, PROVINCE, CITY, AREA, ADDRESS)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Action1<String>() {
@@ -368,7 +406,7 @@ public class AddAdressActivity extends BaseActivity implements View.OnClickListe
                                 JSONObject jsonObject = new JSONObject(s);
 
                                 String code = jsonObject.getString("code");
-                                if (code.equals("OK")){
+                                if (code.equals("OK")) {
                                     showShortToast("修改成功", true);
                                 }
 
@@ -391,52 +429,53 @@ public class AddAdressActivity extends BaseActivity implements View.OnClickListe
                         }
                     });
             mCompositeSubscription.add(subscription);
-        }else {
+        } else {
 
-        //showProgressDialog("正在核对验证码");
-        Subscription subscription = HKEapiManager.getInstances().demoApi.addAdress(URL,isDefault,username, name, MOBILE, PROVINCE, CITY, AREA, ADDRESS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<String>() {
-                    @Override
-                    public void call(String s) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(s);
+            //showProgressDialog("正在核对验证码");
+            Subscription subscription = HKEapiManager.getInstances().demoApi.addAdress(URL, isDefault, username, name, MOBILE, PROVINCE, CITY, AREA, ADDRESS)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Action1<String>() {
+                        @Override
+                        public void call(String s) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(s);
 
-                            String code = jsonObject.getString("code");
-                            if (code.equals("OK")){
-                                showShortToast("添加成功", true);
+                                String code = jsonObject.getString("code");
+                                if (code.equals("OK")) {
+                                    showShortToast("添加成功", true);
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
+                    }, new Action1<Throwable>() {
+                        @Override
+                        public void call(Throwable throwable) {
+                            Logger.e("lkk", "throwable22222222222" + throwable.getLocalizedMessage());
+                            showShortToast("网络异常，请稍后再试", true);
 
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        Logger.e("lkk", "throwable22222222222" + throwable.getLocalizedMessage());
-                        showShortToast("网络异常，请稍后再试", true);
-
-                    }
-                }, new Action0() {
-                    @Override
-                    public void call() {
+                        }
+                    }, new Action0() {
+                        @Override
+                        public void call() {
 //                        Logger.e("lkk", "onCompleted");
-                    }
-                });
+                        }
+                    });
             mCompositeSubscription.add(subscription);
         }
 
+        finish();
+        startActivity(AdressListActivity.createIntent(AddAdressActivity.this));
     }
 
     public void delAdress() {
 
 
-
         if (!("".equals(id) || id == null)) {
-            Subscription subscription2 = HKEapiManager.getInstances().demoApi.delAdress(URLConfig.DELADDRESS_URL,id)
+            Subscription subscription2 = HKEapiManager.getInstances().demoApi.delAdress(URLConfig.DELADDRESS_URL, id)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Action1<String>() {
@@ -448,7 +487,7 @@ public class AddAdressActivity extends BaseActivity implements View.OnClickListe
                                 String code = jsonObject.getString("code");
                                 if (code.equals("OK")) {
                                     showShortToast("删除成功", true);
-                                    finish();
+
                                 }
 
                             } catch (JSONException e) {
@@ -470,6 +509,21 @@ public class AddAdressActivity extends BaseActivity implements View.OnClickListe
                         }
                     });
             mCompositeSubscription.add(subscription2);
+
+           finish();
+        startActivity(AdressListActivity.createIntent(AddAdressActivity.this));
         }
     }
+
+    /**
+     * 隐藏键盘
+     */
+    protected void hideInput() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        View v = getWindow().peekDecorView();
+        if (null != v) {
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        }
+    }
+
 }

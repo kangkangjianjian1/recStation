@@ -371,6 +371,7 @@
 
     <style name="ll_vertical_match_match" parent="match_match">
         <item name="android:gravity">center_horizontal</item>
+        <item name="android:background">@color/activity_bg</item>
         <item name="android:orientation">vertical</item>
     </style>
 
@@ -463,6 +464,8 @@
 
     <style name="content_item_white" parent="content_item">
         <item name="android:background">@drawable/white_to_gray</item>
+        <item name="android:height">70dp</item>
+
     </style>
 
     <style name="content_item_big" parent="content_item">

@@ -32,8 +32,10 @@ import com.bumptech.glide.request.transition.Transition;
 import recstation.lkk.com.recstation.AddAdressActivity;
 import recstation.lkk.com.recstation.AdressListActivity;
 import recstation.lkk.com.recstation.R;
+import recstation.lkk.com.recstation.application.DemoApplication;
 import recstation.lkk.com.recstation.model.Adress;
 import recstation.lkk.com.recstation.model.User;
+import recstation.lkk.com.recstation.util.SharedPreferencesUtils;
 import zuo.biao.library.base.BaseModel;
 import zuo.biao.library.base.BaseView;
 import zuo.biao.library.ui.WebViewActivity;
@@ -83,6 +85,17 @@ public class AdressView extends BaseView<Adress> implements OnClickListener {
 	public void bindView(Adress data_){
 		super.bindView(data_ != null ? data_ : new Adress());
 
+		if (data.getDEFT().equals("1") ){
+
+			SharedPreferencesUtils.getInstence().putStringData(DemoApplication.getInstance(),"ad_name",data.getNAME());
+			SharedPreferencesUtils.getInstence().putStringData(DemoApplication.getInstance(),"ad_province",data.getPROVINCE());
+			SharedPreferencesUtils.getInstence().putStringData(DemoApplication.getInstance(),"ad_city",data.getCITY());
+			SharedPreferencesUtils.getInstence().putStringData(DemoApplication.getInstance(),"ad_area",data.getAREA());
+			SharedPreferencesUtils.getInstence().putStringData(DemoApplication.getInstance(),"ad_adress",data.getADDRESS());
+			SharedPreferencesUtils.getInstence().putStringData(DemoApplication.getInstance(),"ad_mobile",data.getMOBILE());
+
+		}
+
 		tv_adressview_adress_name.setText(data.getPROVINCE()+data.getCITY()+data.getAREA()+data.getADDRESS());
 		tv_adressview_isdefault.setBackgroundColor(getColor(data.getDEFT().equals("1") ? R.color.green2 : R.color.gray_1));
 
@@ -102,6 +115,9 @@ public class AdressView extends BaseView<Adress> implements OnClickListener {
 			i.putExtra("name",data.getNAME());
 			i.putExtra("phone",data.getMOBILE());
 			i.putExtra("adressName",data.getPROVINCE()+data.getCITY()+data.getAREA());
+			i.putExtra("PROVINCE",data.getPROVINCE());
+			i.putExtra("CITY",data.getCITY());
+			i.putExtra("AREA",data.getAREA());
 			i.putExtra("realAdress",data.getADDRESS());
 			i.putExtra("isDefault",data.getDEFT());
 			i.putExtra("id",data.getUSERADDRESS_ID());

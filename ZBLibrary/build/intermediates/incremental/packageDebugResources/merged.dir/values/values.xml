@@ -53,7 +53,7 @@
         <item>男</item>
         <item>女</item>
     </string-array>
-    <color name="activity_bg">#f7f8f8</color>
+    <color name="activity_bg">#f5f5f5</color>
     <color name="alpha_1">#1000</color>
     <color name="alpha_3">#3000</color>
     <color name="alpha_6">#6000</color>
@@ -265,10 +265,10 @@
         <item name="android:layout_height">fill_parent</item>
         <item name="android:background">@color/activity_bg</item>
         <item name="android:orientation">vertical</item>
-        
+        <!-- 状态栏沉浸 <<<<<<<<<<<<<<<<< -->
         <item name="android:clipToPadding">true</item>
         <item name="android:fitsSystemWindows">true</item>
-        
+        <!-- 状态栏沉浸 >>>>>>>>>>>>>>>>> -->
     </style>
     <style name="blank">
         <item name="android:layout_width">match_parent</item>
@@ -492,6 +492,8 @@
     </style>
     <style name="content_item_white" parent="content_item">
         <item name="android:background">@drawable/white_to_gray</item>
+        <item name="android:height">70dp</item>
+
     </style>
     <style name="divider">
         <item name="android:background">@color/alpha_3</item>
@@ -679,6 +681,7 @@
     </style>
     <style name="ll_vertical_match_match" parent="match_match">
         <item name="android:gravity">center_horizontal</item>
+        <item name="android:background">@color/activity_bg</item>
         <item name="android:orientation">vertical</item>
     </style>
     <style name="ll_vertical_match_wrap" parent="match_wrap">
@@ -702,7 +705,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:gravity">center_vertical</item>
-        
+        <!-- <item name="android:padding">10dp</item> -->
         <item name="android:orientation">horizontal</item>
         <item name="android:background">@drawable/to_alpha</item>
     </style>
@@ -1042,11 +1045,14 @@
     </style>
     <style name="translucentAnimation">
 
-        
-        
+        <!-- 切入切出时也会进行的动画，当底部界面均为透明界面时，动画会被桌面遮挡 -->
+        <!--
+        <item name="android:windowEnterAnimation">@anim/slide_right_in</item>
+        <item name="android:windowExitAnimation">@anim/transparent_to_zero</item>
+        -->
 
 
-        
+        <!-- 若底部界面均为透明界面时，以下动画会失效，也会受其他应用影响 -->
         <item name="android:activityOpenEnterAnimation">@anim/right_push_in</item>
         <item name="android:activityOpenExitAnimation">@anim/hold</item>
         <item name="android:activityCloseEnterAnimation">@anim/left_push_in</item>

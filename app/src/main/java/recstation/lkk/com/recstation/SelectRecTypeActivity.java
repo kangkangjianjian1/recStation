@@ -32,6 +32,9 @@ import recstation.lkk.com.recstation.model.Notice;
 import recstation.lkk.com.recstation.model.Piclb;
 import recstation.lkk.com.recstation.util.HKEapiManager;
 import recstation.lkk.com.recstation.util.Logger;
+import recstation.lkk.com.recstation.util.NetUtil;
+import recstation.lkk.com.recstation.util.SharedPreferencesUtils;
+import recstation.lkk.com.recstation.util.TestUtil;
 import recstation.lkk.com.recstation.util.URLConfig;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -40,6 +43,7 @@ import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 import zuo.biao.library.base.BaseActivity;
+import zuo.biao.library.util.StringUtil;
 
 public class SelectRecTypeActivity extends BaseActivity implements View.OnClickListener {
     CompositeSubscription mCompositeSubscription = new CompositeSubscription();
@@ -49,7 +53,7 @@ public class SelectRecTypeActivity extends BaseActivity implements View.OnClickL
     Button select_rectype_savebtn;
     TextView selectRec_datetime, selectRec_adress, selectRec_phone, selectRec_price, selectRec_miaoshu, selectRec_rectype;
     String selectRec_datetime1, selectRec_adress1, selectRec_phone1, selectRec_RETRIEVETYPE_ID, selectRec_price1, selectRec_miaoshu1, selectRec_rectype1;
-    String address, phone, province, city, area, adressreal, ydate, ytime;
+    String address, phone, province, city, area, adressreal, ydate, ytime ,name;
     private ArrayList<String> year = new ArrayList<>();
     private ArrayList<String> month = new ArrayList<>();
     private ArrayList<ArrayList<String>> time = new ArrayList<ArrayList<String>>();
@@ -92,9 +96,26 @@ public class SelectRecTypeActivity extends BaseActivity implements View.OnClickL
         selectRec_price.setText("行情价格:" + selectRec_price1 + "/公斤");
         selectRec_miaoshu.setText(selectRec_miaoshu1);
         selectRec_rectype.setText(selectRec_rectype1);
-        selectRec_adress.setText("请添加服务地址");
-        selectRec_phone.setText("");
+
         initNoLinkOptionsPicker();
+
+        name = SharedPreferencesUtils.getInstence().getStringData(DemoApplication.getInstance(),"ad_name","");
+        province = SharedPreferencesUtils.getInstence().getStringData(DemoApplication.getInstance(),"ad_province","");
+        city = SharedPreferencesUtils.getInstence().getStringData(DemoApplication.getInstance(),"ad_city","");
+        area = SharedPreferencesUtils.getInstence().getStringData(DemoApplication.getInstance(),"ad_area","");
+        adressreal = SharedPreferencesUtils.getInstence().getStringData(DemoApplication.getInstance(),"ad_adress","");
+        phone = SharedPreferencesUtils.getInstence().getStringData(DemoApplication.getInstance(),"ad_mobile","");
+        address=province+city+area+adressreal;
+
+        if (StringUtil.isEmpty(address)){
+            selectRec_adress.setText("请添加服务地址");
+            selectRec_phone.setText("");
+        }else {
+            selectRec_adress.setText(address);
+            selectRec_phone.setText(phone);
+        }
+
+
     }
 
     @Override
@@ -235,6 +256,24 @@ public class SelectRecTypeActivity extends BaseActivity implements View.OnClickL
     //网络请求默认地址，没有的话就点击添加
 
     private void yuyueHuishou() {
+        if (StringUtil.isEmpty(province)) {
+            showShortToast("请选择一个地址");
+
+            return;
+        }
+        if (StringUtil.isEmpty(selectRec_datetime1)) {
+            showShortToast("请选择一个预约时间");
+
+            return;
+        }
+        if (!NetUtil.isNetConnected(this)) {
+            showShortToast("没有网络");
+            Logger.e("wcnmd","没有网络");
+            return;
+        }
+
+        showProgressDialog("正在提交订单");
+
         String username = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(), "loginuser", "-1");
 
         Subscription subscription = HKEapiManager.getInstances().demoApi.yuyuehuishou(URLConfig.YUYUE_URL, username, selectRec_RETRIEVETYPE_ID,province,city,area,adressreal,phone,ydate,ytime )

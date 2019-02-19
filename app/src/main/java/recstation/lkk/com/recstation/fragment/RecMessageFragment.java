@@ -99,7 +99,7 @@ public class RecMessageFragment extends BaseFragment implements OnClickListener,
             }
         }
         ViewPager vp =findView(R.id.rec_msg_vp);
-        mAdapter = new MyPagerAdapter(getFragmentManager());
+        mAdapter = new MyPagerAdapter(getChildFragmentManager());
 
         vp.setAdapter(mAdapter);
         SlidingTabLayout tabLayout = findView(R.id.rec_msg_tab);

@@ -24,6 +24,7 @@ import recstation.lkk.com.recstation.model.Adress;
 import recstation.lkk.com.recstation.model.HuishouBean;
 import recstation.lkk.com.recstation.util.HKEapiManager;
 import recstation.lkk.com.recstation.util.Logger;
+import recstation.lkk.com.recstation.util.SharedPreferencesUtils;
 import recstation.lkk.com.recstation.util.URLConfig;
 import recstation.lkk.com.recstation.view.AdressView;
 import rx.Subscription;
@@ -143,20 +144,33 @@ public class AdressListActivity extends BaseHttpRecyclerActivity<Adress,AdressVi
 //        startActivity(i);
     }
 
+
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();
         Intent intent = new Intent();
         //把返回数据存入Intent
-        String adress =mdatalist.get(0).getPROVINCE()+mdatalist.get(0).getCITY()+mdatalist.get(0).getAREA()+mdatalist.get(0).getADDRESS();
-        intent.putExtra("adress", adress);
-        intent.putExtra("phone", mdatalist.get(0).getMOBILE());
+
+        String  name = SharedPreferencesUtils.getInstence().getStringData(DemoApplication.getInstance(),"ad_name","");
+        String province = SharedPreferencesUtils.getInstence().getStringData(DemoApplication.getInstance(),"ad_province","");
+        String  city = SharedPreferencesUtils.getInstence().getStringData(DemoApplication.getInstance(),"ad_city","");
+        String  area = SharedPreferencesUtils.getInstence().getStringData(DemoApplication.getInstance(),"ad_area","");
+        String adressreal = SharedPreferencesUtils.getInstence().getStringData(DemoApplication.getInstance(),"ad_adress","");
+        String  phone = SharedPreferencesUtils.getInstence().getStringData(DemoApplication.getInstance(),"ad_mobile","");
+        String  address=province+city+area+adressreal;
+        intent.putExtra("adress", address);
+        intent.putExtra("ADDRESSreal",adressreal);
+        intent.putExtra("PROVINCE",province);
+        intent.putExtra("CITY",city);
+        intent.putExtra("AREA", area);
+        intent.putExtra("phone", phone);
         //设置返回数据
         setResult(RESULT_OK, intent);
         finish();
     }
 
     public void getRectypeData(final int page) {
+        showShortToast("getRectypeData"+page);
 //        final String username = findpwd_account_phone.getText().toString();
 //        final String appsms_id = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(),"APPSMS_ID","");
 //        final String appsms_code = findpwd_account_yzm.getText().toString();

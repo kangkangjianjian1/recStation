@@ -16,7 +16,7 @@
             <LinearLayout
                 style="@style/ll_vertical_match_wrap"
                 android:layout_height="180dp"
-                android:background="@color/white">
+                android:background="@color/activity_bg">
 
                 <ImageView
                     android:id="@+id/about_ivSettingHead"
@@ -76,7 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:background="@color/white"
+                android:background="@color/activity_bg"
                >
 
                 <TextView
@@ -86,7 +86,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:textSize="15sp"
-                    android:text="   马上回收APP是一款采用“互联网+上门回收”O2O业务模式，用户只需一键下单即可实现资源再生上门回收。"/>
+                    android:text="        马上回收APP是一款采用“互联网+上门回收”O2O业务模式，用户只需一键下单即可实现资源再生上门回收。"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:textSize="15sp"
-                    android:text="　　品牌统一，形象统一，回收规范化，传统回收模式下的那些骑三轮手拿铃铛到处吆喝，长期服务于大街小巷、居民小区、写字楼、企事业单位、周边商户以及工厂之间废品回收人员（含废品回收公司和专业废品回收人员）将会被品牌重塑。"/>
+                    android:text="        品牌统一，形象统一，回收规范化，传统回收模式下的那些骑三轮手拿铃铛到处吆喝，长期服务于大街小巷、居民小区、写字楼、企事业单位、周边商户以及工厂之间废品回收人员（含废品回收公司和专业废品回收人员）将会被品牌重塑。"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -103,7 +103,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:textSize="15sp"
-                    android:text="   网上回收服务平台的诞生将彻底改变传统回收模式，以一种高质、快速专业化O2O回收模式呈现。"/>
+                    android:text="        网上回收服务平台的诞生将彻底改变传统回收模式，以一种高质、快速专业化O2O回收模式呈现。"/>
 
                 <RelativeLayout
                     android:id="@+id/about_content"

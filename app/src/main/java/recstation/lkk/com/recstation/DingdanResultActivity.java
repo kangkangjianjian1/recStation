@@ -115,6 +115,7 @@ public class DingdanResultActivity extends BaseActivity implements AlertDialog.O
         } else {
             dingdanresult_status.setText("订单已经被预订");
             dingdanresult_btn.setClickable(false);
+            dingdanresult_btn.setVisibility(View.INVISIBLE);
 
         }
         dingdanresult_name.setText(hu.getRETRIEVETYPE_NAME());

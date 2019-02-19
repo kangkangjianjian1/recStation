@@ -48,7 +48,7 @@
         style="@style/ll_horizontal_match_wrap"
         android:layout_height="50dp"
         android:padding="5dp"
-        android:background="@color/white">
+        android:background="@color/activity_bg">
 
         <LinearLayout
             android:id="@+id/llBottomTabTab0"
