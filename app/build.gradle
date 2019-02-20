@@ -106,4 +106,8 @@ dependencies {
     implementation 'cn.jiguang.sdk:jshare-jchatpromodel:1.6.0'
     implementation 'cn.jiguang.sdk:jcore:1.2.3'
     // 此处以JCore 1.2.3版本为例，具体版本请参考压缩包libs的jar包版本。
+
+    //圆形头像
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+
 }

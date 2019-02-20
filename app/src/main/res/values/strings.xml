@@ -22,6 +22,8 @@
     <string name="jiguang_socialize_share">分享</string>
     <string name="jiguang_socialize_sina">新浪</string>
     <string name="jiguang_socialize_text_cp_link">复制链接</string>
+    <string name="title_activity_edit_user">EditUserActivity</string>
+    <string name="title_activity_edit_user_name">EditUserNameActivity</string>
 
 
 </resources>

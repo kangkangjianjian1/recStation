@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.JsonObject;
 
 import org.json.JSONException;
@@ -33,6 +34,7 @@ import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 import zuo.biao.library.base.BaseActivity;
 import zuo.biao.library.interfaces.OnBottomDragListener;
+import zuo.biao.library.util.StringUtil;
 
 public class LoginActivity extends BaseActivity implements OnBottomDragListener, View.OnClickListener {
     CompositeSubscription mCompositeSubscription = new CompositeSubscription();
@@ -128,7 +130,10 @@ public class LoginActivity extends BaseActivity implements OnBottomDragListener,
 
                         try {
                             JSONObject jsonObject = new JSONObject(s);
+                            JSONObject pd =jsonObject.getJSONObject("pd");
                             String code = jsonObject.getString("code");
+                            String name = pd.getString("NAME");
+                            String path = pd.getString("PATH");
                             String message = jsonObject.getString("message");
                             if ("OK".equals(code)) {
                                 //登陆成功跳转到首页。
@@ -136,7 +141,8 @@ public class LoginActivity extends BaseActivity implements OnBottomDragListener,
                                 String time = TestUtil.getNowTime();
                                 HKEapiManager.getInstances().preferences.putStringData(DemoApplication.getInstance(), "islogin", time);
                                 HKEapiManager.getInstances().preferences.putStringData(DemoApplication.getInstance(), "loginuser", mUserName);
-
+                                 HKEapiManager.getInstances().preferences.putStringData(DemoApplication.getInstance(),"userheaderpic",path);
+                                 HKEapiManager.getInstances().preferences.putStringData(DemoApplication.getInstance(),"loginusernicheng",name);
                                 onBackPressed();
 
                             } else {

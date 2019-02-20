@@ -31,8 +31,8 @@
                         android:contentDescription="qiandao"
                         android:src="@drawable/qiandao_s"/>
                 </RelativeLayout>
-
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/setting_ivSettingHead"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
@@ -40,6 +40,14 @@
                     android:contentDescription="touxiang"
                     android:scaleType="centerCrop"
                     android:src="@drawable/my_touxiang"/>
+                <!--<ImageView-->
+                    <!--android:id="@+id/setting_ivSettingHead"-->
+                    <!--android:layout_width="60dp"-->
+                    <!--android:layout_height="60dp"-->
+                    <!--android:layout_marginTop="15dp"-->
+                    <!--android:contentDescription="touxiang"-->
+                    <!--android:scaleType="centerCrop"-->
+                    <!--android:src="@drawable/my_touxiang"/>-->
 
                 <TextView
                     android:id="@+id/setting_tv_user_name"

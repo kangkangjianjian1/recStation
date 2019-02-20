@@ -98,8 +98,8 @@
         <activity
             android:name=".AddAdressActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode = "stateAlwaysHidden | adjustPan"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
         </activity>
         <activity
             android:name=".ZhoubianActivity"
@@ -182,6 +182,14 @@
         <activity android:name=".MyZhoubianActivity">
         </activity>
         <activity android:name=".MyZhoubianActivity2">
+        </activity>
+        <activity
+            android:name=".edituseractivity.EditUserActivity"
+            android:label="@string/title_activity_edit_user">
+        </activity>
+        <activity
+            android:name=".edituseractivity.EditUserNameActivity"
+            android:label="@string/title_activity_edit_user_name">
         </activity>
     </application>
 

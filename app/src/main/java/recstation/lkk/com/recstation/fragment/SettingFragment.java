@@ -16,7 +16,6 @@ package recstation.lkk.com.recstation.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,6 +28,17 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import recstation.lkk.com.recstation.AboutUsActivity;
 import recstation.lkk.com.recstation.DingdanDetailActivity;
 import recstation.lkk.com.recstation.LoginActivity;
@@ -37,15 +47,29 @@ import recstation.lkk.com.recstation.MyDingdanActivity;
 import recstation.lkk.com.recstation.MypointActivity;
 import recstation.lkk.com.recstation.QRCodeActivity;
 import recstation.lkk.com.recstation.R;
+import recstation.lkk.com.recstation.ShanghuReisterPhotoActivity;
 import recstation.lkk.com.recstation.ShanghuguanliActivity;
+import recstation.lkk.com.recstation.application.DemoApplication;
+import recstation.lkk.com.recstation.edituseractivity.EditUserActivity;
+import recstation.lkk.com.recstation.util.HKEapiManager;
 import recstation.lkk.com.recstation.util.Logger;
+import recstation.lkk.com.recstation.util.NetUtil;
 import recstation.lkk.com.recstation.util.TestUtil;
+import recstation.lkk.com.recstation.util.URLConfig;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 import zuo.biao.library.base.BaseBottomTabActivity;
 import zuo.biao.library.base.BaseFragment;
 import zuo.biao.library.manager.SystemBarTintManager;
 import zuo.biao.library.ui.AlertDialog;
 import zuo.biao.library.ui.AlertDialog.OnDialogButtonClickListener;
 import zuo.biao.library.ui.CutPictureActivity;
+import zuo.biao.library.ui.EditTextInfoActivity;
+import zuo.biao.library.ui.EditTextInfoWindow;
 import zuo.biao.library.ui.SelectPictureActivity;
 import zuo.biao.library.util.CommonUtil;
 import zuo.biao.library.util.DataKeeper;
@@ -59,8 +83,9 @@ import zuo.biao.library.util.StringUtil;
  */
 public class SettingFragment extends BaseFragment implements OnClickListener, OnDialogButtonClickListener {
     //	private static final String TAG = "SettingFragment";
+    CompositeSubscription mCompositeSubscription = new CompositeSubscription();
     TextView setting_tv_user_name;
-    ImageView setting_ivHead;
+    CircleImageView setting_ivHead;
     ImageView setting_img_btn_sign;
     LinearLayout setting_ll_lvxin;
     LinearLayout setting_ll_jifen;
@@ -144,7 +169,16 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
 
     @Override
     public void initData() {//必须调用
+        String path = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(),"userheaderpic","");
 
+        if (!StringUtil.isEmpty(path)){
+            Glide.with(context).load(path).into(setting_ivHead);
+        }
+        String nicheng = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(),"loginusernicheng","");
+
+        if (!StringUtil.isEmpty(nicheng)){
+            setting_tv_user_name.setText(nicheng);
+        }
     }
 
 
@@ -166,6 +200,21 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
 //		findView(R.id.llSettingLogout).setOnClickListener(this);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        String path = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(),"userheaderpic","");
+
+        if (!StringUtil.isEmpty(path)){
+            Glide.with(context).load(path).into(setting_ivHead);
+        }
+        String nicheng = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(),"loginusernicheng","");
+
+        if (!StringUtil.isEmpty(nicheng)){
+            setting_tv_user_name.setText(nicheng);
+        }
+
+    }
 
     @Override
     public void onDialogButtonClick(int requestCode, boolean isPositive) {
@@ -187,20 +236,26 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
         switch (v.getId()) {
             case R.id.setting_ivSettingHead:
                 if (TestUtil.IsLogin()) {
-                    selectPicture();
+                    //selectPicture();
+                    startActivityForResult(EditUserActivity.createIntent(context),123);
                     //发送签到消息到后台
                 } else {
                     startActivity(LoginActivity.createIntent(context));
                 }
                 break;
             case R.id.setting_tv_user_name:
-                showShortToast("onClick  setting_tv_user_name");
-                startActivity(LoginActivity.createIntent(context));
-                //	toActivity(SettingActivity.createIntent(context));
+                if (TestUtil.IsLogin()) {
+                    //selectPicture();
+                    startActivityForResult(EditUserActivity.createIntent(context),123);
+                    //发送签到消息到后台
+                } else {
+                    startActivity(LoginActivity.createIntent(context));
+                }
                 break;
 
             case R.id.setting_img_btn_sign:
                 if (TestUtil.IsLogin()) {
+                      HKEapiManager.getInstances().preferences.putStringData(DemoApplication.getInstance(), "loginuser", "no");
                     setting_img_btn_sign.setImageResource(R.drawable.qiandao_n);
                     setting_img_btn_sign.setClickable(false);
                     //发送签到消息到后台
@@ -310,9 +365,9 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
 
     //Event事件区(只要存在事件监听代码就是)>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-    private void selectPicture() {
-        toActivity(SelectPictureActivity.createIntent(context), REQUEST_TO_SELECT_PICTURE, false);
-    }
+//    private void selectPicture() {
+//        toActivity(SelectPictureActivity.createIntent(context), REQUEST_TO_SELECT_PICTURE, false);
+//    }
     //内部类,尽量少用<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     @Override
@@ -322,55 +377,173 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
             return;
         }
         switch (requestCode) {
-            case REQUEST_TO_SELECT_PICTURE:
+            case 123:
                 if (data != null) {
-                    cutPicture(data.getStringExtra(SelectPictureActivity.RESULT_PICTURE_PATH));
+                String path = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(),"userheaderpic","");
+
+                if (!StringUtil.isEmpty(path)){
+                    Glide.with(context).load(path).into(setting_ivHead);
+                }
+                    String nicheng = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(),"loginusernicheng","");
+
+                    if (!StringUtil.isEmpty(nicheng)){
+                        setting_tv_user_name.setText(nicheng);
+                    }
+//                    cutPicture(data.getStringExtra(SelectPictureActivity.RESULT_PICTURE_PATH));
                 }
                 break;
-            case REQUEST_TO_CUT_PICTURE:
-                if (data != null) {
-                    setPicture(data.getStringExtra(CutPictureActivity.RESULT_PICTURE_PATH));
-                }
-                break;
+
 
         }
     }
 
-    /**
-     * 裁剪图片
-     *
-     * @param path
-     */
-    private void cutPicture(String path) {
-        if (StringUtil.isFilePath(path) == false) {
-            showShortToast("找不到图片");
-            return;
-        }
-        this.picturePath = path;
+//    /**
+//     * 裁剪图片
+//     *
+//     * @param path
+//     */
+//    private void cutPicture(String path) {
+//        if (StringUtil.isFilePath(path) == false) {
+//            showShortToast("找不到图片");
+//            return;
+//        }
+//        this.picturePath = path;
+//
+//        toActivity(CutPictureActivity.createIntent(context, path
+//                , DataKeeper.imagePath, "photo" + System.currentTimeMillis(), 200)
+//                , REQUEST_TO_CUT_PICTURE);
+//    }
+//
+//    /**
+//     * 显示图片
+//     *
+//     * @param path
+//     */
+//    private void setPicture(String path) {
+//        if (StringUtil.isFilePath(path) == false) {
+//            showShortToast("找不到图片");
+//            return;
+//        }
+//        this.picturePath = path;
+//
+//        setting_scrollview.smoothScrollTo(0, 0);
+//        Logger.e("cccccnnnnnn", path);
+//        Glide.with(context).load(path).into(setting_ivHead);
+//
+//        editPic();
+//
+//    }
+//
+//
+//    //内部类,尽量少用>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//
+//    public void editPic(){
+//
+//        File file3 = new File(picturePath);//filePath 图片地址
+//        MultipartBody.Builder builder = new MultipartBody.Builder()
+//                .setType(MultipartBody.FORM);
+//        RequestBody imageBody3 = RequestBody.create(MediaType.parse("multipart/form-data"), file3);
+//        builder.addFormDataPart("file", file3.getName(), imageBody3);//imgfile 后台接收图片流的参数名
+//
+//        List<MultipartBody.Part> parts = builder.build().parts();
+//       String userName2 = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(), "loginuser", "");
+//       RequestBody userName = NetUtil.toRequestBody(userName2);
+//        Subscription subscription = HKEapiManager.getInstances().demoApi.editPic(URLConfig.EDITUSERPIC_URL,parts,userName)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Action1<String>() {
+//                    @Override
+//                    public void call(String s) {
+//                        try {
+//                            JSONObject jsonObject = new JSONObject(s);
+//
+//                            String code = jsonObject.getString("code");
+//                            if (code.equals("OK")){
+//                                showShortToast("头像上传成功", true);
+//                            }
+//
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                    }
+//                }, new Action1<Throwable>() {
+//                    @Override
+//                    public void call(Throwable throwable) {
+//                        Logger.e("lkk", "throwable22222222222" + throwable.getLocalizedMessage());
+//                        showShortToast("网络异常，请稍后再试", true);
+//
+//                    }
+//                }, new Action0() {
+//                    @Override
+//                    public void call() {
+////                        Logger.e("lkk", "onCompleted");
+//                    }
+//                });
+//        mCompositeSubscription.add(subscription);
+//    }
 
-        toActivity(CutPictureActivity.createIntent(context, path
-                , DataKeeper.imagePath, "photo" + System.currentTimeMillis(), 200)
-                , REQUEST_TO_CUT_PICTURE);
-    }
+//    public void editName(){
+//
+//        String userName2 = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(), "loginuser", "");
+//
+//        HashMap<String, String> hashMap = new HashMap<>();
+//        hashMap.put("USERNAME",userName2);
+//        hashMap.put("NAME","我是评论");
+//
+//        Subscription subscription = HKEapiManager.getInstances().demoApi.sendPost(URLConfig.EDITUSERNAME_URL,hashMap)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Action1<String>() {
+//                    @Override
+//                    public void call(String s) {
+//                        try {
+//                            JSONObject jsonObject = new JSONObject(s);
+//
+//                            String code = jsonObject.getString("code");
+//                            if (code.equals("OK")){
+//                                showShortToast("头像上传成功", true);
+//                            }
+//
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                    }
+//                }, new Action1<Throwable>() {
+//                    @Override
+//                    public void call(Throwable throwable) {
+//                        Logger.e("lkk", "throwable22222222222" + throwable.getLocalizedMessage());
+//                        showShortToast("网络异常，请稍后再试", true);
+//
+//                    }
+//                }, new Action0() {
+//                    @Override
+//                    public void call() {
+////                        Logger.e("lkk", "onCompleted");
+//                    }
+//                });
+//        mCompositeSubscription.add(subscription);
+//    }
+//
+//    @Override
+//    public void onDestroy() {
+//        mCompositeSubscription.clear();
+//        super.onDestroy();
+//    }
 
-    /**
-     * 显示图片
-     *
-     * @param path
-     */
-    private void setPicture(String path) {
-        if (StringUtil.isFilePath(path) == false) {
-            showShortToast("找不到图片");
-            return;
-        }
-        this.picturePath = path;
-
-        setting_scrollview.smoothScrollTo(0, 0);
-        Logger.e("cccccnnnnnn", path);
-        Glide.with(context).load(path).into(setting_ivHead);
-    }
-
-
-    //内部类,尽量少用>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//    /**编辑图片名称
+//     */
+//    private void editName(boolean toWindow) {
+//        if (toWindow) {
+//            intent = EditTextInfoWindow.createIntent(context, EditTextInfoWindow.TYPE_NICK
+//                    , "照片名称", StringUtil.getTrimedString(tvDemoMainHeadName), getPackageName());
+//        } else {
+//            intent = EditTextInfoActivity.createIntent(context, EditTextInfoActivity.TYPE_NICK
+//                    , "照片名称", StringUtil.getTrimedString(tvDemoMainHeadName));
+//        }
+//
+//        toActivity(intent, REQUEST_TO_EDIT_TEXT_INFO, ! toWindow);
+//    }
 
 }

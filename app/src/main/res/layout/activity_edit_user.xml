@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             style="@style/activity_page">
+
+    <LinearLayout style="@style/ll_vertical_match_match">
+
+        <RelativeLayout style="@style/topbar_bg">
+
+            <ImageButton style="@style/topbar_return_img"/>
+
+            <TextView
+                style="@style/topbar_title"
+                android:layout_centerHorizontal="true"
+                android:text="修改用户信息"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/gray_1"/>
+
+        <LinearLayout
+            android:id="@+id/user_login_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                style="@style/ll_horizontal_match_match"
+                android:id="@+id/edit_userpic"
+                >
+
+                <TextView
+                    style="@style/text_small"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="left"
+                    android:text="用户头像"
+                    android:textColor="@color/black"/>
+
+                <LinearLayout
+                    style="@style/ll_horizontal_match_wrap"
+                    android:gravity="right"
+                    >
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/edituser_pic"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_marginTop="18dp"
+                        android:layout_marginBottom="18dp"
+                        android:layout_marginRight="8dp"
+                        android:src="@drawable/my_touxiang"
+                        app:civ_border_color="#00000000"
+                        app:civ_border_width="2dp"/>
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="18dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/right_arrow"/>
+
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/gray_1"/>
+            <LinearLayout
+                style="@style/ll_horizontal_match_match"
+                android:id="@+id/edit_username"
+                >
+
+                <TextView
+                    style="@style/text_small"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="left"
+                    android:text="用户昵称"
+                    android:textColor="@color/black"/>
+
+                <LinearLayout
+                    style="@style/ll_horizontal_match_wrap"
+                    android:gravity="right"
+                    >
+                    <TextView
+                        android:id="@+id/edituser_name"
+                        style="@style/text_small"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="left"
+                        android:layout_marginTop="18dp"
+                        android:layout_marginBottom="18dp"
+                        android:text="点击修改"
+                        android:textColor="@color/black"/>
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="18dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/right_arrow"/>
+
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/gray_1"/>
+            <!--<Button-->
+                <!--android:id="@+id/setpwd_btn_confirm"-->
+                <!--style="?android:attr/borderlessButtonStyle"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="22dp"-->
+                <!--android:layout_marginRight="22dp"-->
+                <!--android:layout_marginTop="36dp"-->
+                <!--android:background="@drawable/btn_big_selector"-->
+                <!--android:text="确定"-->
+                <!--android:textColor="@android:color/white"-->
+                <!--android:textSize="16sp"/>-->
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+</FrameLayout>

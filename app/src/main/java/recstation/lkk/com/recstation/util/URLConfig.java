@@ -21,7 +21,7 @@ public class URLConfig {
 	public static String EDITADDRESS_URL = HEAD_URL + "hdrra/appuseraddr/edit";
 	public static String SETDEFAULTADDRESS_URL = HEAD_URL + "hdrra/appuseraddr/editDeft";
 	public static String EDITUSERNAME_URL = HEAD_URL + "hdrra/appuser/editName";
-	public static String EDITUSERPIC_URL = HEAD_URL + "hdrra/appuser/editName";
+	public static String EDITUSERPIC_URL = HEAD_URL + "hdrra/appuser/editPath";
 	public static String BUSSINESS_INDECATE_URL = HEAD_URL + "hdrra/appmerchant/save";
 	public static String YUYUE_URL = HEAD_URL + "hdrra/apporder/retrieveorder";
 

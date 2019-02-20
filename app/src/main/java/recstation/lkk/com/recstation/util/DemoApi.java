@@ -12,6 +12,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
@@ -93,6 +94,13 @@ public interface DemoApi {
     @Multipart
     @POST
     Observable<String> BusinessCertificate(@Url String url, @Part List<MultipartBody.Part> partList, @Part("USERNAME") RequestBody USERNAME, @Part("MOBILE") RequestBody MOBILE, @Part("LEGALNAME") RequestBody LEGALNAME, @Part("REGISTERADDRESS") RequestBody REGISTERADDRESS, @Part("PUBLICACCOUNT") RequestBody PUBLICACCOUNT, @Part("PROVINCE") RequestBody PROVINCE, @Part("CITY") RequestBody CITY, @Part("AREA") RequestBody AREA, @Part("LON") RequestBody LON, @Part("LAT") RequestBody LAT);
+    @Multipart
+    @POST
+    Observable<String> editPic(@Url String url, @Part List<MultipartBody.Part> partList, @Part("USERNAME") RequestBody USERNAME);
+    @FormUrlEncoded
+    @POST
+    Observable<String> sendPost(@Url String url,@FieldMap Map<String, String> paramsMap );
+
 
 
     @GET
