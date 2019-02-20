@@ -1,282 +1,322 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              style="@style/activity_page">
+
     <ScrollView
         style="@style/ll_vertical_match_match"
         android:layout_weight="1">
-    <LinearLayout style="@style/ll_vertical_match_match">
 
-        <RelativeLayout style="@style/topbar_bg">
+        <LinearLayout style="@style/ll_vertical_match_match">
 
-            <ImageButton style="@style/topbar_return_img"/>
+            <RelativeLayout style="@style/topbar_bg">
 
-            <TextView
-                style="@style/topbar_title"
-                android:layout_marginLeft="20dp"
-                android:text="订单详情"
-                android:textColor="@color/black"/>
-
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:background="@color/gray_1"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:background="@color/activity_bg"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="90dp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:background="@color/green2"
-                android:orientation="horizontal">
+                <ImageButton style="@style/topbar_return_img"/>
 
                 <TextView
-                    android:id="@+id/dingdanresult_status"
-                    style="@style/text_big_white"
-                    android:padding="4dp"
-                    android:text="订单状态未分配"/>
-            </LinearLayout>
+                    style="@style/topbar_title"
+                    android:layout_marginLeft="20dp"
+                    android:text="订单详情"
+                    android:textColor="@color/black"/>
 
+            </RelativeLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/gray_1"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:background="@color/activity_bg"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_gravity="center"
+                    android:background="@color/green2"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/dingdanresult_status"
+                        style="@style/text_big_white"
+                        android:padding="4dp"
+                        android:text="订单状态未分配"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/activity_bg"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:background="@color/white"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/text_middle_black"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="22dp"
+                            android:text="品类"/>
+
+                        <TextView
+                            android:id="@+id/dingdanresult_typeName"
+                            style="@style/text_middle_black"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="3dp"
+                            android:padding="4dp"
+                            android:text="品类名"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/dingdanresult_userLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/activity_bg"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:background="@color/white"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/text_middle_black"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="22dp"
+                            android:text="用户名"/>
+
+                        <TextView
+                            android:id="@+id/dingdanresult_name"
+                            style="@style/text_middle_black"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="3dp"
+                            android:padding="4dp"
+                            android:text="名字"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/dingdanresult_userLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/activity_bg"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:background="@color/white"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/text_middle_black"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="22dp"
+                            android:text="电话:"/>
+
+                        <TextView
+                            android:id="@+id/dingdanresult_mobile"
+                            style="@style/text_middle_black"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="3dp"
+                            android:padding="4dp"
+                            android:text="13888888888"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/activity_bg"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:background="@color/white"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/text_middle_black"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="22dp"
+                            android:text="预约地址"/>
+
+                        <TextView
+                            android:id="@+id/dingdanresult_adress"
+                            style="@style/text_middle_black"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="3dp"
+                            android:padding="4dp"
+                            android:text="地址详细"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/activity_bg"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:background="@color/white"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/text_middle_black"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="22dp"
+                            android:text="预约时间"/>
+
+                        <TextView
+                            android:id="@+id/dingdanresult_time"
+                            style="@style/text_middle_black"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="3dp"
+                            android:padding="4dp"
+                            android:text="2018-12-12 12:00:54"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/activity_bg"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:background="@color/white"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/text_middle_black"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="22dp"
+                            android:text="订单编号:"/>
+
+                        <TextView
+                            android:id="@+id/dingdanresult_No"
+                            style="@style/text_middle_black"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="3dp"
+                            android:padding="4dp"
+                            android:text="223445632323434233453233"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginRight="22dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/text_micro"
+                        android:gravity="left"
+                        android:text="注意:"
+                        android:textColor="@color/gray_1"
+                        />
+
+                    <TextView
+
+                        style="@style/text_micro"
+                        android:gravity="left"
+                        android:text="商户点击接收订单以后,方可查看用户的联系方式和详细地址"
+                        android:textColor="@color/gray_1"
+
+                        />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/gray_1"/>
+
             <LinearLayout
+                android:id="@+id/pingjia_layout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:background="@color/white"
-                android:orientation="horizontal">
+                android:background="@drawable/bwater_top_input9"
+                android:gravity="left|center_horizontal"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:layout_marginLeft="8dp"
+                android:visibility="gone"
+                android:paddingTop="0dp">
 
                 <TextView
-                    style="@style/text_middle_black"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="22dp"
-                    android:text="品类"/>
-
-                <TextView
-                    android:id="@+id/dingdanresult_typeName"
-                    style="@style/text_middle_black"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="3dp"
-                    android:padding="4dp"
-                    android:text="品类名"/>
-
-            </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/dingdanresult_userLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/activity_bg"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="70dp"
                     android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:background="@color/white"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/text_middle_black"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="22dp"
-                        android:text="用户名"/>
-
-                    <TextView
-                        android:id="@+id/dingdanresult_name"
-                        style="@style/text_middle_black"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="3dp"
-                        android:padding="4dp"
-                        android:text="名字"/>
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/dingdanresult_userLayout2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/activity_bg"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:background="@color/white"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/text_middle_black"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="22dp"
-                        android:text="电话:"/>
-
-                    <TextView
-                        android:id="@+id/dingdanresult_mobile"
-                        style="@style/text_middle_black"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="3dp"
-                        android:padding="4dp"
-                        android:text="13888888888"/>
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/activity_bg"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:background="@color/white"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/text_middle_black"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="22dp"
-                        android:text="预约地址"/>
-
-                    <TextView
-                        android:id="@+id/dingdanresult_adress"
-                        style="@style/text_middle_black"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="3dp"
-                        android:padding="4dp"
-                        android:text="地址详细"/>
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/activity_bg"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:background="@color/white"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/text_middle_black"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="22dp"
-                        android:text="预约时间"/>
-
-                    <TextView
-                        android:id="@+id/dingdanresult_time"
-                        style="@style/text_middle_black"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="3dp"
-                        android:padding="4dp"
-                        android:text="2018-12-12 12:00:54"/>
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/activity_bg"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:background="@color/white"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/text_middle_black"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="22dp"
-                        android:text="订单编号:"/>
-
-                    <TextView
-                        android:id="@+id/dingdanresult_No"
-                        style="@style/text_middle_black"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="3dp"
-                        android:padding="4dp"
-                        android:text="223445632323434233453233"/>
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="22dp"
-                android:layout_marginRight="22dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/text_micro"
-                    android:gravity="left"
-                    android:text="注意:"
-                    android:textColor="@color/gray_1"
+                    android:text="评价："
+                    android:textSize="16sp"
                     />
 
-                <TextView
-
-                    style="@style/text_micro"
-                    android:gravity="left"
-                    android:text="商户点击接收订单以后,方可查看用户的联系方式和详细地址"
-                    android:textColor="@color/gray_1"
-
+                <EditText
+                    android:id="@+id/pingjia_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:maxLines="3"
+                    android:background="@null"
+                    android:hint="请输入评价内容"
+                    android:paddingLeft="2dp"
+                    android:textSize="16sp"
                     />
             </LinearLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom">
+
+                <Button
+                    android:id="@+id/dingdanresult_btn"
+                    style="@style/btn_biga_round"
+                    android:layout_width="match_parent"
+                    android:layout_margin="15dp"
+                    android:gravity="center"
+                    android:text="取消订单"
+                    android:textColor="@color/white"/>
+            </RelativeLayout>
 
         </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:background="@color/gray_1"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom">
-
-            <Button
-                android:id="@+id/dingdanresult_btn"
-                style="@style/btn_biga_round"
-                android:layout_width="match_parent"
-                android:layout_margin="15dp"
-                android:gravity="center"
-                android:text="取消订单"
-                android:textColor="@color/white"/>
-        </RelativeLayout>
-
-    </LinearLayout>
     </ScrollView>
 </FrameLayout>

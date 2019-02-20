@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -32,12 +33,16 @@ import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 import zuo.biao.library.base.BaseActivity;
 import zuo.biao.library.ui.AlertDialog;
+import zuo.biao.library.util.StringUtil;
 
 public class DingdanResultActivity extends BaseActivity implements AlertDialog.OnDialogButtonClickListener {
     CompositeSubscription mCompositeSubscription = new CompositeSubscription();
     HuishouBean hu;
     String sate;
+    LinearLayout pingjia_layout;
+    EditText pingjia_content;
     LinearLayout dingdanresult_userLayout;
+    LinearLayout dingdanresult_userLayout2;
     TextView dingdanresult_status;
     TextView dingdanresult_name;
     TextView dingdanresult_mobile;
@@ -66,8 +71,11 @@ public class DingdanResultActivity extends BaseActivity implements AlertDialog.O
 
     @Override
     public void initView() {
+        pingjia_content = findView(R.id.pingjia_content);
+        pingjia_layout = findView(R.id.pingjia_layout);
         dingdanresult_btn = findView(R.id.dingdanresult_btn);
         dingdanresult_userLayout = findView(R.id.dingdanresult_userLayout);
+        dingdanresult_userLayout2 = findView(R.id.dingdanresult_userLayout2);
         dingdanresult_status = findView(R.id.dingdanresult_status);
         dingdanresult_name = findView(R.id.dingdanresult_name);
         dingdanresult_mobile = findView(R.id.dingdanresult_mobile);
@@ -77,31 +85,52 @@ public class DingdanResultActivity extends BaseActivity implements AlertDialog.O
         dingdanresult_No = findView(R.id.dingdanresult_No);
         if (sate.equals("1")) {
             tvBaseTitle.setText("接收订单");
-            dingdanresult_btn.setText("接收订单");
             dingdanresult_userLayout.setVisibility(View.GONE);
+            dingdanresult_userLayout2.setVisibility(View.GONE);
             dingdanresult_adress.setText(hu.getPROVINCE() + hu.getCITY() + hu.getAREA());
+
+
+            if (hu.getSTATUS().equals("0")) {
+                dingdanresult_status.setText("订单未分配");
+                dingdanresult_btn.setText("接收订单");
+                dingdanresult_btn.setClickable(true);
+            } else {
+                dingdanresult_status.setText("订单已经被预订");
+                dingdanresult_btn.setText("不能再次预订");
+                dingdanresult_btn.setVisibility(View.GONE);
+
+            }
+            dingdanresult_name.setText(hu.getRETRIEVETYPE_NAME());
+            dingdanresult_mobile.setText(hu.getMOBILE());
+            dingdanresult_time.setText(hu.getCREATETIME());
+            dingdanresult_typeName.setText(hu.getRETRIEVETYPE_NAME());
+            dingdanresult_No.setText(hu.getRETRIEVEORDER_ID());
+
 
         } else if (sate.equals("2")) {
 
             if ("1".equals(hu.getSTATUS())) {
                 tvBaseTitle.setText("订单详情");
                 dingdanresult_btn.setText("评价");
+                pingjia_layout.setVisibility(View.VISIBLE);
                 dingdanresult_userLayout.setVisibility(View.VISIBLE);
+                dingdanresult_userLayout2.setVisibility(View.VISIBLE);
                 dingdanresult_adress.setText(hu.getPROVINCE() + hu.getCITY() + hu.getAREA() + hu.getADDRESS());
-            }else if ("9".equals(hu.getSTATUS())) {
+            } else if ("9".equals(hu.getSTATUS())) {
                 tvBaseTitle.setText("订单详情");
                 dingdanresult_btn.setText("已完成");
                 dingdanresult_userLayout.setVisibility(View.VISIBLE);
+                dingdanresult_userLayout2.setVisibility(View.VISIBLE);
                 dingdanresult_adress.setText(hu.getPROVINCE() + hu.getCITY() + hu.getAREA() + hu.getADDRESS());
-            }else {
+            } else {
                 tvBaseTitle.setText("订单详情");
                 dingdanresult_btn.setText("取消订单");
                 dingdanresult_userLayout.setVisibility(View.VISIBLE);
+                dingdanresult_userLayout2.setVisibility(View.VISIBLE);
                 dingdanresult_adress.setText(hu.getPROVINCE() + hu.getCITY() + hu.getAREA() + hu.getADDRESS());
             }
 
         }
-
 
 
     }
@@ -109,20 +138,6 @@ public class DingdanResultActivity extends BaseActivity implements AlertDialog.O
     @Override
     public void initData() {
 
-        if (hu.getSTATUS().equals("0")) {
-            dingdanresult_status.setText("订单未分配");
-            dingdanresult_btn.setClickable(true);
-        } else {
-            dingdanresult_status.setText("订单已经被预订");
-            dingdanresult_btn.setClickable(false);
-            dingdanresult_btn.setVisibility(View.INVISIBLE);
-
-        }
-        dingdanresult_name.setText(hu.getRETRIEVETYPE_NAME());
-        dingdanresult_mobile.setText(hu.getMOBILE());
-        dingdanresult_time.setText(hu.getCREATETIME());
-        dingdanresult_typeName.setText(hu.getRETRIEVETYPE_NAME());
-        dingdanresult_No.setText(hu.getRETRIEVEORDER_ID());
 
     }
 
@@ -133,11 +148,6 @@ public class DingdanResultActivity extends BaseActivity implements AlertDialog.O
             public void onClick(View view) {
 
 
-
-
-
-
-
                 if (sate.equals("1")) {
                     new AlertDialog(DingdanResultActivity.this, "接收订单", "确定接收订单？", true, 0, DingdanResultActivity.this).show();
 
@@ -146,10 +156,10 @@ public class DingdanResultActivity extends BaseActivity implements AlertDialog.O
                     if ("1".equals(hu.getSTATUS())) {
                         new AlertDialog(DingdanResultActivity.this, "评价", "确定评价订单？", true, 1, DingdanResultActivity.this).show();
 
-                    }else if ("9".equals(hu.getSTATUS())) {
+                    } else if ("9".equals(hu.getSTATUS())) {
 
                         showShortToast("订单已完成");
-                    }else {
+                    } else {
                         new AlertDialog(DingdanResultActivity.this, "撤销", "确定撤销订单？", true, 2, DingdanResultActivity.this).show();
 
                     }
@@ -161,9 +171,9 @@ public class DingdanResultActivity extends BaseActivity implements AlertDialog.O
     }
 
 
-    public void jieshoudingdan(String RETRIEVEORDER_ID,String STATUS ,String username ,String APPRAISE) {
+    public void jieshoudingdan(String RETRIEVEORDER_ID, String STATUS, String username, String APPRAISE) {
         //应该去商户名
-       // String username = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(), "loginuser", "-1");
+
 
         Subscription subscription = HKEapiManager.getInstances().demoApi.jieshoudindan(URLConfig.EDITDINGDAN_URL, RETRIEVEORDER_ID, STATUS, username, APPRAISE)
                 .subscribeOn(Schedulers.io())
@@ -272,19 +282,25 @@ public class DingdanResultActivity extends BaseActivity implements AlertDialog.O
 
     @Override
     public void onDialogButtonClick(int requestCode, boolean isPositive) {
-        if (! isPositive) {
+        if (!isPositive) {
             return;
         }
 
         switch (requestCode) {
             case 0:
-
-                jieshoudingdan(hu.getRETRIEVEORDER_ID(), "1", "商户大亨", null);
+                String username = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(), "loginuser", "-1");
+                jieshoudingdan(hu.getRETRIEVEORDER_ID(), "1", username, null);
                 break;
             case 1:
-                jieshoudingdan(hu.getRETRIEVEORDER_ID(), null, null, "pingjia");
+
+                String pingjia_contents = pingjia_content.getText().toString();
+                if (StringUtil.isEmpty(pingjia_contents)) {
+                    showShortToast("请输入评价内容");
+                    return;
+                }
+                jieshoudingdan(hu.getRETRIEVEORDER_ID(), "9", null, pingjia_contents);
                 // chexiaodingdan();
-               // jieshoudingdan(hu.getRETRIEVEORDER_ID(), null, null, "pingjia");
+                // jieshoudingdan(hu.getRETRIEVEORDER_ID(), null, null, "pingjia");
                 break;
             case 2:
                 // chexiaodingdan();

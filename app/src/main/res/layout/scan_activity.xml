@@ -4,6 +4,7 @@
 
     <LinearLayout
         style="@style/ll_vertical_match_match"
+        android:background="@color/transparent"
         android:baselineAligned="false" >
 
         <RelativeLayout
@@ -32,6 +33,7 @@
 
             <LinearLayout
                 style="@style/ll_vertical_match_match"
+                android:background="@color/transparent"
                 android:layout_gravity="center_horizontal"
                 >
 
