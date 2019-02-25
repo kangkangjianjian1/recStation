@@ -23,16 +23,16 @@ public class Msg extends BaseModel {
 
 	private static final long serialVersionUID = 1L;
 
-	private String USERNAME; //用户名
-	private String RETRIEVEORDER_ID; //ID
-	private String RETRIEVETYPE_NAME; //回收类型
-	private String PROVINCET; //省
-	private String CITY; //市区
-	private String AREA; //县
-	private String ADDRESS; //地址
-	private String MOBILE; //电话
-	private String YDATE; //日期
-	private String YTIME; //时间
+//	private String USERNAME; //用户名
+//	private String RETRIEVEORDER_ID; //ID
+//	private String RETRIEVETYPE_NAME; //回收类型
+//	private String PROVINCET; //省
+//	private String CITY; //市区
+//	private String AREA; //县
+//	private String ADDRESS; //地址
+//	private String MOBILE; //电话
+//	private String YDATE; //日期
+//	private String YTIME; //时间
 
 	private String msgType; //类型
 	private String title; //标题

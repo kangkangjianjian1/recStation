@@ -44,6 +44,8 @@ public class HuishouBean extends BaseModel implements Serializable {
     private String PICTUREPATH; //图片路径
     private String RETRIEVETYPE_NAME; //类型名
 
+
+
     public String getCITY() {
         return CITY;
     }

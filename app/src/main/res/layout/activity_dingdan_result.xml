@@ -98,7 +98,7 @@
                             style="@style/text_middle_black"
                             android:layout_gravity="center"
                             android:layout_marginLeft="22dp"
-                            android:text="用户名"/>
+                            android:text="商户名"/>
 
                         <TextView
                             android:id="@+id/dingdanresult_name"
@@ -291,11 +291,11 @@
                     />
 
                 <EditText
+                    android:background="@drawable/edit_bg"
                     android:id="@+id/pingjia_content"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:maxLines="3"
-                    android:background="@null"
                     android:hint="请输入评价内容"
                     android:paddingLeft="2dp"
                     android:textSize="16sp"

@@ -45,6 +45,7 @@
                 android:layout_marginRight="22dp"
                 android:orientation="horizontal">
                 <EditText
+                    android:background="@drawable/edit_bg"
                     android:id="@+id/setpwd_account_pwd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

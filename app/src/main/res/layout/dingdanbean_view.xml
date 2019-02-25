@@ -25,6 +25,7 @@
                 android:layout_weight="1" >
 
                 <TextView
+                    android:id="@+id/tv_dingdanbeanview_fenlei_f"
                     style="@style/text_middle_black"
                     android:layout_marginRight="6dp"
                     android:gravity="left"
@@ -47,6 +48,7 @@
                 android:layout_weight="1" >
 
                 <TextView
+                    android:id="@+id/tv_dingdanbeanview_time_f"
                     style="@style/text_micro_black"
                     android:layout_marginRight="6dp"
                     android:textColor="@color/gray_1"
@@ -57,6 +59,7 @@
                     android:id="@+id/tv_dingdanbeanview_time"
                     style="@style/text_micro_black"
                     android:textColor="@color/gray_1"
+                    android:gravity="left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2019-12-12 12:12:33:33"
@@ -67,6 +70,7 @@
         <LinearLayout style="@style/ll_horizontal_match_wrap" >
 
             <LinearLayout
+                android:id="@+id/tv_dingdanbeanview_adress_f"
                 style="@style/ll_horizontal_match_wrap"
                 android:layout_weight="1" >
 
@@ -80,6 +84,7 @@
                 <TextView
                     android:id="@+id/tv_dingdanbeanview_adress"
                     style="@style/text_micro_black"
+                    android:gravity="left"
                     android:textColor="@color/gray_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

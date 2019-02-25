@@ -118,7 +118,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".ShanghuguanliActivity"
+            android:name=".shanghuActivity.ShanghuguanliActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
@@ -148,12 +148,12 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".ShanghuReisterActivity"
+            android:name=".shanghuActivity.ShanghuReisterActivity"
             android:label="@string/title_activity_shanghu_reister"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".ShanghuReisterPhotoActivity"
+            android:name=".shanghuActivity.ShanghuReisterPhotoActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity android:name=".SucessActivity">
@@ -190,6 +190,20 @@
         <activity
             android:name=".edituseractivity.EditUserNameActivity"
             android:label="@string/title_activity_edit_user_name">
+        </activity>
+        <activity
+            android:name=".shanghuActivity.ShanghuBuyActivity"
+            android:label="@string/title_activity_shanghu_buy">
+        </activity>
+        <activity
+            android:name=".shanghuActivity.ShouGouDingdanActivity"
+            android:label="@string/title_activity_shou_gou_dingdan">
+        </activity>
+        <activity android:name=".shanghuActivity.JieshouDingDanActivity">
+        </activity>
+        <activity
+            android:name=".AdviceActivity"
+            android:label="@string/title_activity_advice">
         </activity>
     </application>
 

@@ -39,6 +39,33 @@ public class Dingdanbean extends BaseModel {
 	private String CITY; //省
 	private String PICTUREPATH; //图片路径
 	private String RETRIEVETYPE_NAME; //类型名
+	private String MERCHANTORDER_ID;
+	private String RETRIEVETYPE_NAMES;
+	private String USERNAME;
+
+	public String getMERCHANTORDER_ID() {
+		return MERCHANTORDER_ID;
+	}
+
+	public void setMERCHANTORDER_ID(String MERCHANTORDER_ID) {
+		this.MERCHANTORDER_ID = MERCHANTORDER_ID;
+	}
+
+	public String getRETRIEVETYPE_NAMES() {
+		return RETRIEVETYPE_NAMES;
+	}
+
+	public void setRETRIEVETYPE_NAMES(String RETRIEVETYPE_NAMES) {
+		this.RETRIEVETYPE_NAMES = RETRIEVETYPE_NAMES;
+	}
+
+	public String getUSERNAME() {
+		return USERNAME;
+	}
+
+	public void setUSERNAME(String USERNAME) {
+		this.USERNAME = USERNAME;
+	}
 
 	public String getCITY() {
 		return CITY;

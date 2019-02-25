@@ -41,9 +41,10 @@ public class DingdanDetailActivity extends BaseActivity  implements OnTabSelectL
     CompositeSubscription mCompositeSubscription = new CompositeSubscription();
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private final String[] mTitles1 = {
-            "全部", "进行中","待评价","已完成"
+            "未接单", "进行中","待评价","已完成"
     };
     private MyDingdanPagerAdapter mAdapter;
+
     public static Intent createIntent(Context context) {
         return new Intent(context, DingdanDetailActivity.class);
     }
@@ -52,6 +53,7 @@ public class DingdanDetailActivity extends BaseActivity  implements OnTabSelectL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dingdan_detail);
+
         //功能归类分区方法，必须调用<<<<<<<<<<
         initView();
         initData();
@@ -111,14 +113,14 @@ public class DingdanDetailActivity extends BaseActivity  implements OnTabSelectL
         for (String title : mTitles1) {
 
             switch (title) {
-                case  "全部":
-                    mFragments.add(DingdanDetailFragment.createInstance("5"));
-                    break;
-                case  "进行中":
+                case  "未接单":
                     mFragments.add(DingdanDetailFragment.createInstance("0"));
                     break;
-                case "待评价":
+                case  "进行中":
                     mFragments.add(DingdanDetailFragment.createInstance("1"));
+                    break;
+                case "待评价":
+                    mFragments.add(DingdanDetailFragment.createInstance("2"));
                     break;
                 case "已完成":
                     mFragments.add(DingdanDetailFragment.createInstance("9"));

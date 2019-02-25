@@ -24,6 +24,9 @@
     <string name="jiguang_socialize_text_cp_link">复制链接</string>
     <string name="title_activity_edit_user">EditUserActivity</string>
     <string name="title_activity_edit_user_name">EditUserNameActivity</string>
+    <string name="title_activity_shanghu_buy">ShanghuBuyActivity</string>
+    <string name="title_activity_shou_gou_dingdan">ShouGouDingdanActivity</string>
+    <string name="title_activity_advice">AdviceActivity</string>
 
 
 </resources>

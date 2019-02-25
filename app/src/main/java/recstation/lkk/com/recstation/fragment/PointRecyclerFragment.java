@@ -26,11 +26,13 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import recstation.lkk.com.recstation.adapter.DingdanMsgAdapter;
 import recstation.lkk.com.recstation.adapter.PointAdapter;
+import recstation.lkk.com.recstation.application.DemoApplication;
 import recstation.lkk.com.recstation.model.Msg;
 import recstation.lkk.com.recstation.model.Point;
 import recstation.lkk.com.recstation.util.HKEapiManager;
@@ -43,6 +45,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 import zuo.biao.library.base.BaseHttpRecyclerFragment;
 import zuo.biao.library.interfaces.AdapterCallBack;
 import zuo.biao.library.util.JSON;
@@ -55,13 +58,17 @@ import zuo.biao.library.util.JSON;
  */
 public class PointRecyclerFragment extends BaseHttpRecyclerFragment<Point,PointView, PointAdapter>  {
 	//	private static final String TAG = "UserListFragment";
-
+	CompositeSubscription mCompositeSubscription = new CompositeSubscription();
 	//与Activity通信<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	String status="";
 
-
-	public static PointRecyclerFragment createInstance() {
+	public static PointRecyclerFragment createInstance(String status) {
 		PointRecyclerFragment fragment = new PointRecyclerFragment();
+		Bundle bundle = new Bundle();
+		bundle.putString("status", status);
+		fragment.setArguments(bundle);
 		return fragment;
+
 	}
 
 	//与Activity通信>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -70,7 +77,7 @@ public class PointRecyclerFragment extends BaseHttpRecyclerFragment<Point,PointV
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
 
-
+		status = getArguments().getString("status");
 		//功能归类分区方法，必须调用<<<<<<<<<<
 		initView();
 		initData();
@@ -131,7 +138,7 @@ public class PointRecyclerFragment extends BaseHttpRecyclerFragment<Point,PointV
 	@Override
 	public void getListAsync(final int page) {
 		//实际使用时用这个，需要配置服务器地址		HttpRequest.getUserList(range, page, -page, this);
-		getPointData(page);
+		getPointData(page,status);
 	}
 
 	@Override
@@ -142,7 +149,7 @@ public class PointRecyclerFragment extends BaseHttpRecyclerFragment<Point,PointV
 	//Data数据区(存在数据获取或处理代码，但不存在事件监听代码)>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
-	public void getPointData(final int page) {
+	public void getPointData(final int page, final String status) {
 //        final String username = findpwd_account_phone.getText().toString();
 //        final String appsms_id = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(),"APPSMS_ID","");
 //        final String appsms_code = findpwd_account_yzm.getText().toString();
@@ -157,19 +164,44 @@ public class PointRecyclerFragment extends BaseHttpRecyclerFragment<Point,PointV
 					@Override
 					public void call(String s) {
 
-						s="[{\"pointType\":\"消息类型\",\"title\":\"消息标题\",\"num\":\"+3\",\"time\":\"2018_12_12 08:00:09\"},{\"pointType\":\"消息类型\",\"title\":\"消息标题\",\"num\":\"+3\",\"time\":\"2018_12_12 08:00:09\"},{\"pointType\":\"消息类型\",\"title\":\"消息标题\",\"num\":\"+3\",\"time\":\"2018_12_12 08:00:09\"},{\"pointType\":\"消息类型\",\"title\":\"消息标题\",\"num\":\"+3\",\"time\":\"2018_12_12 08:00:09\"},{\"pointType\":\"消息类型\",\"title\":\"消息标题\",\"num\":\"+3\",\"time\":\"2018_12_12 08:00:09\"},{\"pointType\":\"消息类型\",\"title\":\"消息标题\",\"num\":\"+3\",\"time\":\"2018_12_12 08:00:09\"},{\"pointType\":\"消息类型\",\"title\":\"消息标题\",\"num\":\"+3\",\"time\":\"2018_12_12 08:00:09\"},{\"pointType\":\"消息类型\",\"title\":\"消息标题\",\"num\":\"+3\",\"time\":\"2018_12_12 08:00:09\"},{\"pointType\":\"消息类型\",\"title\":\"消息标题\",\"num\":\"+3\",\"time\":\"2018_12_12 08:00:09\"},{\"pointType\":\"消息类型\",\"title\":\"消息标题\",\"num\":\"+3\",\"time\":\"2018_12_12 08:00:09\"},{\"pointType\":\"消息类型\",\"title\":\"消息标题\",\"num\":\"+3\",\"time\":\"2018_12_12 08:00:09\"},{\"pointType\":\"消息类型\",\"title\":\"消息标题\",\"num\":\"+3\",\"time\":\"2018_12_12 08:00:09\"},{\"pointType\":\"消息类型\",\"title\":\"消息标题\",\"num\":\"+3\",\"time\":\"2018_12_12 08:00:09\"}]";
-						try {
-							JSONArray jsonArray = new JSONArray(s);
-							Gson gson1 = new Gson();
-							List<Point> khsllist2 = gson1.fromJson(jsonArray.toString(), new TypeToken<List<Point>>() {
-							}.getType());
+//						s="[{\"pointType\":\"消息类型\",\"title\":\"消息标题\",\"num\":\"+3\",\"time\":\"2018_12_12 08:00:09\"},{\"pointType\":\"消息类型\",\"title\":\"消息标题\",\"num\":\"+3\",\"time\":\"2018_12_12 08:00:09\"},{\"pointType\":\"消息类型\",\"title\":\"消息标题\",\"num\":\"+3\",\"time\":\"2018_12_12 08:00:09\"},{\"pointType\":\"消息类型\",\"title\":\"消息标题\",\"num\":\"+3\",\"time\":\"2018_12_12 08:00:09\"},{\"pointType\":\"消息类型\",\"title\":\"消息标题\",\"num\":\"+3\",\"time\":\"2018_12_12 08:00:09\"},{\"pointType\":\"消息类型\",\"title\":\"消息标题\",\"num\":\"+3\",\"time\":\"2018_12_12 08:00:09\"},{\"pointType\":\"消息类型\",\"title\":\"消息标题\",\"num\":\"+3\",\"time\":\"2018_12_12 08:00:09\"},{\"pointType\":\"消息类型\",\"title\":\"消息标题\",\"num\":\"+3\",\"time\":\"2018_12_12 08:00:09\"},{\"pointType\":\"消息类型\",\"title\":\"消息标题\",\"num\":\"+3\",\"time\":\"2018_12_12 08:00:09\"},{\"pointType\":\"消息类型\",\"title\":\"消息标题\",\"num\":\"+3\",\"time\":\"2018_12_12 08:00:09\"},{\"pointType\":\"消息类型\",\"title\":\"消息标题\",\"num\":\"+3\",\"time\":\"2018_12_12 08:00:09\"},{\"pointType\":\"消息类型\",\"title\":\"消息标题\",\"num\":\"+3\",\"time\":\"2018_12_12 08:00:09\"},{\"pointType\":\"消息类型\",\"title\":\"消息标题\",\"num\":\"+3\",\"time\":\"2018_12_12 08:00:09\"}]";
+//						try {
+//							JSONArray jsonArray = new JSONArray(s);
+//							Gson gson1 = new Gson();
+//							List<Point> khsllist2 = gson1.fromJson(jsonArray.toString(), new TypeToken<List<Point>>() {
+//							}.getType());
+						    List<Point> list = new ArrayList<Point>();
+						Type type =new TypeToken<List<Point>>() {}.getType();
+							list =  HKEapiManager.getInstances().preferences.getDataList(DemoApplication.getInstance(), "jifenlist",type);
+							List<Point> list2 = new ArrayList<Point>();
+							if (status.equals("1")){
 
-							onHttpResponse(-page, page >= 2 ? null :s, null);
-							Logger.e("nnnnn",khsllist2.size()+"fzwk");
+								Logger.e("111111111111");
+								for (int i = 0; i<list.size();i++){
+									if (list.get(i).getNum()>0){
+										list2.add(list.get(i));
+									}
+								}
 
-						} catch (JSONException e) {
-							e.printStackTrace();
-						}
+							}else if (status.equals("2")){
+								Logger.e("22222222");
+								for (int i = 0; i<list.size();i++){
+									if (list.get(i).getNum()<0){
+										list2.add(list.get(i));
+									}
+								}
+
+							}else {
+								Logger.e("0000000000");
+								list2 =list;
+
+							}
+
+							onHttpResponse(-page, page >= 1 ? null :JSON.toJSONString(list2), null);
+
+//						} catch (JSONException e) {
+//							e.printStackTrace();
+//						}
 
 
 					}
@@ -186,7 +218,7 @@ public class PointRecyclerFragment extends BaseHttpRecyclerFragment<Point,PointV
 //                        Logger.e("lkk", "onCompleted");
 					}
 				});
-
+		mCompositeSubscription.add(subscription);
 
 
 	}
@@ -235,6 +267,10 @@ public class PointRecyclerFragment extends BaseHttpRecyclerFragment<Point,PointV
 
 
 	//内部类,尽量少用>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
+	@Override
+	public void onDestroy() {
+		mCompositeSubscription.clear();
+		super.onDestroy();
+	}
 
 }

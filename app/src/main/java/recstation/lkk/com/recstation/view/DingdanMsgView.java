@@ -69,7 +69,7 @@ public class DingdanMsgView extends BaseView<Msg> {
 
 
 		tv_system_msg_View_time.setText(StringUtil.getTrimedString(data.getTime()));
-		tv_system_msg_view_title.setText(data.getTitle());
+		tv_system_msg_view_title.setText(data.getMsgType());
 		tv_system_msg_view_content.setText(data.getProMsg());
 	}
 

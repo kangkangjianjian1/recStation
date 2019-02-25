@@ -16,6 +16,7 @@ package recstation.lkk.com.recstation.view;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -70,13 +71,13 @@ public class RecpersonView extends BaseView<RecPerson> {
 	@Override
 	public void bindView(RecPerson data_){
 		super.bindView(data_ != null ? data_ : new RecPerson());
-
-		Glide.with(context).asBitmap().load(data.getPICTUREPATH()).into(iv_recpersionViewHead);
-
+//		Glide.with(context).asBitmap().load(data.getPICTUREPATH()).into(iv_recpersionViewHead);
+		iv_recpersionViewHead.setImageResource(R.drawable.shanghutouxiang);
+//		iv_recpersionViewHead.setBackgroundColor(Color.GREEN);
 		tv_recperson_name.setText(StringUtil.getTrimedString(data.getUSERNAME()));
-		tv_recperson_price.setText(data.getPRICE()+"元/公斤");
-		tv_recperson_phone.setText(StringUtil.getNoBlankString(data.getMOBILE()));
-		tv_recperson_content.setText(StringUtil.getNoBlankString(data.getTYPE()));
+		tv_recperson_price.setText(data.getPROVINCE()+data.getCITY()+data.getAREA());
+		tv_recperson_phone.setText(StringUtil.getNoBlankString(data.getUSERNAME()));
+		tv_recperson_content.setText(StringUtil.getNoBlankString(data.getRETRIEVETYPE_NAMES()));
 	}
 
 

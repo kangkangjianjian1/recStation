@@ -3,7 +3,31 @@
               xmlns:tl="http://schemas.android.com/apk/res-auto"
               style="@style/activity_page">
 
+    <RelativeLayout style="@style/topbar_bg" >
 
+        <ImageButton style="@style/topbar_return_img" />
+        <TextView
+            style="@style/topbar_return_tv"
+            android:textColor="@color/black"
+            android:layout_marginLeft="20dp"
+            android:text="返回"/>
+
+        <TextView
+            style="@style/topbar_title"
+            android:layout_centerHorizontal="true"
+            android:text="预约订单详细" />
+
+        <!--<Button-->
+            <!--style="@style/topbar_right_btn"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:text="点击发布" />-->
+
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/black"/>
     <LinearLayout style="@style/ll_horizontal_match_wrap" >
 
         <com.flyco.tablayout.SlidingTabLayout

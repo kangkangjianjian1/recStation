@@ -186,7 +186,14 @@ public class TestUtil {
         Logger.e(dateStringParse, dateStringParse);
         return dateStringParse;
     }
+    public static boolean IsBussiness() {
+        String status = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(), "isbusiness", "null");
 
+        if (status.equals("null")) {
+            return false;
+        }
+        return true;
+    }
     public static boolean IsLogin() {
        String loginSign = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(), "loginuser", "no");
 
@@ -222,7 +229,37 @@ public class TestUtil {
     }
 
 
+    public static boolean IsQianDao() {
+        String qiandaoSign = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(), "qiandao", "0");
 
+        if (qiandaoSign.equals("0")){
+            return false;
+        }
+        String nowtime = getNowTime();
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date d1 = null;
+        Date d2 = null;
+        try {
+            d1 = df.parse(nowtime);
+            d2 = df.parse(qiandaoSign);
+//            long nm = 1000 * 60;
+//            long diff = d1.getTime() - d2.getTime();
+//            long min = diff / nm;
+//            Logger.e(min + "cccnnnmmm", min + "");
+            if (!d1.equals(d2)) {
+                //跳转登陆
+                return false;
+            } else {
+                return true;
+            }
+
+        } catch (ParseException e) {
+
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 
 }

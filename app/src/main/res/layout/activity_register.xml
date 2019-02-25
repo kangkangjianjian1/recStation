@@ -54,6 +54,8 @@
                     android:textColor="@color/black"
                     android:textSize="16sp" />
                 <EditText
+                    android:background="@null"
+
                     android:id="@+id/register_account_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -83,6 +85,7 @@
                 android:orientation="horizontal">
 
                 <EditText
+                    android:background="@null"
                     android:id="@+id/register_account_yzm"
                     android:layout_width="wrap_content"
                     android:layout_weight="1"
@@ -118,6 +121,7 @@
                 android:layout_marginRight="22dp"
                 android:orientation="horizontal">
                 <EditText
+                    android:background="@null"
                     android:id="@+id/register_account_pwd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -7,8 +7,14 @@ import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.util.Base64;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -146,6 +152,38 @@ public class SharedPreferencesUtils {
 		}
 	}
 
+	/**
+	 * 保存List
+	 * @param tag
+	 * @param datalist
+	 */
+	public <T> void setDataList(Context context,String tag, List<T> datalist) {
+		if (null == datalist || datalist.size() <= 0)
+			return;
+
+		Gson gson = new Gson();
+		//转换成json数据，再保存
+		String strJson = gson.toJson(datalist);
+		putStringData(context,tag,strJson);
+
+	}
+
+	/**
+	 * 获取List
+	 * @param tag
+	 * @return
+	 */
+	public <T> List<T> getDataList(Context context, String tag, Type type) {
+		List<T> datalist=new ArrayList<T>();
+		String strJson = getStringData(context,tag,null);
+		if (null == strJson) {
+			return datalist;
+		}
+		Gson gson = new Gson();
+		datalist = gson.fromJson(strJson, type);
+		return datalist;
+
+	}
 
 
 }

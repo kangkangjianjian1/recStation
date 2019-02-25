@@ -51,6 +51,7 @@
                     android:text="备注" />
 
                 <EditText
+                    android:background="@drawable/edit_bg"
                     android:id="@+id/etUserRemark"
                     style="@style/edit_item_right_et"
                     android:layout_weight="1"

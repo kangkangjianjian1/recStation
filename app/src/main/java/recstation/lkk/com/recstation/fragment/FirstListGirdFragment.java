@@ -308,6 +308,7 @@ public class FirstListGirdFragment extends BaseFragment implements View.OnClickL
         all.addAll(list2);
         all.addAll(list3);
 
+        HKEapiManager.getInstances().preferences.setDataList(DemoApplication.getInstance(),"shougoulist",all);
 //        rec_GirdFragment1 fragment1 = rec_GirdFragment1.createInstance(list1);
 //        rec_GirdFragment1 fragment2 = rec_GirdFragment1.createInstance(list2);
 //        rec_GirdFragment1 fragment3 = rec_GirdFragment1.createInstance(list3);

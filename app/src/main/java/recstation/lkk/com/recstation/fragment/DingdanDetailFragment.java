@@ -151,11 +151,132 @@ public class DingdanDetailFragment extends BaseHttpRecyclerFragment<Dingdanbean,
     public void getDingdanData(final int page, final String status) {
         String USERNAME = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(), "loginuser", "-1");
         String STATUS = null;
-       if (status.equals("5")){
-           STATUS = null;
-       }else {
+       if (status.equals("10")){
+
+           Subscription subscription = HKEapiManager.getInstances().demoApi.querydingdan(URLConfig.DINGDAN_URL,page+"",null,null,USERNAME,null,null,null)
+                   .subscribeOn(Schedulers.io())
+                   .observeOn(AndroidSchedulers.mainThread())
+                   .subscribe(new Action1<String>() {
+                       @Override
+                       public void call(String s) {
+
+                           Logger.e("getDingdanDatagetDingdanData:"+status,s);
+                           try {
+                               JSONObject jsonObject = new JSONObject(s);
+                               String code = jsonObject.getString("code");
+                               String message = jsonObject.getString("message");
+                               JSONArray jsonArray = jsonObject.getJSONArray("orderlist");
+                               JSONObject pageObject = jsonObject.getJSONObject("page");
+                               int totalPage = Integer.parseInt(pageObject.getString("totalPage"));
+                               if ("OK".equals(code)){
+                                   Gson gson1 = new Gson();
+                                   List<Dingdanbean> khsllist2 = gson1.fromJson(jsonArray.toString(), new TypeToken<List<Dingdanbean>>() {
+                                   }.getType());
+                                   List<Dingdanbean> khsllist3 = new ArrayList<Dingdanbean>();
+                                   for (int i = 0; i<khsllist2.size();i++){
+                                       if (!"9".equals(khsllist2.get(i).getSTATUS())){
+                                           khsllist3.add(khsllist2.get(i));
+                                       }
+                                   }
+                                   onHttpResponse(-page, page >= totalPage ? null : JSON.toJSONString(khsllist3), null);
+
+                               }else {
+                                   showShortToast(message);
+                               }
+
+
+
+                           } catch (JSONException e) {
+                               showShortToast("数据解析异常");
+                               e.printStackTrace();
+                           }
+
+
+
+
+
+
+                       }
+                   }, new Action1<Throwable>() {
+                       @Override
+                       public void call(Throwable throwable) {
+                           Logger.e("lkk", "throwable22222222222" + throwable.getLocalizedMessage());
+                           showShortToast("网络异常，请稍后再试", true);
+
+                       }
+                   }, new Action0() {
+                       @Override
+                       public void call() {
+//                        Logger.e("lkk", "onCompleted");
+                       }
+                   });
+           mCompositeSubscription.add(subscription);
+
+       }else if (status.equals("11")){
+            STATUS = null;
+
+           Subscription subscription = HKEapiManager.getInstances().demoApi.querydingdan(URLConfig.DINGDAN_URL,page+"",null,null,USERNAME,null,null,null)
+                   .subscribeOn(Schedulers.io())
+                   .observeOn(AndroidSchedulers.mainThread())
+                   .subscribe(new Action1<String>() {
+                       @Override
+                       public void call(String s) {
+
+                           Logger.e("getDingdanDatagetDingdanData:"+status,s);
+                           try {
+                               JSONObject jsonObject = new JSONObject(s);
+                               String code = jsonObject.getString("code");
+                               String message = jsonObject.getString("message");
+                               JSONArray jsonArray = jsonObject.getJSONArray("orderlist");
+                               JSONObject pageObject = jsonObject.getJSONObject("page");
+                               int totalPage = Integer.parseInt(pageObject.getString("totalPage"));
+                               if ("OK".equals(code)){
+                                   Gson gson1 = new Gson();
+                                   List<Dingdanbean> khsllist2 = gson1.fromJson(jsonArray.toString(), new TypeToken<List<Dingdanbean>>() {
+                                   }.getType());
+                                   List<Dingdanbean> khsllist3 = new ArrayList<Dingdanbean>();
+                                   for (int i = 0; i<khsllist2.size();i++){
+                                       if ("9".equals(khsllist2.get(i).getSTATUS())){
+                                           khsllist3.add(khsllist2.get(i));
+                                       }
+                                   }
+                                   onHttpResponse(-page, page >= totalPage ? null : JSON.toJSONString(khsllist3), null);
+
+                               }else {
+                                   showShortToast(message);
+                               }
+
+
+
+                           } catch (JSONException e) {
+                               showShortToast("数据解析异常");
+                               e.printStackTrace();
+                           }
+
+
+
+
+
+
+                       }
+                   }, new Action1<Throwable>() {
+                       @Override
+                       public void call(Throwable throwable) {
+                           Logger.e("lkk", "throwable22222222222" + throwable.getLocalizedMessage());
+                           showShortToast("网络异常，请稍后再试", true);
+
+                       }
+                   }, new Action0() {
+                       @Override
+                       public void call() {
+//                        Logger.e("lkk", "onCompleted");
+                       }
+                   });
+           mCompositeSubscription.add(subscription);
+
+        } else {
            STATUS = status;
-       }
+
                 Subscription subscription = HKEapiManager.getInstances().demoApi.querydingdan(URLConfig.DINGDAN_URL,page+"",USERNAME,STATUS,null,null,null,null)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -163,7 +284,7 @@ public class DingdanDetailFragment extends BaseHttpRecyclerFragment<Dingdanbean,
                     @Override
                     public void call(String s) {
 
-                        Logger.e("getDingdanDatagetDingdanData:",s);
+                        Logger.e("getDingdanDatagetDingdanData:"+status,s);
                         try {
                             JSONObject jsonObject = new JSONObject(s);
                             String code = jsonObject.getString("code");
@@ -208,7 +329,7 @@ public class DingdanDetailFragment extends BaseHttpRecyclerFragment<Dingdanbean,
                     }
                 });
         mCompositeSubscription.add(subscription);
-
+       }
     }
 
 
@@ -224,7 +345,7 @@ public class DingdanDetailFragment extends BaseHttpRecyclerFragment<Dingdanbean,
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        //实现单选
+
         if (TestUtil.IsLogin()){
             Dingdanbean hu1 =  mDatalist.get(position);
             HuishouBean hu = new HuishouBean();
@@ -245,7 +366,12 @@ public class DingdanDetailFragment extends BaseHttpRecyclerFragment<Dingdanbean,
             hu.setRETRIEVETYPE_NAME(hu1.getRETRIEVETYPE_NAME());
             Intent i = DingdanResultActivity.createIntent(context);
             i.putExtra("data",hu);
-            i.putExtra("state","2");
+            if (status.equals("11")||status.equals("10")){
+                i.putExtra("state","3");
+            }else{
+                i.putExtra("state","2");
+            }
+
             startActivity(i);
         }else {
             toActivity(LoginActivity.createIntent(context));

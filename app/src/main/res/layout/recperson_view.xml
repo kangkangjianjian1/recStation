@@ -47,7 +47,7 @@
             <TextView
                 style="@style/text_micro"
                 android:textColor="@color/gray_1"
-                android:text="价格:"/>
+                android:text="地址:"/>
 
             <TextView
                 android:id="@+id/tv_recperson_price"

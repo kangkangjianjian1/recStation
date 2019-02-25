@@ -16,10 +16,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 import recstation.lkk.com.recstation.adapter.RecPersonAdapter;
+import recstation.lkk.com.recstation.application.DemoApplication;
+import recstation.lkk.com.recstation.model.Dingdanbean;
 import recstation.lkk.com.recstation.model.RecPerson;
 import recstation.lkk.com.recstation.util.HKEapiManager;
 import recstation.lkk.com.recstation.util.Logger;
@@ -45,6 +48,7 @@ public class ZhoubianActivity extends BaseHttpRecyclerActivity<RecPerson, Recper
     String price="";
     String type="";
     String picturepath="";
+    String RETRIEVETYPE_ID="";
 
     /**
      * 启动这个Activity的Intent
@@ -63,6 +67,7 @@ public class ZhoubianActivity extends BaseHttpRecyclerActivity<RecPerson, Recper
         price = getIntent().getStringExtra("price");
         type = getIntent().getStringExtra("type");
         picturepath = getIntent().getStringExtra("picturepath");
+        RETRIEVETYPE_ID = getIntent().getStringExtra("RETRIEVETYPE_ID");
 
         //功能归类分区方法，必须调用<<<<<<<<<<
         initView();
@@ -111,7 +116,7 @@ public class ZhoubianActivity extends BaseHttpRecyclerActivity<RecPerson, Recper
     @Override
     public void getListAsync(final int page) {
         //实际使用时用这个，需要配置服务器地址		HttpRequest.getUserList(range, page, -page, this);
-        getRectypeData(page);
+        getDingdanListData(page);
         //仅测试用<<<<<<<<<<<
 //        new Handler().postDelayed(new Runnable() {
 //
@@ -173,77 +178,6 @@ public class ZhoubianActivity extends BaseHttpRecyclerActivity<RecPerson, Recper
 
     //Event事件区(只要存在事件监听代码就是)>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-
-    public void getRectypeData(final int page) {
-//        final String username = findpwd_account_phone.getText().toString();
-//        final String appsms_id = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(),"APPSMS_ID","");
-//        final String appsms_code = findpwd_account_yzm.getText().toString();
-//        if (prepareForFindpwd(appsms_id)){
-//            return;
-//        }
-        //  showProgressDialog("正在核对验证码");
-        Logger.e("nnnnn", "lllfzwk222");
-        Subscription subscription = HKEapiManager.getInstances().demoApi.recperson(URLConfig.RECPERSON_URL,page+"")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<String>() {
-                    @Override
-                    public void call(String s) {
-//                        s = "[{\"NAME\":\"小张\",\"ORDER_ID\":\"1\",\"PRICE\":\"3\",\"PRICE\":\"5\",\"PHONE\":\"13831292593\",\"PICTUREPATH\":\"http://47.92.55.233:8080/hdrra/uploadFiles/uploadImgs/20190116/82b68c5920a24f8790a3922c0b496502.png\",\"CONTENT\":\"为人老实，主要收购玻璃\"}]";
-
-                        try {
-                            JSONObject jsonObject = new JSONObject(s);
-                            String code = jsonObject.getString("code");
-                            String message = jsonObject.getString("message");
-                            JSONArray jsonArray = jsonObject.getJSONArray("merchantlist");
-                            JSONObject pageObject = jsonObject.getJSONObject("page");
-                            int totalPage = Integer.parseInt(pageObject.getString("totalPage"));
-                            if ("OK".equals(code)){
-                                Gson gson1 = new Gson();
-                                List<RecPerson> khsllist2 = gson1.fromJson(jsonArray.toString(), new TypeToken<List<RecPerson>>() {
-                                }.getType());
-                                for (int i=0;i<khsllist2.size();i++){
-                                    khsllist2.get(i).setPRICE(price);
-                                    khsllist2.get(i).setPICTUREPATH(picturepath);
-                                    khsllist2.get(i).setTYPE(type);
-                                }
-                                Logger.e("nnnnn", khsllist2.size() + "fzwk222");
-
-                                onHttpResponse(-page, page >= totalPage ? null : JSON.toJSONString(khsllist2), null);
-                            }else {
-                                showShortToast(message);
-                            }
-
-
-
-                        } catch (JSONException e) {
-                            showShortToast("数据解析异常");
-                            e.printStackTrace();
-                        }
-
-
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        Logger.e("lkk", "throwable22222222222" + throwable.getLocalizedMessage());
-                        showShortToast("网络异常，请稍后再试", true);
-
-                    }
-                }, new Action0() {
-                    @Override
-                    public void call() {
-//                        Logger.e("lkk", "onCompleted");
-                    }
-                });
-
-
-        mCompositeSubscription.add(subscription);
-
-
-    }
-
-
     @Override
     protected void onDestroy() {
         mCompositeSubscription.clear();
@@ -256,4 +190,79 @@ public class ZhoubianActivity extends BaseHttpRecyclerActivity<RecPerson, Recper
         super.onForwardClick(v);
         toActivity(MapActivity.createIntent(ZhoubianActivity.this));
     }
+
+
+
+    public void getDingdanListData(final int page) {
+
+
+//        onHttpResponse(-page, page >= 1 ? null : JSON.toJSONString(mdatalist), null);
+
+//        String userName2 = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(), "loginuser", "");
+
+//        if (StringUtil.isEmpty(RETRIEVETYPE_IDS)){
+//            showShortToast("请至少选择一个类型");
+//            return;
+//        }
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("RETRIEVETYPE_ID", RETRIEVETYPE_ID);
+        hashMap.put("currentPage", page+"");
+
+        Subscription subscription = HKEapiManager.getInstances().demoApi.sendPost(URLConfig.SHOUGOU_QUERY_URL, hashMap)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(s);
+                            String code = jsonObject.getString("code");
+                            String message = jsonObject.getString("message");
+                            JSONArray jsonArray = jsonObject.getJSONArray("orderlist");
+                            JSONObject pageObject = jsonObject.getJSONObject("page");
+                            int totalPage = Integer.parseInt(pageObject.getString("totalPage"));
+                            if ("OK".equals(code)){
+                                Gson gson1 = new Gson();
+                                List<RecPerson> orderlist = gson1.fromJson(jsonArray.toString(), new TypeToken<List<RecPerson>>() {
+                                }.getType());
+
+                                Logger.e("nnnnn", orderlist.size() + "fzwk0p0p");
+
+                                for (int i = 0; i<orderlist.size();i++){
+                                    orderlist.get(i).setPICTUREPATH(picturepath);
+                                    orderlist.get(i).setPRICE(price);
+                                    orderlist.get(i).setTYPE(type);
+                                }
+
+                                onHttpResponse(-page, page >= totalPage ? null : JSON.toJSONString(orderlist), null);
+                            }else {
+                                showShortToast(message);
+                            }
+
+
+
+                        } catch (JSONException e) {
+                            showShortToast("数据解析异常");
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        Logger.e("lkk", "throwable22222222222" + throwable.getLocalizedMessage());
+                        showShortToast("网络异常，请稍后再试", true);
+
+                    }
+                }, new Action0() {
+                    @Override
+                    public void call() {
+                    }
+                });
+        mCompositeSubscription.add(subscription);
+
+    }
+
+
+
 }

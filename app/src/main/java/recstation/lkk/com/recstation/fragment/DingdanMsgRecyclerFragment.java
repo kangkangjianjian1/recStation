@@ -26,10 +26,12 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import recstation.lkk.com.recstation.adapter.DingdanMsgAdapter;
+import recstation.lkk.com.recstation.application.DemoApplication;
 import recstation.lkk.com.recstation.model.HuishouBean;
 import recstation.lkk.com.recstation.model.Msg;
 import recstation.lkk.com.recstation.util.HKEapiManager;
@@ -146,27 +148,31 @@ public class DingdanMsgRecyclerFragment extends BaseHttpRecyclerFragment<Msg, Di
                 .subscribe(new Action1<String>() {
                     @Override
                     public void call(String s) {
+                        List<Msg> list = new ArrayList<Msg>();
+                        Type type =new TypeToken<List<Msg>>() {}.getType();
+                        list =  HKEapiManager.getInstances().preferences.getDataList(DemoApplication.getInstance(), "dingdanmsglist",type);
+                        onHttpResponse(-page, page >= 1 ? null :JSON.toJSONString(list), null);
 
-                        s = "[{\"msgType\":\"消息类型\",\"title\":\"消息标题\",\"preMsg\":\"消息摘要\",\"time\":\"2018_12_12 08:00:09\",\"proMsg\":\"消息内容详细信息\"},{\"msgType\":\"消息类型\",\"title\":\"消息标题\",\"preMsg\":\"消息摘要\",\"time\":\"2018_12_12 08:00:09\",\"proMsg\":\"消息内容详细信息\"}，{\"msgType\":\"消息类型\",\"title\":\"消息标题\",\"preMsg\":\"消息摘要\",\"time\":\"2018_12_12 08:00:09\",\"proMsg\":\"消息内容详细信息\"}，{\"msgType\":\"消息类型\",\"title\":\"消息标题\",\"preMsg\":\"消息摘要\",\"time\":\"2018_12_12 08:00:09\",\"proMsg\":\"消息内容详细信息\"}]";
-                        Msg msg = new Msg();
-                        msg.setMsgType("订单消息类型");
-                        msg.setTime("2018_12_12_08:00:09");
-                        msg.setTitle("订单消息标题");
-                        msg.setPreMsg("订单消息摘要");
-                        msg.setProMsg("订单消息内容详细信息");
-//						try {
-//							JSONArray jsonArray = new JSONArray(s);
-//							Gson gson1 = new Gson();
-//							List<Msg> khsllist2 = gson1.fromJson(jsonArray.toString(), new TypeToken<List<Msg>>() {
-//							}.getType());
-                        List<Msg> khsllist2 = new ArrayList<Msg>();
-                        khsllist2.add(msg);
-                        khsllist2.add(msg);
-                        khsllist2.add(msg);
-                        Logger.e("nnnnn", khsllist2.size() + "fzwk");
-
-                        onHttpResponse(-page, page >= 2 ? null : JSON.toJSONString(khsllist2), null);
-                        Logger.e("nnnnn", khsllist2.size() + "fzwk");
+//                        s = "[{\"msgType\":\"消息类型\",\"title\":\"消息标题\",\"preMsg\":\"消息摘要\",\"time\":\"2018_12_12 08:00:09\",\"proMsg\":\"消息内容详细信息\"},{\"msgType\":\"消息类型\",\"title\":\"消息标题\",\"preMsg\":\"消息摘要\",\"time\":\"2018_12_12 08:00:09\",\"proMsg\":\"消息内容详细信息\"}，{\"msgType\":\"消息类型\",\"title\":\"消息标题\",\"preMsg\":\"消息摘要\",\"time\":\"2018_12_12 08:00:09\",\"proMsg\":\"消息内容详细信息\"}，{\"msgType\":\"消息类型\",\"title\":\"消息标题\",\"preMsg\":\"消息摘要\",\"time\":\"2018_12_12 08:00:09\",\"proMsg\":\"消息内容详细信息\"}]";
+//                        Msg msg = new Msg();
+//                        msg.setMsgType("订单消息类型");
+//                        msg.setTime("2018_12_12_08:00:09");
+//                        msg.setTitle("订单消息标题");
+//                        msg.setPreMsg("订单消息摘要");
+//                        msg.setProMsg("订单消息内容详细信息");
+////						try {
+////							JSONArray jsonArray = new JSONArray(s);
+////							Gson gson1 = new Gson();
+////							List<Msg> khsllist2 = gson1.fromJson(jsonArray.toString(), new TypeToken<List<Msg>>() {
+////							}.getType());
+//                        List<Msg> khsllist2 = new ArrayList<Msg>();
+//                        khsllist2.add(msg);
+//                        khsllist2.add(msg);
+//                        khsllist2.add(msg);
+//                        Logger.e("nnnnn", khsllist2.size() + "fzwk");
+//
+//                        onHttpResponse(-page, page >= 2 ? null : JSON.toJSONString(khsllist2), null);
+//                        Logger.e("nnnnn", khsllist2.size() + "fzwk");
 
 //							onHttpResponse(-page, page >= 2 ? null : s, null);
 

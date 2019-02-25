@@ -202,6 +202,7 @@ public class rec_GirdFragment1 extends BaseListFragment<Entry<String, String>, G
             Intent i = ZhoubianActivity.createIntent(context);
             i.putExtra("price","45");
             i.putExtra("type",datalist.get(position).getRETRIEVETYPE_NAME());
+            i.putExtra("RETRIEVETYPE_ID",datalist.get(position).getRETRIEVETYPE_ID());
             i.putExtra("picturepath",datalist.get(position).getPICTUREPATH());
             toActivity(i);
 

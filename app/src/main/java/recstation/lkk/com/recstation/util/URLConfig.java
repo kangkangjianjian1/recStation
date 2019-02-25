@@ -24,6 +24,10 @@ public class URLConfig {
 	public static String EDITUSERPIC_URL = HEAD_URL + "hdrra/appuser/editPath";
 	public static String BUSSINESS_INDECATE_URL = HEAD_URL + "hdrra/appmerchant/save";
 	public static String YUYUE_URL = HEAD_URL + "hdrra/apporder/retrieveorder";
+	public static String SHOUGOU_FABU_URL = HEAD_URL + "hdrra/appmerchantorder/save";
+	public static String SHOUGOU_QUERY_URL = HEAD_URL + "hdrra/appmerchantorder/list";
+	public static String SHOUGOU_DEL_URL = HEAD_URL + "hdrra/appmerchantorder/delete";
+	public static String ADVICE_URL = HEAD_URL + "hdrra/appopinion/save";
 
 	public static final boolean IS_DEBUG = true;
 

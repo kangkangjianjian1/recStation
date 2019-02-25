@@ -41,6 +41,7 @@ public class SucessActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void initData() {
 
+        btn.setText(title);
     }
 
     @Override
@@ -50,10 +51,11 @@ public class SucessActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.btn_sucess) {
-
-            ((MainTabActivity) context).selectFragment(1);
-        }
+        finish();
+//        if (view.getId() == R.id.btn_sucess) {
+//
+//            ((MainTabActivity) context).selectFragment(1);
+//        }
     }
 
 }

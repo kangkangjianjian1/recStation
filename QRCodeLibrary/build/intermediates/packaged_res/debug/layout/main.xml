@@ -33,7 +33,7 @@
         android:layout_height="wrap_content" />
     </LinearLayout>
     
-    <EditText 
+    <EditText
         android:id="@+id/et_qr_string"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

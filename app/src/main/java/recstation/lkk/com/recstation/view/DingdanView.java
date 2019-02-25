@@ -90,9 +90,11 @@ public class DingdanView extends BaseView<Dingdanbean> {
 
         //根据订单状态显示，目前应该市没有此数据。
         if (data.getSTATUS().equals("0")){
-            tv_dingdanbeanview_status.setText("进行中");
+            tv_dingdanbeanview_status.setText("未接单");
 
         }else if (data.getSTATUS().equals("1")){
+            tv_dingdanbeanview_status.setText("签收服务");
+        }else if (data.getSTATUS().equals("2")){
             tv_dingdanbeanview_status.setText("待评价");
         }else if (data.getSTATUS().equals("9")){
             tv_dingdanbeanview_status.setText("已完成");

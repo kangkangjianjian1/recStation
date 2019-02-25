@@ -17,6 +17,8 @@ package recstation.lkk.com.recstation.adapter;
 import android.app.Activity;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import recstation.lkk.com.recstation.model.User;
 import recstation.lkk.com.recstation.view.UserView;
 import zuo.biao.library.base.BaseAdapter;
@@ -35,6 +37,7 @@ public class UserAdapter extends BaseAdapter<User, UserView> {
 	public UserView createView(int position, ViewGroup parent) {
 		return new UserView(context, parent);
 	}
+
 
 	@Override
 	public long getItemId(int position) {

@@ -19,6 +19,7 @@ import recstation.lkk.com.recstation.fragment.SettingFragment;
 import recstation.lkk.com.recstation.fragment.UserRecyclerFragment;
 import recstation.lkk.com.recstation.fragment.rec_GirdFragment;
 import recstation.lkk.com.recstation.util.HKEapiManager;
+import recstation.lkk.com.recstation.util.TestUtil;
 import zuo.biao.library.base.BaseBottomTabActivity;
 import zuo.biao.library.interfaces.OnBottomDragListener;
 
@@ -132,7 +133,13 @@ public class MainTabActivity extends BaseBottomTabActivity implements OnBottomDr
         }
 
         if (position == 4) {
-            main_TabTopbar.setVisibility(View.GONE);
+            if (TestUtil.IsLogin()){
+                main_TabTopbar.setVisibility(View.GONE);
+            }else {
+                main_TabTopbar.setVisibility(View.GONE);
+                toActivity(LoginActivity.createIntent(MainTabActivity.this));
+            }
+
         } else {
             main_TabTopbar.setVisibility(View.VISIBLE);
 

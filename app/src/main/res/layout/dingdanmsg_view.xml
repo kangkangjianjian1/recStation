@@ -4,8 +4,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               style="@style/ll_vertical_match_wrap"
               android:layout_gravity="center"
-              android:background="@color/white_alpha_6"
-              android:padding="1dp">
+              android:background="@color/activity_bg"
+              android:padding="15dp">
 
     <LinearLayout
         style="@style/ll_vertical_match_wrap"
@@ -33,7 +33,7 @@
 
         <TextView
             android:id="@+id/tv_system_msg_view_title"
-            style="@style/text_big_black"
+            style="@style/text_small_black"
             android:layout_marginLeft="10dp"
             android:text="积分收入:"/>
 

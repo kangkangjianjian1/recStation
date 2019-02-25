@@ -27,11 +27,14 @@ import android.widget.TextView;
 
 
 import com.bumptech.glide.Glide;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.lang.reflect.Type;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -40,6 +43,7 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import recstation.lkk.com.recstation.AboutUsActivity;
+import recstation.lkk.com.recstation.AdviceActivity;
 import recstation.lkk.com.recstation.DingdanDetailActivity;
 import recstation.lkk.com.recstation.LoginActivity;
 import recstation.lkk.com.recstation.MainTabActivity;
@@ -47,10 +51,11 @@ import recstation.lkk.com.recstation.MyDingdanActivity;
 import recstation.lkk.com.recstation.MypointActivity;
 import recstation.lkk.com.recstation.QRCodeActivity;
 import recstation.lkk.com.recstation.R;
-import recstation.lkk.com.recstation.ShanghuReisterPhotoActivity;
-import recstation.lkk.com.recstation.ShanghuguanliActivity;
 import recstation.lkk.com.recstation.application.DemoApplication;
 import recstation.lkk.com.recstation.edituseractivity.EditUserActivity;
+import recstation.lkk.com.recstation.model.Msg;
+import recstation.lkk.com.recstation.model.Point;
+import recstation.lkk.com.recstation.shanghuActivity.ShanghuguanliActivity;
 import recstation.lkk.com.recstation.util.HKEapiManager;
 import recstation.lkk.com.recstation.util.Logger;
 import recstation.lkk.com.recstation.util.NetUtil;
@@ -74,6 +79,9 @@ import zuo.biao.library.ui.SelectPictureActivity;
 import zuo.biao.library.util.CommonUtil;
 import zuo.biao.library.util.DataKeeper;
 import zuo.biao.library.util.StringUtil;
+
+import static recstation.lkk.com.recstation.util.TestUtil.IsQianDao;
+import static recstation.lkk.com.recstation.util.TestUtil.getNowTime;
 
 /**
  * 设置fragment
@@ -169,6 +177,9 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
 
     @Override
     public void initData() {//必须调用
+
+
+
         String path = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(),"userheaderpic","");
 
         if (!StringUtil.isEmpty(path)){
@@ -179,6 +190,15 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
         if (!StringUtil.isEmpty(nicheng)){
             setting_tv_user_name.setText(nicheng);
         }
+        String qiandansign = HKEapiManager.getInstances().preferences.getStringData(DemoApplication.getInstance(),"qiandao","0");
+
+        if ( IsQianDao()){
+            setting_img_btn_sign.setImageResource(R.drawable.qiandao_n);
+            setting_img_btn_sign.setClickable(false);
+        }
+
+
+
     }
 
 
@@ -255,7 +275,37 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
 
             case R.id.setting_img_btn_sign:
                 if (TestUtil.IsLogin()) {
-                      HKEapiManager.getInstances().preferences.putStringData(DemoApplication.getInstance(), "loginuser", "no");
+//                      HKEapiManager.getInstances().preferences.putStringData(DemoApplication.getInstance(), "loginuser"");
+                    String date = getNowTime();
+                    Msg shougou = new Msg();
+                    shougou.setPreMsg("签到获得积分");
+                    shougou.setTitle("签到积分");
+                    shougou.setProMsg("恭喜您签到获得1积分");
+                    shougou.setTime(date);
+                    shougou.setMsgType("系统消息");
+                    Type type1 =new TypeToken<List<Msg>>() {}.getType();
+
+                    List<Msg> list2 =  HKEapiManager.getInstances().preferences.getDataList(DemoApplication.getInstance(), "sysmsglist",type1);
+                    list2.add(shougou);
+                    Logger.e("ssdad",list2.size()+"");
+                    HKEapiManager.getInstances().preferences.setDataList(DemoApplication.getInstance(), "sysmsglist",list2);
+
+
+
+
+
+
+                    Point qiandao = new Point();
+                    qiandao.setNum(1);
+                    qiandao.setPointType("签到积分");
+                    qiandao.setTitle("恭喜您签到获得积分");
+                    qiandao.setTime(date);
+                    Type type =new TypeToken<List<Point>>() {}.getType();
+
+                    List<Point> list =  HKEapiManager.getInstances().preferences.getDataList(DemoApplication.getInstance(), "jifenlist",type);
+                   list.add(qiandao);
+                   HKEapiManager.getInstances().preferences.setDataList(DemoApplication.getInstance(), "jifenlist",list);
+                   HKEapiManager.getInstances().preferences.putStringData(DemoApplication.getInstance(), "qiandao",date);
                     setting_img_btn_sign.setImageResource(R.drawable.qiandao_n);
                     setting_img_btn_sign.setClickable(false);
                     //发送签到消息到后台
@@ -274,7 +324,7 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
                 break;
             case R.id.setting_ll_lvxin:
                 if (TestUtil.IsLogin()) {
-                    showShortToast("功能正在开发");
+                    startActivity(MypointActivity.createIntent(context));
                 } else {
                     startActivity(LoginActivity.createIntent(context));
                 }
@@ -298,7 +348,7 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
                 break;
             case R.id.layout_huishoubaojia:
                 if (TestUtil.IsLogin()) {
-                   showShortToast("功能正在开发");
+                   showShortToast("敬请期待");
                 } else {
                     startActivity(LoginActivity.createIntent(context));
                 }
@@ -323,7 +373,7 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
             case R.id.layout_xitongshezhi:
                 if (TestUtil.IsLogin()) {
                    // CommonUtil.toActivity(context, AboutUsActivity.createIntent(context));
-                    showShortToast("系统设置正在开发");
+                    showShortToast("敬请期待");
                 } else {
                     startActivity(LoginActivity.createIntent(context));
                 }
@@ -331,7 +381,8 @@ public class SettingFragment extends BaseFragment implements OnClickListener, On
                 break;
             case R.id.layout_yijianpankui:
                 if (TestUtil.IsLogin()) {
-                    showShortToast("功能正在开发");
+                   toActivity(AdviceActivity.createIntent(context));
+//                    showShortToast("敬请期待");
                 } else {
                     startActivity(LoginActivity.createIntent(context));
                 }

@@ -157,7 +157,7 @@ public class pro_GirdFragment extends BaseListFragment<ProductBean, GridView, Gr
     public void getListAsync(int page) {
         //示例代码<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         showProgressDialog(R.string.loading);
-        onLoadSucceed(page, page >= 2 ? null : datalist);
+        onLoadSucceed(page, page >= 1 ? null : datalist);
        //onLoadSucceed(page, datalist);
     }
 
@@ -226,7 +226,7 @@ public class pro_GirdFragment extends BaseListFragment<ProductBean, GridView, Gr
                 intent7.putExtra("id3",R.drawable.diqiuyi3);
                 startActivity(intent7);
                 break;
-            case "台电32G手电脑两用Ｕ盘":
+            case "台电32G手电脑两用u盘":
                 Intent intent8 = ProDetailActivity.createIntent(context);
                 intent8.putExtra("id1",R.drawable.u1);
                 intent8.putExtra("id2",R.drawable.u2);
@@ -240,7 +240,10 @@ public class pro_GirdFragment extends BaseListFragment<ProductBean, GridView, Gr
                 startActivity(intent9);
                 break;
                 default:
-                    showShortToast("此商品数据详情配置出错");
+                    Intent intent32 = ProDetailActivity.createIntent(context);
+                    intent32.putExtra("id1",R.drawable.muhe1);
+                    intent32.putExtra("id2",R.drawable.muhe2);
+                    startActivity(intent32);
                     break;
         }
       //  showShortToast("aaa" + position);

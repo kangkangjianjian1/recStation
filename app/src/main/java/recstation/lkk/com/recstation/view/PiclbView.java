@@ -67,8 +67,10 @@ public class PiclbView extends BaseView<Piclb> {
 	public void bindView(Piclb data_){
 		super.bindView(data_ != null ? data_ : new Piclb());
 
-		Glide.with(context).asBitmap().load(data.getPATH()).into(ivpiclbViewHead);
 
+//		Glide.with(context).asBitmap().load(data.getPATH()).into(ivpiclbViewHead);
+
+		ivpiclbViewHead.setImageResource(R.drawable.my_touxiang);
 		tvpiclbViewName.setText(StringUtil.getTrimedString(data.getTITLE()));
 	}
 

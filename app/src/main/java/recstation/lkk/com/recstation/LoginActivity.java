@@ -130,24 +130,41 @@ public class LoginActivity extends BaseActivity implements OnBottomDragListener,
 
                         try {
                             JSONObject jsonObject = new JSONObject(s);
-                            JSONObject pd =jsonObject.getJSONObject("pd");
                             String code = jsonObject.getString("code");
-                            String name = pd.getString("NAME");
-                            String path = pd.getString("PATH");
                             String message = jsonObject.getString("message");
+
+
                             if ("OK".equals(code)) {
                                 //登陆成功跳转到首页。
                                 showShortToast(message, true);
                                 String time = TestUtil.getNowTime();
+                                if (jsonObject.has("pd")) {
+                                JSONObject pd =jsonObject.getJSONObject("pd");
+                                String name = pd.getString("NAME");
+                                String path = pd.getString("PATH");
+                                String status = pd.getString("STATUS");
+                                    HKEapiManager.getInstances().preferences.putStringData(DemoApplication.getInstance(),"userheaderpic",path);
+                                    HKEapiManager.getInstances().preferences.putStringData(DemoApplication.getInstance(),"loginusernicheng",name);
+                                    HKEapiManager.getInstances().preferences.putStringData(DemoApplication.getInstance(),"loginuserstatus",status);
+                                }
                                 HKEapiManager.getInstances().preferences.putStringData(DemoApplication.getInstance(), "islogin", time);
                                 HKEapiManager.getInstances().preferences.putStringData(DemoApplication.getInstance(), "loginuser", mUserName);
-                                 HKEapiManager.getInstances().preferences.putStringData(DemoApplication.getInstance(),"userheaderpic",path);
-                                 HKEapiManager.getInstances().preferences.putStringData(DemoApplication.getInstance(),"loginusernicheng",name);
+
+                                if (jsonObject.has("merchant")) {
+                                    JSONObject merchant =jsonObject.getJSONObject("merchant");
+                                    String USERNAME2 = merchant.getString("USERNAME");
+                                    HKEapiManager.getInstances().preferences.putStringData(DemoApplication.getInstance(), "isbusiness", USERNAME2);
+                                }
                                 onBackPressed();
 
                             } else {
                                 showShortToast(message, true);
                             }
+
+
+
+
+
 
 
                         } catch (JSONException e) {

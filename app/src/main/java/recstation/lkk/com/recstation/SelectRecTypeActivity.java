@@ -21,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,8 +29,10 @@ import java.util.List;
 
 import recstation.lkk.com.recstation.application.DemoApplication;
 import recstation.lkk.com.recstation.model.HuishouBean;
+import recstation.lkk.com.recstation.model.Msg;
 import recstation.lkk.com.recstation.model.Notice;
 import recstation.lkk.com.recstation.model.Piclb;
+import recstation.lkk.com.recstation.model.Point;
 import recstation.lkk.com.recstation.util.HKEapiManager;
 import recstation.lkk.com.recstation.util.Logger;
 import recstation.lkk.com.recstation.util.NetUtil;
@@ -44,6 +47,8 @@ import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 import zuo.biao.library.base.BaseActivity;
 import zuo.biao.library.util.StringUtil;
+
+import static recstation.lkk.com.recstation.util.TestUtil.getNowTime;
 
 public class SelectRecTypeActivity extends BaseActivity implements View.OnClickListener {
     CompositeSubscription mCompositeSubscription = new CompositeSubscription();
@@ -290,9 +295,25 @@ public class SelectRecTypeActivity extends BaseActivity implements View.OnClickL
                             String code = jsonObject1.getString("code");
                             if ("OK".equals(code)) {
                                 //关闭自己跳转到成功。
+
+                                String date = getNowTime();
+                                Msg shougou = new Msg();
+                                shougou.setPreMsg("用户回收订单发布");
+                                shougou.setTitle("订单发布");
+                                shougou.setProMsg("恭喜您回收订单发布成功");
+                                shougou.setTime(date);
+                                shougou.setMsgType("订单消息");
+                                Type type =new TypeToken<List<Msg>>() {}.getType();
+
+                                List<Msg> list =  HKEapiManager.getInstances().preferences.getDataList(DemoApplication.getInstance(), "dingdanmsglist",type);
+                                list.add(shougou);
+                                HKEapiManager.getInstances().preferences.setDataList(DemoApplication.getInstance(), "dingdanmsglist",list);
+
+
                                 Intent i =SucessActivity.createIntent(SelectRecTypeActivity.this);
                                 i.putExtra("title","预约成功");
                                 startActivity(i);
+                                finish();
                                 showShortToast("预约成功", true);
                             } else {
                                 showShortToast("网络异常，稍后再试", true);

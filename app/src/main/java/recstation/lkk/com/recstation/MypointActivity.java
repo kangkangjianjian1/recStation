@@ -101,13 +101,13 @@ public class MypointActivity extends BaseActivity implements View.OnClickListene
 
             switch (title) {
                 case "全部记录":
-                    mFragments.add(PointRecyclerFragment.createInstance());
+                    mFragments.add(PointRecyclerFragment.createInstance("0"));
                     break;
                 case "收入记录":
-                    mFragments.add(PointRecyclerFragment.createInstance());
+                    mFragments.add(PointRecyclerFragment.createInstance("1"));
                     break;
                 case "支出记录":
-                    mFragments.add(PointRecyclerFragment.createInstance());
+                    mFragments.add(PointRecyclerFragment.createInstance("2"));
                     break;
                 default:
                     break;

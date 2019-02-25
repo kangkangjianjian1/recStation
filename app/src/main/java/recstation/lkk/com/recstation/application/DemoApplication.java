@@ -46,7 +46,7 @@ public class DemoApplication extends BaseApplication {
 
 		JShareInterface.setDebugMode(true);
 		PlatformConfig platformConfig = new PlatformConfig()
-				.setWechat("wxc40e16f3ba6ebabc", "dcad950cd0633a27e353477c4ec12e7a")
+				.setWechat("wx2756e0e8f562b19e", "6039e123e25ef069e922999e5dcb808e")
 				.setQQ("1106011004", "YIbPvONmBQBZUGaN")
 				.setSinaWeibo("374535501", "baccd12c166f1df96736b51ffbf600a2", "https://www.jiguang.cn")
 				.setFacebook("1847959632183996", "JShareDemo")

@@ -40,6 +40,24 @@ public class RecPerson extends BaseModel {
     private String AREA; //乡镇
     private String LON; //经度
     private String LAT; //纬度
+    private String MERCHANTORDER_ID;
+    private String RETRIEVETYPE_NAMES;
+
+    public String getMERCHANTORDER_ID() {
+        return MERCHANTORDER_ID;
+    }
+
+    public void setMERCHANTORDER_ID(String MERCHANTORDER_ID) {
+        this.MERCHANTORDER_ID = MERCHANTORDER_ID;
+    }
+
+    public String getRETRIEVETYPE_NAMES() {
+        return RETRIEVETYPE_NAMES;
+    }
+
+    public void setRETRIEVETYPE_NAMES(String RETRIEVETYPE_NAMES) {
+        this.RETRIEVETYPE_NAMES = RETRIEVETYPE_NAMES;
+    }
 
     public String getUSERNAME() {
         return USERNAME;
